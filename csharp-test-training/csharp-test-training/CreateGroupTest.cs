@@ -7,21 +7,20 @@ using OpenQA.Selenium.Firefox;
 namespace addressbook_web_tests
 {
     [TestFixture]
-    public class Untitled
+    public class CreateGroupTest
     {
-        private IWebDriver driver;
-        private StringBuilder verificationErrors;
-        private string baseURL;
-        private bool acceptNextAlert = true;
+        private IWebDriver _driver;
+        private StringBuilder _verificationErrors;
+        private string _baseUrl;
 
         [SetUp]
         public void SetupTest()
         {
             FirefoxBinary firefox = new FirefoxBinary(@"C:\Program Files (x86)\Mozilla Firefox_45_9_0_esr\firefox.exe");
-            driver = new FirefoxDriver(firefox,
+            _driver = new FirefoxDriver(firefox,
                 new FirefoxProfile());
-            baseURL = "http://localhost/";
-            verificationErrors = new StringBuilder();
+            _baseUrl = "http://localhost/";
+            _verificationErrors = new StringBuilder();
         }
 
         [TearDown]
@@ -29,13 +28,13 @@ namespace addressbook_web_tests
         {
             try
             {
-                driver.Quit();
+                _driver.Quit();
             }
             catch (Exception)
             {
                 // Ignore errors if unable to close the browser
             }
-            Assert.AreEqual("", verificationErrors.ToString());
+            Assert.AreEqual("", _verificationErrors.ToString());
         }
 
         [Test]
@@ -56,51 +55,51 @@ namespace addressbook_web_tests
 
         private void Logout()
         {
-            driver.FindElement(By.LinkText("Logout")).Click();
+            _driver.FindElement(By.LinkText("Logout")).Click();
         }
 
         private void FillGroupForm(GroupData data)
         {
 
-            driver.FindElement(By.Name("group_name")).Clear();
-            driver.FindElement(By.Name("group_name")).SendKeys(data.GroupName);
-            driver.FindElement(By.Name("group_header")).Clear();
-            driver.FindElement(By.Name("group_header")).SendKeys(data.GroupHeader);
-            driver.FindElement(By.Name("group_footer")).Clear();
-            driver.FindElement(By.Name("group_footer")).SendKeys(data.GroupFooter);
+            _driver.FindElement(By.Name("group_name")).Clear();
+            _driver.FindElement(By.Name("group_name")).SendKeys(data.GroupName);
+            _driver.FindElement(By.Name("group_header")).Clear();
+            _driver.FindElement(By.Name("group_header")).SendKeys(data.GroupHeader);
+            _driver.FindElement(By.Name("group_footer")).Clear();
+            _driver.FindElement(By.Name("group_footer")).SendKeys(data.GroupFooter);
         }
 
         private void SubmitGroupForm()
         {
-            driver.FindElement(By.Name("submit")).Click();
+            _driver.FindElement(By.Name("submit")).Click();
         }
 
         private void OpenCreateGroupPage()
         {
-            driver.FindElement(By.Name("new")).Click();
+            _driver.FindElement(By.Name("new")).Click();
         }
 
         private void GoToGroupsPage()
         {
-            driver.FindElement(By.LinkText("groups")).Click();
+            _driver.FindElement(By.LinkText("groups")).Click();
         }
 
         private void SubmitLoginForm()
         {
-            driver.FindElement(By.CssSelector("input[type=\"submit\"]")).Click();
+            _driver.FindElement(By.CssSelector("input[type=\"submit\"]")).Click();
         }
 
         private void FillLoginForm(AccountData data)
         {
-            driver.FindElement(By.Name("user")).Clear();
-            driver.FindElement(By.Name("user")).SendKeys(data.Login);
-            driver.FindElement(By.Name("pass")).Clear();
-            driver.FindElement(By.Name("pass")).SendKeys(data.Password);
+            _driver.FindElement(By.Name("user")).Clear();
+            _driver.FindElement(By.Name("user")).SendKeys(data.Login);
+            _driver.FindElement(By.Name("pass")).Clear();
+            _driver.FindElement(By.Name("pass")).SendKeys(data.Password);
         }
 
         private void OpenMainPage()
         {
-            driver.Navigate().GoToUrl(baseURL + "addressbook/");
+            _driver.Navigate().GoToUrl(_baseUrl + "addressbook/");
         }
     }
 
