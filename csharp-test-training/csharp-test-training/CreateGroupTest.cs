@@ -16,10 +16,11 @@ namespace addressbook_web_tests
         [SetUp]
         public void SetupTest()
         {
-            FirefoxBinary firefox = new FirefoxBinary(@"C:\Program Files (x86)\Mozilla Firefox_45_9_0_esr\firefox.exe");
-            _driver = new FirefoxDriver(firefox,
-                new FirefoxProfile());
-            _baseUrl = "http://localhost/";
+            FirefoxDriverFactory driverFactory = new FirefoxDriverFactory();
+            TestingEnvironment environment = new TestingEnvironment();
+
+            _driver = driverFactory.GetFirefoxDriver();
+            _baseUrl = environment.BaseUrl;
             _verificationErrors = new StringBuilder();
         }
 
@@ -60,7 +61,6 @@ namespace addressbook_web_tests
 
         private void FillGroupForm(GroupData data)
         {
-
             _driver.FindElement(By.Name("group_name")).Clear();
             _driver.FindElement(By.Name("group_name")).SendKeys(data.GroupName);
             _driver.FindElement(By.Name("group_header")).Clear();
@@ -102,5 +102,4 @@ namespace addressbook_web_tests
             _driver.Navigate().GoToUrl(_baseUrl + "addressbook/");
         }
     }
-
 }
