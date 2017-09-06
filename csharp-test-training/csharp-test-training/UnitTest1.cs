@@ -41,22 +41,66 @@ namespace addressbook_web_tests
         [Test]
         public void TheUntitledTest()
         {
-            driver.Navigate().GoToUrl(baseURL + "addressbook/group.php");
-            driver.FindElement(By.Name("user")).Clear();
-            driver.FindElement(By.Name("user")).SendKeys("admin");
-            driver.FindElement(By.Name("pass")).Clear();
-            driver.FindElement(By.Name("pass")).SendKeys("e3Zr14G14MoXkQ0TS8t8");
-            driver.FindElement(By.CssSelector("input[type=\"submit\"]")).Click();
-            driver.FindElement(By.LinkText("groups")).Click();
-            driver.FindElement(By.Name("new")).Click();
-            driver.FindElement(By.Name("group_name")).Clear();
-            driver.FindElement(By.Name("group_name")).SendKeys("Some new goup");
-            driver.FindElement(By.Name("group_header")).Clear();
-            driver.FindElement(By.Name("group_header")).SendKeys("Some group header");
-            driver.FindElement(By.Name("group_footer")).Clear();
-            driver.FindElement(By.Name("group_footer")).SendKeys("Некоторый русский текст для разнообразия.");
-            driver.FindElement(By.Name("submit")).Click();
+            OpenMainPage();
+            FillLoginForm(new AccountData("admin", "e3Zr14G14MoXkQ0TS8t8"));
+            SubmitLoginForm();
+            GoToGroupsPage();
+            OpenCreateGroupPage();
+            GroupData data = new GroupData("Some new goup");
+            data.GroupHeader = "Some group header";
+            data.GroupFooter = "Некоторый русский текст для разнообразия.";
+            FillGroupForm(data);
+            SubmitGroupForm();
+            Logout();
+        }
+
+        private void Logout()
+        {
             driver.FindElement(By.LinkText("Logout")).Click();
+        }
+
+        private void FillGroupForm(GroupData data)
+        {
+
+            driver.FindElement(By.Name("group_name")).Clear();
+            driver.FindElement(By.Name("group_name")).SendKeys(data.GroupName);
+            driver.FindElement(By.Name("group_header")).Clear();
+            driver.FindElement(By.Name("group_header")).SendKeys(data.GroupHeader);
+            driver.FindElement(By.Name("group_footer")).Clear();
+            driver.FindElement(By.Name("group_footer")).SendKeys(data.GroupFooter);
+        }
+
+        private void SubmitGroupForm()
+        {
+            driver.FindElement(By.Name("submit")).Click();
+        }
+
+        private void OpenCreateGroupPage()
+        {
+            driver.FindElement(By.Name("new")).Click();
+        }
+
+        private void GoToGroupsPage()
+        {
+            driver.FindElement(By.LinkText("groups")).Click();
+        }
+
+        private void SubmitLoginForm()
+        {
+            driver.FindElement(By.CssSelector("input[type=\"submit\"]")).Click();
+        }
+
+        private void FillLoginForm(AccountData data)
+        {
+            driver.FindElement(By.Name("user")).Clear();
+            driver.FindElement(By.Name("user")).SendKeys(data.Login);
+            driver.FindElement(By.Name("pass")).Clear();
+            driver.FindElement(By.Name("pass")).SendKeys(data.Password);
+        }
+
+        private void OpenMainPage()
+        {
+            driver.Navigate().GoToUrl(baseURL + "addressbook/");
         }
 
         private bool IsElementPresent(By by)
@@ -107,4 +151,5 @@ namespace addressbook_web_tests
             }
         }
     }
+
 }
