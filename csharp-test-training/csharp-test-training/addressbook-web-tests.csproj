@@ -64,6 +64,7 @@
   </Choose>
   <ItemGroup>
     <Compile Include="AccountData.cs" />
+    <Compile Include="AccountFactory.cs" />
     <Compile Include="ContactData.cs" />
     <Compile Include="CreateContactTest.cs" />
     <Compile Include="FirefoxDriverFactory.cs" />

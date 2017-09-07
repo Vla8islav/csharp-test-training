@@ -12,6 +12,12 @@ namespace addressbook_web_tests
         private IWebDriver _driver;
         private StringBuilder _verificationErrors;
         private string _baseUrl;
+        private AccountFactory _accountFactory;
+
+        public CreateGroupTest()
+        {
+            _accountFactory = new AccountFactory();
+        }
 
         [SetUp]
         public void SetupTest()
@@ -42,7 +48,7 @@ namespace addressbook_web_tests
         public void TheUntitledTest()
         {
             OpenMainPage();
-            FillLoginForm(new AccountData("admin", "e3Zr14G14MoXkQ0TS8t8"));
+            FillLoginForm(_accountFactory.GetAdminAccountData());
             SubmitLoginForm();
             GoToGroupsPage();
             OpenCreateGroupPage();
