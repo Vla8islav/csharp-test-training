@@ -5,14 +5,14 @@ using OpenQA.Selenium;
 
 namespace addressbook_web_tests
 {
-    public class CreateContactTest
+    public class ContactTest
     {
         private IWebDriver _driver;
         private StringBuilder _verificationErrors;
         private string _baseUrl;
         private AccountFactory _accountFactory;
 
-        public CreateContactTest()
+        public ContactTest()
         {
             _accountFactory = new AccountFactory();
         }
@@ -44,7 +44,7 @@ namespace addressbook_web_tests
         }
 
         [Test]
-        public void TheUntitledTest()
+        public void CreateContactTest()
         {
             OpenMainPage();
             FillLoginForm(_accountFactory.GetAdminAccountData());
