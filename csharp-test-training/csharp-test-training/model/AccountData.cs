@@ -1,6 +1,4 @@
-﻿using System.Diagnostics.Eventing.Reader;
-
-namespace addressbook_web_tests
+﻿namespace addressbook_web_tests
 {
     public class AccountData
     {

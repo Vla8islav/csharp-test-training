@@ -1,7 +1,4 @@
-using System;
-using System.Text;
 using NUnit.Framework;
-using OpenQA.Selenium;
 
 namespace addressbook_web_tests
 {
@@ -11,14 +8,6 @@ namespace addressbook_web_tests
 
         [SetUp]
         public void SetupTest()
-        {
-            if (null == ApplicationManager)
-            {
-                ApplicationManager = new ApplicationManager();
-            }
-        }
-
-        public TestBase()
         {
             ApplicationManager = new ApplicationManager();
         }

@@ -1,8 +1,4 @@
-﻿using System;
-using System.Text;
-using NUnit.Framework;
-using OpenQA.Selenium;
-using OpenQA.Selenium.Firefox;
+﻿using NUnit.Framework;
 
 namespace addressbook_web_tests
 {

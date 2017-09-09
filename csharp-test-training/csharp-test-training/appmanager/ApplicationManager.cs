@@ -1,5 +1,4 @@
 ﻿using System;
-using System.IO.Ports;
 using OpenQA.Selenium;
 
 namespace addressbook_web_tests
