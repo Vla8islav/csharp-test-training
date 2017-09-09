@@ -5,7 +5,7 @@ namespace addressbook_web_tests
 {
     public class ApplicationManager
     {
-        protected TestingEnvironment Environment;
+        private TestingEnvironment Environment;
 
         public ApplicationManager()
         {
@@ -22,16 +22,11 @@ namespace addressbook_web_tests
         }
 
         public NavigationHelper NavigationHelper { get; }
-
         public LoginHelper LoginHelper { get; }
-
         public GroupHelper GroupHelper { get; }
-
         public ContactHelper ContactHelper { get; }
-
         public AccountFactory AccountFactory { get; }
-
-        public IWebDriver Driver { get; }
+        private IWebDriver Driver { get; }
 
         public void Stop()
 
