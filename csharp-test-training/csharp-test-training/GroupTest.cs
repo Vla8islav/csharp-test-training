@@ -7,14 +7,14 @@ using OpenQA.Selenium.Firefox;
 namespace addressbook_web_tests
 {
     [TestFixture]
-    public class CreateGroupTest
+    public class GroupTest
     {
         private IWebDriver _driver;
         private StringBuilder _verificationErrors;
         private string _baseUrl;
         private readonly AccountFactory _accountFactory;
 
-        public CreateGroupTest()
+        public GroupTest()
         {
             _accountFactory = new AccountFactory();
         }
