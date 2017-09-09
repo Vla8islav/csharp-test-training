@@ -5,43 +5,8 @@ using OpenQA.Selenium;
 
 namespace addressbook_web_tests
 {
-    public class ContactTest
+    public class ContactTest : TestBase
     {
-        private IWebDriver _driver;
-        private StringBuilder _verificationErrors;
-        private string _baseUrl;
-        private AccountFactory _accountFactory;
-
-        public ContactTest()
-        {
-            _accountFactory = new AccountFactory();
-        }
-
-
-        [SetUp]
-        public void SetupTest()
-        {
-            FirefoxDriverFactory driverFactory = new FirefoxDriverFactory();
-            TestingEnvironment environment = new TestingEnvironment();
-
-            _driver = driverFactory.GetFirefoxDriver();
-            _baseUrl = environment.BaseUrl;
-            _verificationErrors = new StringBuilder();
-        }
-
-        [TearDown]
-        public void TeardownTest()
-        {
-            try
-            {
-                _driver.Quit();
-            }
-            catch (Exception)
-            {
-                // Ignore errors if unable to close the browser
-            }
-            Assert.AreEqual("", _verificationErrors.ToString());
-        }
 
         [Test]
         public void CreateContactTest()
@@ -65,16 +30,6 @@ namespace addressbook_web_tests
             _driver.FindElement(By.Name("submit")).Click();
         }
 
-        private void GoToContactCreationPage()
-        {
-            _driver.FindElement(By.LinkText("add new")).Click();
-        }
-
-        private void Logout()
-        {
-            _driver.FindElement(By.LinkText("Logout")).Click();
-        }
-
         private void FillContactForm(ContactData data)
         {
             _driver.FindElement(By.Name("firstname")).Clear();
@@ -83,24 +38,6 @@ namespace addressbook_web_tests
             _driver.FindElement(By.Name("middlename")).SendKeys(data.MiddleName);
             _driver.FindElement(By.Name("lastname")).Clear();
             _driver.FindElement(By.Name("lastname")).SendKeys(data.LastName);
-        }
-
-        private void SubmitLoginForm()
-        {
-            _driver.FindElement(By.CssSelector("input[type=\"submit\"]")).Click();
-        }
-
-        private void FillLoginForm(AccountData data)
-        {
-            _driver.FindElement(By.Name("user")).Clear();
-            _driver.FindElement(By.Name("user")).SendKeys(data.Login);
-            _driver.FindElement(By.Name("pass")).Clear();
-            _driver.FindElement(By.Name("pass")).SendKeys(data.Password);
-        }
-
-        private void OpenMainPage()
-        {
-            _driver.Navigate().GoToUrl(_baseUrl + "addressbook/");
         }
     }
 }

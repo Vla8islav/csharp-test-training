@@ -12,7 +12,7 @@ namespace addressbook_web_tests
         private IWebDriver _driver;
         private StringBuilder _verificationErrors;
         private string _baseUrl;
-        private AccountFactory _accountFactory;
+        private readonly AccountFactory _accountFactory;
 
         public CreateGroupTest()
         {
