@@ -10,21 +10,22 @@ namespace addressbook_web_tests
         protected IWebDriver _driver;
         protected AccountFactory _accountFactory;
         protected TestingEnvironment Environment;
+        private readonly FirefoxDriverFactory _driverFactory;
         protected LoginHelper LoginHelper;
 
         [SetUp]
         public void SetupTest()
         {
-            FirefoxDriverFactory driverFactory = new FirefoxDriverFactory();
-            Environment = new TestingEnvironment();
 
-            _driver = driverFactory.GetFirefoxDriver();
         }
 
         public TestBase()
         {
-            _accountFactory = new AccountFactory();
+            Environment = new TestingEnvironment();
+            _driverFactory = new FirefoxDriverFactory();
+            _driver = _driverFactory.GetFirefoxDriver();
             LoginHelper = new LoginHelper(_driver);
+            _accountFactory = new AccountFactory();
         }
 
 
