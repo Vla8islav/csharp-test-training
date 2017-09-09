@@ -13,11 +13,11 @@ namespace addressbook_web_tests
         [Test]
         public void TheUntitledTest()
         {
-            OpenMainPage();
-            LoginHelper.FillLoginForm(_accountFactory.GetAdminAccountData());
+            NavigationHelper.OpenMainPage();
+            LoginHelper.FillLoginForm(AccountFactory.GetAdminAccountData());
             LoginHelper.SubmitLoginForm();
-            GoToGroupsPage();
-            OpenCreateGroupPage();
+            NavigationHelper.GoToGroupsPage();
+            NavigationHelper.OpenCreateGroupPage();
             GroupData data = new GroupData("Some new goup");
             data.GroupHeader = "Some group header";
             data.GroupFooter = "Некоторый русский текст для разнообразия.";

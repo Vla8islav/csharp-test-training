@@ -7,11 +7,11 @@ namespace addressbook_web_tests
 {
     public class TestBase
     {
-        protected IWebDriver _driver;
-        protected AccountFactory _accountFactory;
+        protected IWebDriver Driver;
+        protected AccountFactory AccountFactory;
         protected TestingEnvironment Environment;
-        private readonly FirefoxDriverFactory _driverFactory;
         protected LoginHelper LoginHelper;
+        protected NavigationHelper NavigationHelper;
 
         [SetUp]
         public void SetupTest()
@@ -21,12 +21,15 @@ namespace addressbook_web_tests
 
         public TestBase()
         {
+            FirefoxDriverFactory driverFactory = new FirefoxDriverFactory();
+            Driver = driverFactory.GetFirefoxDriver();
+
             Environment = new TestingEnvironment();
-            _driverFactory = new FirefoxDriverFactory();
-            _driver = _driverFactory.GetFirefoxDriver();
-            LoginHelper = new LoginHelper(_driver);
-            _accountFactory = new AccountFactory();
+            LoginHelper = new LoginHelper(Driver);
+            NavigationHelper = new NavigationHelper(Driver, Environment);
+            AccountFactory = new AccountFactory();
         }
+
 
 
         [TearDown]
@@ -34,7 +37,7 @@ namespace addressbook_web_tests
         {
             try
             {
-                _driver.Quit();
+                Driver.Quit();
             }
             catch (Exception)
             {
@@ -42,54 +45,36 @@ namespace addressbook_web_tests
             }
         }
 
-        protected void GoToContactCreationPage()
-        {
-            _driver.FindElement(By.LinkText("add new")).Click();
-        }
-
-        protected void OpenMainPage()
-        {
-            _driver.Navigate().GoToUrl(Environment.BaseUrl + "addressbook/");
-        }
 
         protected void FillGroupForm(GroupData data)
         {
-            _driver.FindElement(By.Name("group_name")).Clear();
-            _driver.FindElement(By.Name("group_name")).SendKeys(data.GroupName);
-            _driver.FindElement(By.Name("group_header")).Clear();
-            _driver.FindElement(By.Name("group_header")).SendKeys(data.GroupHeader);
-            _driver.FindElement(By.Name("group_footer")).Clear();
-            _driver.FindElement(By.Name("group_footer")).SendKeys(data.GroupFooter);
+            Driver.FindElement(By.Name("group_name")).Clear();
+            Driver.FindElement(By.Name("group_name")).SendKeys(data.GroupName);
+            Driver.FindElement(By.Name("group_header")).Clear();
+            Driver.FindElement(By.Name("group_header")).SendKeys(data.GroupHeader);
+            Driver.FindElement(By.Name("group_footer")).Clear();
+            Driver.FindElement(By.Name("group_footer")).SendKeys(data.GroupFooter);
         }
 
         protected void SubmitGroupForm()
         {
-            _driver.FindElement(By.Name("submit")).Click();
+            Driver.FindElement(By.Name("submit")).Click();
         }
 
-        protected void OpenCreateGroupPage()
-        {
-            _driver.FindElement(By.Name("new")).Click();
-        }
-
-        protected void GoToGroupsPage()
-        {
-            _driver.FindElement(By.LinkText("groups")).Click();
-        }
 
         protected void SubmitContactData()
         {
-            _driver.FindElement(By.Name("submit")).Click();
+            Driver.FindElement(By.Name("submit")).Click();
         }
 
         protected void FillContactForm(ContactData data)
         {
-            _driver.FindElement(By.Name("firstname")).Clear();
-            _driver.FindElement(By.Name("firstname")).SendKeys(data.FirstName);
-            _driver.FindElement(By.Name("middlename")).Clear();
-            _driver.FindElement(By.Name("middlename")).SendKeys(data.MiddleName);
-            _driver.FindElement(By.Name("lastname")).Clear();
-            _driver.FindElement(By.Name("lastname")).SendKeys(data.LastName);
+            Driver.FindElement(By.Name("firstname")).Clear();
+            Driver.FindElement(By.Name("firstname")).SendKeys(data.FirstName);
+            Driver.FindElement(By.Name("middlename")).Clear();
+            Driver.FindElement(By.Name("middlename")).SendKeys(data.MiddleName);
+            Driver.FindElement(By.Name("lastname")).Clear();
+            Driver.FindElement(By.Name("lastname")).SendKeys(data.LastName);
         }
     }
 }

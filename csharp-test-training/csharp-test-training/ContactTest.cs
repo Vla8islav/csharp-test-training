@@ -11,11 +11,11 @@ namespace addressbook_web_tests
         [Test]
         public void CreateContactTest()
         {
-            OpenMainPage();
-            LoginHelper.FillLoginForm(_accountFactory.GetAdminAccountData());
+            NavigationHelper.OpenMainPage();
+            LoginHelper.FillLoginForm(AccountFactory.GetAdminAccountData());
             LoginHelper.SubmitLoginForm();
 
-            GoToContactCreationPage();
+            NavigationHelper.GoToContactCreationPage();
             ContactData data = new ContactData("TestName");
             data.MiddleName = "TestMiddleName";
             data.LastName = "TestLastName";
