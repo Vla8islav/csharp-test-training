@@ -2,14 +2,11 @@
 
 namespace addressbook_web_tests
 {
-    public class GroupHelper
+    public class GroupHelper : HelperBase
     {
-        private readonly IWebDriver Driver;
 
-        public GroupHelper(IWebDriver driver)
+        public GroupHelper(IWebDriver driver) : base(driver)
         {
-            Driver = driver;
-
         }
 
         public void FillGroupForm(GroupData data)

@@ -72,11 +72,12 @@
     <Compile Include="Data\GroupData.cs" />
     <Compile Include="Helpers\GroupHelper.cs" />
     <Compile Include="GroupTest.cs" />
+    <Compile Include="Helpers\HelperBase.cs" />
     <Compile Include="Helpers\LoginHelper.cs" />
     <Compile Include="Helpers\NavigationHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TestBase.cs" />
-    <Compile Include="Data\TestingEnvironment.cs" />
+    <Compile Include="TestingEnvironment.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

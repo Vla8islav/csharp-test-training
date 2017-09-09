@@ -2,13 +2,11 @@
 
 namespace addressbook_web_tests
 {
-    public class LoginHelper
+    public class LoginHelper : HelperBase
     {
-        private readonly IWebDriver Driver;
 
-        public LoginHelper(IWebDriver driver)
+        public LoginHelper(IWebDriver driver) : base(driver)
         {
-            Driver = driver;
 
         }
         public void Logout()

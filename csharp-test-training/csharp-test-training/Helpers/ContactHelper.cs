@@ -2,13 +2,11 @@
 
 namespace addressbook_web_tests
 {
-    public class ContactHelper
+    public class ContactHelper : HelperBase
     {
-        protected IWebDriver Driver;
 
-        public ContactHelper(IWebDriver driver)
+        public ContactHelper(IWebDriver driver) : base(driver)
         {
-            Driver = driver;
         }
 
         public void SubmitContactData()
