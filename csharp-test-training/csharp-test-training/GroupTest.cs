@@ -25,32 +25,5 @@ namespace addressbook_web_tests
             SubmitGroupForm();
             Logout();
         }
-
-
-        private void FillGroupForm(GroupData data)
-        {
-            _driver.FindElement(By.Name("group_name")).Clear();
-            _driver.FindElement(By.Name("group_name")).SendKeys(data.GroupName);
-            _driver.FindElement(By.Name("group_header")).Clear();
-            _driver.FindElement(By.Name("group_header")).SendKeys(data.GroupHeader);
-            _driver.FindElement(By.Name("group_footer")).Clear();
-            _driver.FindElement(By.Name("group_footer")).SendKeys(data.GroupFooter);
-        }
-
-        private void SubmitGroupForm()
-        {
-            _driver.FindElement(By.Name("submit")).Click();
-        }
-
-        private void OpenCreateGroupPage()
-        {
-            _driver.FindElement(By.Name("new")).Click();
-        }
-
-        private void GoToGroupsPage()
-        {
-            _driver.FindElement(By.LinkText("groups")).Click();
-        }
-
     }
 }

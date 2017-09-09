@@ -24,20 +24,5 @@ namespace addressbook_web_tests
             Logout();
 
         }
-
-        private void SubmitContactData()
-        {
-            _driver.FindElement(By.Name("submit")).Click();
-        }
-
-        private void FillContactForm(ContactData data)
-        {
-            _driver.FindElement(By.Name("firstname")).Clear();
-            _driver.FindElement(By.Name("firstname")).SendKeys(data.FirstName);
-            _driver.FindElement(By.Name("middlename")).Clear();
-            _driver.FindElement(By.Name("middlename")).SendKeys(data.MiddleName);
-            _driver.FindElement(By.Name("lastname")).Clear();
-            _driver.FindElement(By.Name("lastname")).SendKeys(data.LastName);
-        }
     }
 }
