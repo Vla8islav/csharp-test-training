@@ -21,8 +21,8 @@ namespace addressbook_web_tests
             GroupData data = new GroupData("Some new goup");
             data.GroupHeader = "Some group header";
             data.GroupFooter = "Некоторый русский текст для разнообразия.";
-            FillGroupForm(data);
-            SubmitGroupForm();
+            GroupHelper.FillGroupForm(data);
+            GroupHelper.SubmitGroupForm();
             LoginHelper.Logout();
         }
     }

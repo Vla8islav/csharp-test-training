@@ -63,18 +63,20 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="AccountData.cs" />
-    <Compile Include="AccountFactory.cs" />
-    <Compile Include="ContactData.cs" />
+    <Compile Include="Helpers\ContactHelper.cs" />
+    <Compile Include="Data\AccountData.cs" />
+    <Compile Include="Data\AccountFactory.cs" />
+    <Compile Include="Data\ContactData.cs" />
     <Compile Include="ContactTest.cs" />
-    <Compile Include="FirefoxDriverFactory.cs" />
-    <Compile Include="GroupData.cs" />
+    <Compile Include="Data\FirefoxDriverFactory.cs" />
+    <Compile Include="Data\GroupData.cs" />
+    <Compile Include="Helpers\GroupHelper.cs" />
     <Compile Include="GroupTest.cs" />
-    <Compile Include="LoginHelper.cs" />
-    <Compile Include="NavigationHelper.cs" />
+    <Compile Include="Helpers\LoginHelper.cs" />
+    <Compile Include="Helpers\NavigationHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TestBase.cs" />
-    <Compile Include="TestingEnvironment.cs" />
+    <Compile Include="Data\TestingEnvironment.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

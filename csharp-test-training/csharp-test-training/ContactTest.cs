@@ -19,8 +19,8 @@ namespace addressbook_web_tests
             ContactData data = new ContactData("TestName");
             data.MiddleName = "TestMiddleName";
             data.LastName = "TestLastName";
-            FillContactForm(data);
-            SubmitContactData();
+            ContactHelper.FillContactForm(data);
+            ContactHelper.SubmitContactData();
             LoginHelper.Logout();
 
         }

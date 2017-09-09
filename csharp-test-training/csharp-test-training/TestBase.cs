@@ -12,22 +12,30 @@ namespace addressbook_web_tests
         protected TestingEnvironment Environment;
         protected LoginHelper LoginHelper;
         protected NavigationHelper NavigationHelper;
+        protected GroupHelper GroupHelper;
+        protected ContactHelper ContactHelper;
+        private FirefoxDriverFactory _driverFactory;
 
         [SetUp]
         public void SetupTest()
         {
-
+            if (Driver == null)
+            {
+                Driver = _driverFactory.GetFirefoxDriver();
+            }
         }
 
         public TestBase()
         {
-            FirefoxDriverFactory driverFactory = new FirefoxDriverFactory();
-            Driver = driverFactory.GetFirefoxDriver();
+            _driverFactory = new FirefoxDriverFactory();
+            Driver = _driverFactory.GetFirefoxDriver();
 
+            AccountFactory = new AccountFactory();
             Environment = new TestingEnvironment();
             LoginHelper = new LoginHelper(Driver);
             NavigationHelper = new NavigationHelper(Driver, Environment);
-            AccountFactory = new AccountFactory();
+            GroupHelper = new GroupHelper(Driver);
+            ContactHelper = new ContactHelper(Driver);
         }
 
 
@@ -46,35 +54,7 @@ namespace addressbook_web_tests
         }
 
 
-        protected void FillGroupForm(GroupData data)
-        {
-            Driver.FindElement(By.Name("group_name")).Clear();
-            Driver.FindElement(By.Name("group_name")).SendKeys(data.GroupName);
-            Driver.FindElement(By.Name("group_header")).Clear();
-            Driver.FindElement(By.Name("group_header")).SendKeys(data.GroupHeader);
-            Driver.FindElement(By.Name("group_footer")).Clear();
-            Driver.FindElement(By.Name("group_footer")).SendKeys(data.GroupFooter);
-        }
-
-        protected void SubmitGroupForm()
-        {
-            Driver.FindElement(By.Name("submit")).Click();
-        }
 
 
-        protected void SubmitContactData()
-        {
-            Driver.FindElement(By.Name("submit")).Click();
-        }
-
-        protected void FillContactForm(ContactData data)
-        {
-            Driver.FindElement(By.Name("firstname")).Clear();
-            Driver.FindElement(By.Name("firstname")).SendKeys(data.FirstName);
-            Driver.FindElement(By.Name("middlename")).Clear();
-            Driver.FindElement(By.Name("middlename")).SendKeys(data.MiddleName);
-            Driver.FindElement(By.Name("lastname")).Clear();
-            Driver.FindElement(By.Name("lastname")).SendKeys(data.LastName);
-        }
     }
 }
