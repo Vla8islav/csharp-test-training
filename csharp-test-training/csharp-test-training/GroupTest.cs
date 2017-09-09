@@ -14,8 +14,8 @@ namespace addressbook_web_tests
         public void TheUntitledTest()
         {
             OpenMainPage();
-            FillLoginForm(_accountFactory.GetAdminAccountData());
-            SubmitLoginForm();
+            LoginHelper.FillLoginForm(_accountFactory.GetAdminAccountData());
+            LoginHelper.SubmitLoginForm();
             GoToGroupsPage();
             OpenCreateGroupPage();
             GroupData data = new GroupData("Some new goup");
@@ -23,7 +23,7 @@ namespace addressbook_web_tests
             data.GroupFooter = "Некоторый русский текст для разнообразия.";
             FillGroupForm(data);
             SubmitGroupForm();
-            Logout();
+            LoginHelper.Logout();
         }
     }
 }

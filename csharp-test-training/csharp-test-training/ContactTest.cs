@@ -12,8 +12,8 @@ namespace addressbook_web_tests
         public void CreateContactTest()
         {
             OpenMainPage();
-            FillLoginForm(_accountFactory.GetAdminAccountData());
-            SubmitLoginForm();
+            LoginHelper.FillLoginForm(_accountFactory.GetAdminAccountData());
+            LoginHelper.SubmitLoginForm();
 
             GoToContactCreationPage();
             ContactData data = new ContactData("TestName");
@@ -21,7 +21,7 @@ namespace addressbook_web_tests
             data.LastName = "TestLastName";
             FillContactForm(data);
             SubmitContactData();
-            Logout();
+            LoginHelper.Logout();
 
         }
     }

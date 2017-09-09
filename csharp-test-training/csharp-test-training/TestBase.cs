@@ -10,11 +10,7 @@ namespace addressbook_web_tests
         protected IWebDriver _driver;
         protected AccountFactory _accountFactory;
         protected TestingEnvironment Environment;
-
-        public TestBase()
-        {
-            _accountFactory = new AccountFactory();
-        }
+        protected LoginHelper LoginHelper;
 
         [SetUp]
         public void SetupTest()
@@ -24,6 +20,13 @@ namespace addressbook_web_tests
 
             _driver = driverFactory.GetFirefoxDriver();
         }
+
+        public TestBase()
+        {
+            _accountFactory = new AccountFactory();
+            LoginHelper = new LoginHelper(_driver);
+        }
+
 
         [TearDown]
         public void TeardownTest()
@@ -41,24 +44,6 @@ namespace addressbook_web_tests
         protected void GoToContactCreationPage()
         {
             _driver.FindElement(By.LinkText("add new")).Click();
-        }
-
-        protected void Logout()
-        {
-            _driver.FindElement(By.LinkText("Logout")).Click();
-        }
-
-        protected void SubmitLoginForm()
-        {
-            _driver.FindElement(By.CssSelector("input[type=\"submit\"]")).Click();
-        }
-
-        protected void FillLoginForm(AccountData data)
-        {
-            _driver.FindElement(By.Name("user")).Clear();
-            _driver.FindElement(By.Name("user")).SendKeys(data.Login);
-            _driver.FindElement(By.Name("pass")).Clear();
-            _driver.FindElement(By.Name("pass")).SendKeys(data.Password);
         }
 
         protected void OpenMainPage()
