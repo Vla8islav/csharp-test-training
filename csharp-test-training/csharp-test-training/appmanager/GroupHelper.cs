@@ -4,10 +4,17 @@ namespace addressbook_web_tests
 {
     public class GroupHelper : HelperBase
     {
-
         public GroupHelper(IWebDriver driver) : base(driver)
         {
         }
+
+        public GroupHelper Create(GroupData data)
+        {
+            FillGroupForm(data);
+            SubmitGroupForm();
+            return this;
+        }
+
 
         public GroupHelper FillGroupForm(GroupData data)
         {

@@ -6,7 +6,7 @@ namespace addressbook_web_tests
     public class GroupTest : TestBase
     {
         [Test]
-        public void GroupCrationTest()
+        public void GroupCreationTest()
         {
             app.NavigationHelper
                 .GoToGroupsPage()
@@ -16,9 +16,21 @@ namespace addressbook_web_tests
                 GroupHeader = "Some group header",
                 GroupFooter = "Некоторый русский текст для разнообразия."
             };
-            app.GroupHelper
-                .FillGroupForm(data)
-                .SubmitGroupForm();
+            app.GroupHelper.Create(data);
+        }
+
+        [Test]
+        public void EmptyGroupCrationTest()
+        {
+            app.NavigationHelper
+                .GoToGroupsPage()
+                .OpenCreateGroupPage();
+            GroupData data = new GroupData("")
+            {
+                GroupHeader = "",
+                GroupFooter = ""
+            };
+            app.GroupHelper.Create(data);
         }
     }
 }
