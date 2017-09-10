@@ -4,7 +4,7 @@ namespace addressbook_web_tests
 {
     public class GroupHelper : HelperBase
     {
-        public GroupHelper(IWebDriver driver) : base(driver)
+        public GroupHelper(ApplicationManager app) : base(app)
         {
         }
 

@@ -6,10 +6,9 @@ namespace addressbook_web_tests
     {
         private readonly TestingEnvironment _environment;
 
-        public NavigationHelper(IWebDriver driver, TestingEnvironment environment) : base(driver)
+        public NavigationHelper(ApplicationManager app, TestingEnvironment environment) : base(app)
         {
             _environment = environment;
-
         }
 
         public NavigationHelper GoToContactCreationPage()

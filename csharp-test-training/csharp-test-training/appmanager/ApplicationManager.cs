@@ -26,7 +26,7 @@ namespace addressbook_web_tests
         public GroupHelper GroupHelper { get; }
         public ContactHelper ContactHelper { get; }
         public AccountFactory AccountFactory { get; }
-        private IWebDriver Driver { get; }
+        public IWebDriver Driver { get; }
 
         public void Stop()
 

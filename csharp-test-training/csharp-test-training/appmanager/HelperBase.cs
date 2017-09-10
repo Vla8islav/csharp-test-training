@@ -6,9 +6,9 @@ namespace addressbook_web_tests
     {
         protected readonly IWebDriver Driver;
 
-        public HelperBase(IWebDriver driver)
+        public HelperBase(ApplicationManager app)
         {
-            Driver = driver;
+            Driver = app.Driver;
         }
 
     }

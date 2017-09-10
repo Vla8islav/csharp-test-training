@@ -5,7 +5,7 @@ namespace addressbook_web_tests
     public class ContactHelper : HelperBase
     {
 
-        public ContactHelper(IWebDriver driver) : base(driver)
+        public ContactHelper(ApplicationManager app) : base(app)
         {
         }
 
