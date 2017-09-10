@@ -6,16 +6,18 @@ namespace addressbook_web_tests
     public class GroupTest : TestBase
     {
         [Test]
-        public void TheUntitledTest()
+        public void GroupCrationTest()
         {
-            app.NavigationHelper.GoToGroupsPage()
+            app.NavigationHelper
+                .GoToGroupsPage()
                 .OpenCreateGroupPage();
             GroupData data = new GroupData("Some new goup")
             {
                 GroupHeader = "Some group header",
                 GroupFooter = "Некоторый русский текст для разнообразия."
             };
-            app.GroupHelper.FillGroupForm(data)
+            app.GroupHelper
+                .FillGroupForm(data)
                 .SubmitGroupForm();
         }
     }
