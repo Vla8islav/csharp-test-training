@@ -13,7 +13,8 @@ namespace addressbook_web_tests
                 MiddleName = "TestMiddleName",
                 LastName = "TestLastName"
             };
-            app.ContactHelper.FillContactForm(data)
+            app.ContactHelper
+                .FillContactForm(data)
                 .SubmitContactData();
         }
     }
