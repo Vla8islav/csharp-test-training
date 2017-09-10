@@ -4,19 +4,19 @@ namespace addressbook_web_tests
 {
     public class TestBase
     {
-        protected ApplicationManager ApplicationManager;
+        protected ApplicationManager app;
 
         [SetUp]
         public void SetupTest()
         {
-            ApplicationManager = new ApplicationManager();
+            app = new ApplicationManager();
         }
 
 
         [TearDown]
         public void TeardownTest()
         {
-            ApplicationManager.Stop();
+            app.Stop();
         }
     }
 }

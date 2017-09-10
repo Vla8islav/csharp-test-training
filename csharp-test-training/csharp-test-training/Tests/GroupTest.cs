@@ -9,17 +9,17 @@ namespace addressbook_web_tests
         [Test]
         public void TheUntitledTest()
         {
-            ApplicationManager.NavigationHelper.OpenMainPage();
-            ApplicationManager.LoginHelper.FillLoginForm(ApplicationManager.AccountFactory.GetAdminAccountData());
-            ApplicationManager.LoginHelper.SubmitLoginForm();
-            ApplicationManager.NavigationHelper.GoToGroupsPage();
-            ApplicationManager.NavigationHelper.OpenCreateGroupPage();
+            app.NavigationHelper.OpenMainPage();
+            app.LoginHelper.FillLoginForm(app.AccountFactory.GetAdminAccountData());
+            app.LoginHelper.SubmitLoginForm();
+            app.NavigationHelper.GoToGroupsPage();
+            app.NavigationHelper.OpenCreateGroupPage();
             GroupData data = new GroupData("Some new goup");
             data.GroupHeader = "Some group header";
             data.GroupFooter = "Некоторый русский текст для разнообразия.";
-            ApplicationManager.GroupHelper.FillGroupForm(data);
-            ApplicationManager.GroupHelper.SubmitGroupForm();
-            ApplicationManager.LoginHelper.Logout();
+            app.GroupHelper.FillGroupForm(data);
+            app.GroupHelper.SubmitGroupForm();
+            app.LoginHelper.Logout();
         }
     }
 }

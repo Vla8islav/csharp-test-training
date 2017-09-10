@@ -8,17 +8,17 @@ namespace addressbook_web_tests
         [Test]
         public void CreateContactTest()
         {
-            ApplicationManager.NavigationHelper.OpenMainPage();
-            ApplicationManager.LoginHelper.FillLoginForm(ApplicationManager.AccountFactory.GetAdminAccountData());
-            ApplicationManager.LoginHelper.SubmitLoginForm();
+            app.NavigationHelper.OpenMainPage();
+            app.LoginHelper.FillLoginForm(app.AccountFactory.GetAdminAccountData());
+            app.LoginHelper.SubmitLoginForm();
 
-            ApplicationManager.NavigationHelper.GoToContactCreationPage();
+            app.NavigationHelper.GoToContactCreationPage();
             ContactData data = new ContactData("TestName");
             data.MiddleName = "TestMiddleName";
             data.LastName = "TestLastName";
-            ApplicationManager.ContactHelper.FillContactForm(data);
-            ApplicationManager.ContactHelper.SubmitContactData();
-            ApplicationManager.LoginHelper.Logout();
+            app.ContactHelper.FillContactForm(data);
+            app.ContactHelper.SubmitContactData();
+            app.LoginHelper.Logout();
 
         }
     }
