@@ -1,4 +1,7 @@
-﻿using OpenQA.Selenium;
+﻿using System;
+using System.Text.RegularExpressions;
+using OpenQA.Selenium;
+using NUnit.Framework;
 
 namespace addressbook_web_tests
 {
@@ -36,5 +39,16 @@ namespace addressbook_web_tests
             Driver.FindElement(By.Name("submit")).Click();
             return this;
         }
+
+        public GroupHelper RemoveFromTheListItemNumber(int i)
+        {
+            app.NavigationHelper.GoToGroupsPage();
+            Driver.FindElement(By.CssSelector($"[id=content] span:nth-of-type({i}) input[type=checkbox]")).Click();
+            Driver.FindElement(By.XPath("(//input[@name='delete'])[2]")).Click();
+
+            return this;
+        }
+
+
     }
 }
