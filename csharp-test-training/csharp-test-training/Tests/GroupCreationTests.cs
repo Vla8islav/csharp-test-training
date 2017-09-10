@@ -9,8 +9,23 @@ namespace addressbook_web_tests
         public void GroupCreationTest()
         {
 
-            app.GroupHelper.RemoveFromTheListItemNumber(1);
+            GroupData data = new GroupData("Some new goup")
+            {
+                GroupHeader = "Some group header",
+                GroupFooter = "Некоторый русский текст для разнообразия."
+            };
+            app.GroupHelper.Create(data);
         }
 
+        [Test]
+        public void EmptyGroupCrationTest()
+        {
+            GroupData data = new GroupData("")
+            {
+                GroupHeader = "",
+                GroupFooter = ""
+            };
+            app.GroupHelper.Create(data);
+        }
     }
 }

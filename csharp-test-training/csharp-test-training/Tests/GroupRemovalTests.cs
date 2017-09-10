@@ -8,7 +8,7 @@ namespace addressbook_web_tests
         [Test]
         public void GroupRemovalTest()
         {
-            app.GroupHelper.RemoveFromTheListItemNumber(1);
+            app.GroupHelper.RemoveFromTheListItemNumber(5);
         }
     }
 }

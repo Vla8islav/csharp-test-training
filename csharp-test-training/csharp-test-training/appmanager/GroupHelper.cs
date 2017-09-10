@@ -43,12 +43,44 @@ namespace addressbook_web_tests
         public GroupHelper RemoveFromTheListItemNumber(int i)
         {
             app.NavigationHelper.GoToGroupsPage();
-            Driver.FindElement(By.CssSelector($"[id=content] span:nth-of-type({i}) input[type=checkbox]")).Click();
-            Driver.FindElement(By.XPath("(//input[@name='delete'])[2]")).Click();
+            ClickCheckboxElementNumber(i);
+            SubmitDelete();
 
             return this;
         }
 
+        private GroupHelper SubmitDelete()
+        {
+            Driver.FindElement(By.XPath("(//input[@name='delete'])[2]")).Click();
+            return this;
+        }
 
+        private GroupHelper ClickCheckboxElementNumber(int i)
+        {
+            Driver.FindElement(By.CssSelector($"[id=content] span:nth-of-type({i}) input[type=checkbox]")).Click();
+            return this;
+        }
+
+        public GroupHelper ModifyGroupNumber(int i, GroupData data)
+        {
+            app.NavigationHelper.GoToGroupsPage();
+            ClickCheckboxElementNumber(i);
+            ClickOnModifyButton();
+            FillGroupForm(data);
+            ClickOnUpdateButton();
+            return this;
+        }
+
+        public GroupHelper ClickOnModifyButton()
+        {
+            Driver.FindElement(By.Name("edit")).Click();
+            return this;
+        }
+
+        public GroupHelper ClickOnUpdateButton()
+        {
+            Driver.FindElement(By.Name("update")).Click();
+            return this;
+        }
     }
 }
