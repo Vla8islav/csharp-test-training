@@ -10,12 +10,15 @@ namespace addressbook_web_tests
         public void SetupTest()
         {
             app = new ApplicationManager();
+            app.NavigationHelper.OpenMainPage();
+            app.LoginHelper.FillLoginForm(app.AccountFactory.GetAdminAccountData()).
+                SubmitLoginForm();
         }
-
 
         [TearDown]
         public void TeardownTest()
         {
+            app.LoginHelper.Logout();
             app.Stop();
         }
     }

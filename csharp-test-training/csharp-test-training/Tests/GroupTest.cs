@@ -8,9 +8,6 @@ namespace addressbook_web_tests
         [Test]
         public void TheUntitledTest()
         {
-            app.NavigationHelper.OpenMainPage();
-            app.LoginHelper.FillLoginForm(app.AccountFactory.GetAdminAccountData()).
-                SubmitLoginForm();
             app.NavigationHelper.GoToGroupsPage()
                 .OpenCreateGroupPage();
             GroupData data = new GroupData("Some new goup")
@@ -20,7 +17,6 @@ namespace addressbook_web_tests
             };
             app.GroupHelper.FillGroupForm(data)
                 .SubmitGroupForm();
-            app.LoginHelper.Logout();
         }
     }
 }
