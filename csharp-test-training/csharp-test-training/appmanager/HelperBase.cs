@@ -9,7 +9,6 @@ namespace addressbook_web_tests
         public HelperBase(IWebDriver driver)
         {
             Driver = driver;
-
         }
 
     }

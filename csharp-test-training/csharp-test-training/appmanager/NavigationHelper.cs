@@ -12,24 +12,28 @@ namespace addressbook_web_tests
 
         }
 
-        public void GoToContactCreationPage()
+        public NavigationHelper GoToContactCreationPage()
         {
             Driver.FindElement(By.LinkText("add new")).Click();
+            return this;
         }
 
-        public void OpenMainPage()
+        public NavigationHelper OpenMainPage()
         {
             Driver.Navigate().GoToUrl(_environment.BaseUrl + "addressbook/");
+            return this;
         }
 
-        public void OpenCreateGroupPage()
+        public NavigationHelper OpenCreateGroupPage()
         {
             Driver.FindElement(By.Name("new")).Click();
+            return this;
         }
 
-        public void GoToGroupsPage()
+        public NavigationHelper GoToGroupsPage()
         {
             Driver.FindElement(By.LinkText("groups")).Click();
+            return this;
         }
 
     }

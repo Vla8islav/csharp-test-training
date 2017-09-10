@@ -9,7 +9,7 @@ namespace addressbook_web_tests
         {
         }
 
-        public void FillGroupForm(GroupData data)
+        public GroupHelper FillGroupForm(GroupData data)
         {
             Driver.FindElement(By.Name("group_name")).Clear();
             Driver.FindElement(By.Name("group_name")).SendKeys(data.GroupName);
@@ -17,11 +17,13 @@ namespace addressbook_web_tests
             Driver.FindElement(By.Name("group_header")).SendKeys(data.GroupHeader);
             Driver.FindElement(By.Name("group_footer")).Clear();
             Driver.FindElement(By.Name("group_footer")).SendKeys(data.GroupFooter);
+            return this;
         }
 
-        public void SubmitGroupForm()
+        public GroupHelper SubmitGroupForm()
         {
             Driver.FindElement(By.Name("submit")).Click();
+            return this;
         }
     }
 }
