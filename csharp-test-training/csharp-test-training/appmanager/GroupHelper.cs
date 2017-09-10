@@ -1,7 +1,4 @@
-﻿using System;
-using System.Text.RegularExpressions;
-using OpenQA.Selenium;
-using NUnit.Framework;
+﻿using OpenQA.Selenium;
 
 namespace addressbook_web_tests
 {
