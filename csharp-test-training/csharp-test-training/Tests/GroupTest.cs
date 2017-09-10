@@ -8,9 +8,7 @@ namespace addressbook_web_tests
         [Test]
         public void GroupCreationTest()
         {
-            app.NavigationHelper
-                .GoToGroupsPage()
-                .OpenCreateGroupPage();
+
             GroupData data = new GroupData("Some new goup")
             {
                 GroupHeader = "Some group header",
@@ -22,9 +20,6 @@ namespace addressbook_web_tests
         [Test]
         public void EmptyGroupCrationTest()
         {
-            app.NavigationHelper
-                .GoToGroupsPage()
-                .OpenCreateGroupPage();
             GroupData data = new GroupData("")
             {
                 GroupHeader = "",

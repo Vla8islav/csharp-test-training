@@ -14,10 +14,10 @@ namespace addressbook_web_tests
 
             AccountFactory = new AccountFactory();
             Environment = new TestingEnvironment();
-            LoginHelper = new LoginHelper(Driver);
-            NavigationHelper = new NavigationHelper(Driver, Environment);
-            GroupHelper = new GroupHelper(Driver);
-            ContactHelper = new ContactHelper(Driver);
+            LoginHelper = new LoginHelper(this);
+            NavigationHelper = new NavigationHelper(this, Environment);
+            GroupHelper = new GroupHelper(this);
+            ContactHelper = new ContactHelper(this);
 
         }
 

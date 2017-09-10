@@ -10,6 +10,10 @@ namespace addressbook_web_tests
 
         public GroupHelper Create(GroupData data)
         {
+            app.NavigationHelper
+                .GoToGroupsPage()
+                .OpenCreateGroupPage();
+
             FillGroupForm(data);
             SubmitGroupForm();
             return this;
