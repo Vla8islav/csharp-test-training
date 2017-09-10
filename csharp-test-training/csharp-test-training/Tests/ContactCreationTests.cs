@@ -2,10 +2,10 @@
 
 namespace addressbook_web_tests
 {
-    public class ContactTest : TestBase
+    public class ContactCreationTests : TestBase
     {
         [Test]
-        public void CreateContactTest()
+        public void ContactCreationTest()
         {
             app.NavigationHelper.GoToContactCreationPage();
             ContactData data = new ContactData("TestName")

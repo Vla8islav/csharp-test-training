@@ -44,12 +44,12 @@ namespace addressbook_web_tests
         {
             app.NavigationHelper.GoToGroupsPage();
             ClickCheckboxElementNumber(i);
-            SubmitDelete();
+            ClickOnDeleteButton();
 
             return this;
         }
 
-        private GroupHelper SubmitDelete()
+        private GroupHelper ClickOnDeleteButton()
         {
             Driver.FindElement(By.XPath("(//input[@name='delete'])[2]")).Click();
             return this;
