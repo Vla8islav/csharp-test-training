@@ -23,10 +23,8 @@ namespace addressbook_web_tests
 
         public LoginHelper FillLoginForm(AccountData data)
         {
-            Driver.FindElement(By.Name("user")).Clear();
-            Driver.FindElement(By.Name("user")).SendKeys(data.Login);
-            Driver.FindElement(By.Name("pass")).Clear();
-            Driver.FindElement(By.Name("pass")).SendKeys(data.Password);
+            FillField(By.Name("user"), data.Login);
+            FillField(By.Name("pass"), data.Password);
             return this;
         }
 
