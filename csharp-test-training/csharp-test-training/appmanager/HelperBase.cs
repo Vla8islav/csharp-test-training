@@ -12,11 +12,14 @@ namespace addressbook_web_tests
             this.app = app;
             Driver = app.Driver;
         }
-        
+
         public void FillField(By locator, string text)
         {
-            Driver.FindElement(locator).Clear();
-            Driver.FindElement(locator).SendKeys(text);
+            if (null != text)
+            {
+                Driver.FindElement(locator).Clear();
+                Driver.FindElement(locator).SendKeys(text);
+            }
         }
 
         public string CloseAlertAndGetItsText(bool accept)
@@ -39,6 +42,5 @@ namespace addressbook_web_tests
             {
             }
         }
-
     }
 }

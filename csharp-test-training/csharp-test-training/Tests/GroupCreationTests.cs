@@ -16,7 +16,19 @@ namespace addressbook_web_tests
             };
             app.GroupHelper.Create(data);
         }
+        [Test]
+        public void GroupCreationLeaveFooterIntactTest()
+        {
 
+            GroupData data = new GroupData("Some new goup")
+            {
+                GroupHeader = "Some group header",
+                GroupFooter = null
+            };
+            
+            app.GroupHelper.Create(data);
+        }
+        
         [Test]
         public void EmptyGroupCrationTest()
         {
