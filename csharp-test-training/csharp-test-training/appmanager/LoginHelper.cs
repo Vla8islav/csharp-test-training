@@ -1,17 +1,20 @@
-﻿using OpenQA.Selenium;
+﻿using System;
+using OpenQA.Selenium;
 
 namespace addressbook_web_tests
 {
     public class LoginHelper : HelperBase
     {
-
         public LoginHelper(ApplicationManager app) : base(app)
         {
-
         }
+
         public LoginHelper Logout()
         {
-            Driver.FindElement(By.LinkText("Logout")).Click();
+            if (IsLoggedIn())
+            {
+                Driver.FindElement(By.LinkText("Logout")).Click();
+            }
             return this;
         }
 
@@ -28,5 +31,46 @@ namespace addressbook_web_tests
             return this;
         }
 
+
+        public bool IsLoggedIn(AccountData data)
+        {
+            bool retval = IsLoggedIn();
+
+            if (retval)
+            {
+                string usernameDisplayedElementText = Driver.FindElement(By.XPath("//*[@id='top']/form/b")).Text;
+                string usernameDisplayed = usernameDisplayedElementText.Trim('(', ' ', ')');
+                retval = usernameDisplayed.Equals(data.Login);
+            }
+
+            return retval;
+        }
+
+        public bool IsLoggedIn()
+        {
+            return IsElementDisplayed(By.CssSelector("#top form[name='logout']"));
+        }
+        
+        public bool CheckIfThisUserLoggedIn(AccountData accountData)
+        {
+            if (IsLoggedIn())
+            {
+                if (IsLoggedIn(accountData))
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        public LoginHelper Login(AccountData accountData)
+        {
+            app.LoginHelper.
+                FillLoginForm(accountData).
+                SubmitLoginForm();
+
+            return this;
+        }
+            
     }
 }

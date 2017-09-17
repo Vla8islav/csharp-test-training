@@ -42,5 +42,21 @@ namespace addressbook_web_tests
             {
             }
         }
+        
+        
+        public bool IsElementDisplayed(By by)
+        {
+            bool retval = true;
+            try
+            {
+                retval = Driver.FindElement(by).Displayed;
+            }
+            catch (NoSuchElementException e)
+            {
+                retval = false;
+            }
+            return retval;
+        }
+
     }
 }

@@ -68,7 +68,6 @@
     <Compile Include="model\AccountData.cs" />
     <Compile Include="DataProviders\AccountFactory.cs" />
     <Compile Include="model\ContactData.cs" />
-    <Compile Include="TestSuiteFixture.cs" />
     <Compile Include="Tests\ContactCreationTests.cs" />
     <Compile Include="DataProviders\FirefoxDriverFactory.cs" />
     <Compile Include="model\GroupData.cs" />
@@ -84,6 +83,7 @@
     <Compile Include="Tests\GroupRemovalTests.cs" />
     <Compile Include="Tests\TestBase.cs" />
     <Compile Include="TestingEnvironment.cs" />
+    <Compile Include="Tests\TestBaseWithLogin.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

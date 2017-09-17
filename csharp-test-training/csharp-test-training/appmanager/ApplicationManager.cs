@@ -33,6 +33,7 @@ namespace addressbook_web_tests
 
         ~ApplicationManager()
         {
+            LoginHelper.Logout();
             try
             {
                 Driver.Quit();
@@ -48,7 +49,10 @@ namespace addressbook_web_tests
             if (!appThreadLocal.IsValueCreated)
             {
                 appThreadLocal.Value = new ApplicationManager();
+                appThreadLocal.Value.NavigationHelper.OpenMainPage();
             }
+            
+            
             return appThreadLocal.Value;
         }
     }
