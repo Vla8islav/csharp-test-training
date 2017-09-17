@@ -11,14 +11,13 @@ namespace addressbook_web_tests
         public GroupHelper Create(GroupData data)
         {
             app.NavigationHelper
-                .GoToGroupsPage()
-                .OpenCreateGroupPage();
+                .OpenGroupsPage()
+                .OpenGroupCreationPage();
 
             FillGroupForm(data);
             SubmitGroupForm();
             return this;
         }
-
 
         public GroupHelper FillGroupForm(GroupData data)
         {
@@ -37,7 +36,7 @@ namespace addressbook_web_tests
 
         public GroupHelper RemoveFromTheListItemNumber(int i)
         {
-            app.NavigationHelper.GoToGroupsPage();
+            app.NavigationHelper.OpenGroupsPage();
             ClickCheckboxElementNumber(i);
             ClickOnDeleteButton();
 
@@ -58,7 +57,7 @@ namespace addressbook_web_tests
 
         public GroupHelper ModifyGroupNumber(int i, GroupData data)
         {
-            app.NavigationHelper.GoToGroupsPage();
+            app.NavigationHelper.OpenGroupsPage();
             ClickCheckboxElementNumber(i);
             ClickOnModifyButton();
             FillGroupForm(data);

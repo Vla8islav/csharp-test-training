@@ -68,6 +68,11 @@
     <Compile Include="model\AccountData.cs" />
     <Compile Include="DataProviders\AccountFactory.cs" />
     <Compile Include="model\ContactData.cs" />
+    <Compile Include="Pages\ContactCreationPage.cs" />
+    <Compile Include="Pages\GroupCreationPage.cs" />
+    <Compile Include="Pages\GroupsPage.cs" />
+    <Compile Include="Pages\MainPage.cs" />
+    <Compile Include="Pages\PageBase.cs" />
     <Compile Include="Tests\ContactCreationTests.cs" />
     <Compile Include="DataProviders\FirefoxDriverFactory.cs" />
     <Compile Include="model\GroupData.cs" />
