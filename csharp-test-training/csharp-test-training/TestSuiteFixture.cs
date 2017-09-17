@@ -19,8 +19,7 @@ namespace addressbook_web_tests
         [TearDown]
         public void StopApplicationManager()
         {
-            ApplicationManager app = ApplicationManager.GetInstance();
-            app.LoginHelper.Logout();
+            ApplicationManager.GetInstance().LoginHelper.Logout();
         }
 
     }
