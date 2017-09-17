@@ -6,6 +6,7 @@ namespace addressbook_web_tests
     public class ApplicationManager
     {
         private TestingEnvironment Environment;
+        private static ApplicationManager instance;
 
         public ApplicationManager()
         {
@@ -40,6 +41,15 @@ namespace addressbook_web_tests
                 // Ignore errors if unable to close the browser
             }
 
+        }
+
+        public static ApplicationManager GetInstance()
+        {
+            if (null == instance)
+            {
+                instance = new ApplicationManager();
+            }
+            return instance;
         }
     }
 }

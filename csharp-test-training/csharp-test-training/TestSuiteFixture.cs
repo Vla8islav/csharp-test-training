@@ -5,22 +5,21 @@ namespace addressbook_web_tests
     [SetUpFixture]
     public class TestSuiteFixture
     {
-        public static ApplicationManager app;
         
         [SetUp]
         public void InitApplicationManager()
         {
-            app = new ApplicationManager();
+            ApplicationManager app = ApplicationManager.GetInstance();
             app.NavigationHelper.OpenMainPage();
             app.LoginHelper.FillLoginForm(app.AccountFactory.GetAdminAccountData()).
                 SubmitLoginForm();
     
         }
 
-
         [TearDown]
         public void StopApplicationManager()
         {
+            ApplicationManager app = ApplicationManager.GetInstance();
             app.LoginHelper.Logout();
             app.Stop();
         }
