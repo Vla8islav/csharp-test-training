@@ -7,7 +7,7 @@ namespace addressbook_web_tests
         [SetUp]
         public void SetupLogin()
         {
-            AccountData adminAccountData = app.AccountFactory.GetAdminAccountData();
+            AccountData adminAccountData = AccountFactory.GetAdminAccountData();
 
             if (app.LoginHelper.CheckIfThisUserLoggedIn(adminAccountData))
             {
