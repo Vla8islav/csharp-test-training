@@ -21,7 +21,6 @@ namespace addressbook_web_tests
         {
             ApplicationManager app = ApplicationManager.GetInstance();
             app.LoginHelper.Logout();
-            app.Stop();
         }
 
     }
