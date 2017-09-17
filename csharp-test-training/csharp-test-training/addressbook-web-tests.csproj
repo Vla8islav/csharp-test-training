@@ -68,6 +68,7 @@
     <Compile Include="model\AccountData.cs" />
     <Compile Include="DataProviders\AccountFactory.cs" />
     <Compile Include="model\ContactData.cs" />
+    <Compile Include="TestSuiteFixture.cs" />
     <Compile Include="Tests\ContactCreationTests.cs" />
     <Compile Include="DataProviders\FirefoxDriverFactory.cs" />
     <Compile Include="model\GroupData.cs" />

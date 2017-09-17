@@ -9,17 +9,12 @@ namespace addressbook_web_tests
         [SetUp]
         public void SetupTest()
         {
-            app = new ApplicationManager();
-            app.NavigationHelper.OpenMainPage();
-            app.LoginHelper.FillLoginForm(app.AccountFactory.GetAdminAccountData()).
-                SubmitLoginForm();
+            app = TestSuiteFixture.app;
         }
 
         [TearDown]
         public void TeardownTest()
         {
-            app.LoginHelper.Logout();
-            app.Stop();
         }
     }
 }
