@@ -7,15 +7,7 @@ namespace addressbook_web_tests
         [Test]
         public void ContactCreationTest()
         {
-            app.NavigationHelper.OpenContactCreationPage();
-            ContactData data = new ContactData("TestName")
-            {
-                MiddleName = "TestMiddleName",
-                LastName = "TestLastName"
-            };
-            app.ContactHelper
-                .FillContactForm(data)
-                .SubmitContactData();
+            app.ContactHelper.Create(ContactFactory.GetSampleContactData());
         }
     }
 }

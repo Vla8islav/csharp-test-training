@@ -36,6 +36,7 @@ namespace addressbook_web_tests
 
         public GroupHelper RemoveFromTheListItemNumber(int i)
         {
+            PrepareANumberOfGroups(i);
             app.NavigationHelper.OpenGroupsPage();
             ClickCheckboxElementNumber(i);
             ClickOnDeleteButton();
@@ -57,6 +58,7 @@ namespace addressbook_web_tests
 
         public GroupHelper ModifyGroupNumber(int i, GroupData data)
         {
+            PrepareANumberOfGroups(i);
             app.NavigationHelper.OpenGroupsPage();
             ClickCheckboxElementNumber(i);
             ClickOnModifyButton();
@@ -75,6 +77,24 @@ namespace addressbook_web_tests
         {
             Driver.FindElement(By.Name("update")).Click();
             return this;
+        }
+        
+        private void PrepareANumberOfGroups(int i)
+        {
+            app.NavigationHelper.OpenGroupsPage();
+            int numberOfDisplayedContacts = GetNumberOfDisplayedGroups();
+            if (numberOfDisplayedContacts < i)
+            {
+                for (int j = 0; j < i - numberOfDisplayedContacts; j++)
+                {
+                    Create(GroupFactory.GetSampleGroupData());
+                }
+            }
+        }
+        
+        private int GetNumberOfDisplayedGroups()
+        {
+            return Driver.FindElements(By.CssSelector("#content span.group")).Count;
         }
     }
 }

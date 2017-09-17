@@ -8,7 +8,6 @@ namespace addressbook_web_tests.Pages
 
         public override By GetAnElementUniqueToPage()
         {
-
             return By.XPath("//input[@type='button' and @value='Send e-Mail']");
         }
 

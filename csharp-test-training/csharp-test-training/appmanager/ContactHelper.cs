@@ -27,6 +27,8 @@ namespace addressbook_web_tests
 
         public ContactHelper RemoveContactNumber(int i)
         {
+            PrepareANumberOfContacts(i);
+            
             app.NavigationHelper.OpenMainPage();
             ClickCheckboxElementNumber(i);
             ClickDeleteButton();
@@ -36,7 +38,8 @@ namespace addressbook_web_tests
 
         private ContactHelper ClickCheckboxElementNumber(int i)
         {
-            Driver.FindElement(By.CssSelector($"table[id=maintable] tr:nth-of-type({++i}) input[type='checkbox']")).Click();
+            Driver.FindElement(By.CssSelector($"table[id=maintable] tr:nth-of-type({++i}) input[type='checkbox']"))
+                .Click();
             return this;
         }
 
@@ -64,14 +67,45 @@ namespace addressbook_web_tests
             return this;
         }
 
+        public ContactHelper Create(ContactData data)
+        {
+            app.NavigationHelper.OpenContactCreationPage();
+            app.ContactHelper
+                .FillContactForm(data)
+                .SubmitContactData();
+
+            return this;
+
+        }
+
         public ContactHelper ModifyContactNumber(int i, ContactData data)
         {
+            PrepareANumberOfContacts(i);
+
             app.NavigationHelper.OpenMainPage();
             ClickOnModifyPencilPictogammNumber(i);
             FillContactForm(data);
             ClickUpdateButton();
 
             return this;
+        }
+
+        private void PrepareANumberOfContacts(int i)
+        {
+            app.NavigationHelper.OpenMainPage();
+            int numberOfDisplayedContacts = GetNumberOfDisplayedContacts();
+            if (numberOfDisplayedContacts < i)
+            {
+                for (int j = 0; j < i - numberOfDisplayedContacts; j++)
+                {
+                    Create(ContactFactory.GetSampleContactData());
+                }
+            }
+        }
+
+        private int GetNumberOfDisplayedContacts()
+        {
+            return Driver.FindElements(By.CssSelector("#maintable tr[name='entry']")).Count;
         }
     }
 }
