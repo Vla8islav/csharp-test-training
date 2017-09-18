@@ -8,7 +8,10 @@ namespace addressbook_web_tests
         [Test]
         public void GroupRemovalTest()
         {
-            app.GroupHelper.RemoveFromTheListItemNumber(5);
+            const int groupNumberToDelete = 5;
+            app.GroupHelper.PrepareANumberOfGroups(groupNumberToDelete);
+            app.NavigationHelper.OpenGroupsPage();
+            app.GroupHelper.RemoveFromTheListItemNumber(groupNumberToDelete);
         }
     }
 }

@@ -13,7 +13,11 @@ namespace addressbook_web_tests
                 MiddleName = "TestMiddleName" + " modified",
                 LastName = "TestLastName" + " modified"
             };
-            app.ContactHelper.ModifyContactNumber(5, data);
+            const int contactNumberToModify = 5;
+            app.ContactHelper.PrepareANumberOfContacts(contactNumberToModify);
+
+            app.NavigationHelper.OpenMainPage();
+            app.ContactHelper.ModifyContactNumber(contactNumberToModify, data);
         }
     }
 }

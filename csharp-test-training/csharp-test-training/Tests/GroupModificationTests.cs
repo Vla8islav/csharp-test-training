@@ -14,7 +14,10 @@ namespace addressbook_web_tests
                 GroupFooter = "Некоторый русский текст для разнообразия." + " modified"
             };
 
-            app.GroupHelper.ModifyGroupNumber(5, data);
+            int groupNumberToModify = 5;
+            app.GroupHelper.PrepareANumberOfGroups(groupNumberToModify);
+            app.NavigationHelper.OpenGroupsPage();
+            app.GroupHelper.ModifyGroupNumber(groupNumberToModify, data);
         }
 
     }

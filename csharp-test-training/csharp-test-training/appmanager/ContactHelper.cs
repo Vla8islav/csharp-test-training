@@ -27,9 +27,6 @@ namespace addressbook_web_tests
 
         public ContactHelper RemoveContactNumber(int i)
         {
-            PrepareANumberOfContacts(i);
-            
-            app.NavigationHelper.OpenMainPage();
             ClickCheckboxElementNumber(i);
             ClickDeleteButton();
             ConfirmDeletion();
@@ -80,9 +77,6 @@ namespace addressbook_web_tests
 
         public ContactHelper ModifyContactNumber(int i, ContactData data)
         {
-            PrepareANumberOfContacts(i);
-
-            app.NavigationHelper.OpenMainPage();
             ClickOnModifyPencilPictogammNumber(i);
             FillContactForm(data);
             ClickUpdateButton();
@@ -90,7 +84,7 @@ namespace addressbook_web_tests
             return this;
         }
 
-        private void PrepareANumberOfContacts(int i)
+        public void PrepareANumberOfContacts(int i)
         {
             app.NavigationHelper.OpenMainPage();
             int numberOfDisplayedContacts = GetNumberOfDisplayedContacts();

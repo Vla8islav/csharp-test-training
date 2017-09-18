@@ -8,7 +8,10 @@ namespace addressbook_web_tests
         [Test]
         public void ContactRemovalTest()
         {
-                app.ContactHelper.RemoveContactNumber(6);
+            const int contactNumberToDelete = 6;
+            app.ContactHelper.PrepareANumberOfContacts(contactNumberToDelete);
+            app.NavigationHelper.OpenMainPage();
+            app.ContactHelper.RemoveContactNumber(contactNumberToDelete);
         }
     }
 }
