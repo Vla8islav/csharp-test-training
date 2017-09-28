@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using OpenQA.Selenium;
 
 namespace addressbook_web_tests
@@ -79,7 +80,7 @@ namespace addressbook_web_tests
         public void PrepareANumberOfGroups(int i)
         {
             app.NavigationHelper.OpenGroupsPage();
-            int numberOfDisplayedContacts = GetNumberOfDisplayedGroups();
+            int numberOfDisplayedContacts = GetGroupList().Count;
             if (numberOfDisplayedContacts < i)
             {
                 for (int j = 0; j < i - numberOfDisplayedContacts; j++)
@@ -89,14 +90,17 @@ namespace addressbook_web_tests
             }
         }
         
-        private int GetNumberOfDisplayedGroups()
-        {
-            return Driver.FindElements(By.CssSelector("#content span.group")).Count;
-        }
-
         public List<GroupData> GetGroupList()
         {
+            app.NavigationHelper.OpenGroupsPage();
             List<GroupData> groupDataList = new List<GroupData>();
+
+            ReadOnlyCollection<IWebElement> displayedGroups = Driver.FindElements(By.CssSelector("#content span.group"));
+
+            foreach (var displayedGroup in displayedGroups)
+            {
+                groupDataList.Add(new GroupData{GroupName =  displayedGroup.Text});
+            }
             
             return groupDataList;
         }

@@ -9,30 +9,32 @@ namespace addressbook_web_tests
         [Test]
         public void GroupCreationTest()
         {
-
             GroupData data = new GroupData
             {
                 GroupName = "Some new goup",
                 GroupHeader = "Some group header",
                 GroupFooter = "Некоторый русский текст для разнообразия."
             };
+            List<GroupData> groupListPrev = app.GroupHelper.GetGroupList();
             app.GroupHelper.Create(data);
+            List<GroupData> groupListAfter = app.GroupHelper.GetGroupList();
+            Assert.AreEqual(groupListAfter.Count, groupListPrev.Count + 1,
+                $"Expected group count on a page {app.Driver.Url} is {groupListPrev.Count + 1} actual count {groupListAfter.Count}");
         }
-        
+
         [Test]
         public void GroupCreationLeaveFooterIntactTest()
         {
-
             GroupData data = new GroupData
             {
                 GroupName = "Some new goup",
                 GroupHeader = "Some group header",
                 GroupFooter = null
             };
-            
+
             app.GroupHelper.Create(data);
         }
-        
+
         [Test]
         public void EmptyGroupCrationTest()
         {
