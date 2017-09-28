@@ -1,4 +1,5 @@
-﻿using OpenQA.Selenium;
+﻿using System.Collections.Generic;
+using OpenQA.Selenium;
 
 namespace addressbook_web_tests
 {
@@ -91,6 +92,13 @@ namespace addressbook_web_tests
         private int GetNumberOfDisplayedGroups()
         {
             return Driver.FindElements(By.CssSelector("#content span.group")).Count;
+        }
+
+        public List<GroupData> GetGroupList()
+        {
+            List<GroupData> groupDataList = new List<GroupData>();
+            
+            return groupDataList;
         }
     }
 }

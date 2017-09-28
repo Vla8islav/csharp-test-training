@@ -4,8 +4,9 @@
     {
         public static GroupData GetSampleGroupData()
         {
-            return new GroupData("Some new goup")
+            return new GroupData
             {
+                GroupName = "Some new goup",
                 GroupHeader = "Some group header",
                 GroupFooter = "Некоторый русский текст для разнообразия."
             };

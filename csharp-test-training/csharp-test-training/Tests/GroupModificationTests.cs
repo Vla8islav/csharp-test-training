@@ -8,8 +8,9 @@ namespace addressbook_web_tests
         [Test]
         public void GroupModificationTest()
         {
-            GroupData data = new GroupData("Some new goup" + " modified")
+            GroupData data = new GroupData
             {
+                GroupName =  "Some new goup" + " modified",
                 GroupHeader = "Some group header" + " modified",
                 GroupFooter = "Некоторый русский текст для разнообразия." + " modified"
             };
