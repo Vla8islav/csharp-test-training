@@ -12,9 +12,7 @@ namespace addressbook_web_tests
 
         public GroupHelper Create(GroupData data)
         {
-            app.NavigationHelper
-                .OpenGroupsPage()
-                .OpenGroupCreationPage();
+            app.NavigationHelper.OpenGroupCreationPage();
 
             FillGroupForm(data);
             SubmitGroupForm();
@@ -38,6 +36,7 @@ namespace addressbook_web_tests
 
         public GroupHelper RemoveFromTheListItemNumber(int i)
         {
+            app.NavigationHelper.OpenGroupsPage();
             ClickCheckboxElementNumber(i);
             ClickOnDeleteButton();
 

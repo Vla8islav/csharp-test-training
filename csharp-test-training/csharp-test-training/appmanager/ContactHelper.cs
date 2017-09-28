@@ -27,6 +27,7 @@ namespace addressbook_web_tests
 
         public ContactHelper RemoveContactNumber(int i)
         {
+            app.NavigationHelper.OpenMainPage();
             ClickCheckboxElementNumber(i);
             ClickDeleteButton();
             ConfirmDeletion();

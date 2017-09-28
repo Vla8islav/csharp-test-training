@@ -1,4 +1,5 @@
-﻿using NUnit.Framework;
+﻿using System.Collections.Generic;
+using NUnit.Framework;
 
 namespace addressbook_web_tests
 {
@@ -10,8 +11,10 @@ namespace addressbook_web_tests
         {
             const int contactNumberToDelete = 6;
             app.ContactHelper.PrepareANumberOfContacts(contactNumberToDelete);
-            app.NavigationHelper.OpenMainPage();
+            
             app.ContactHelper.RemoveContactNumber(contactNumberToDelete);
+
+            
         }
     }
 }
