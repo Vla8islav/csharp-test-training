@@ -52,7 +52,8 @@ namespace addressbook_web_tests
 
         private GroupHelper ClickCheckboxElementNumber(int i)
         {
-            Driver.FindElement(By.CssSelector($"[id=content] span:nth-of-type({listPosToXpathSelector(i)}) input[type=checkbox]")).Click();
+            string selector = $"[id=content] span:nth-of-type({listPosToXpathSelector(i)}) input[type=checkbox]";
+            Driver.FindElement(By.CssSelector(selector)).Click();
             return this;
         }
 
@@ -68,7 +69,7 @@ namespace addressbook_web_tests
 
         public List<GroupData> ModifyGroupNumberInList(List<GroupData> groupList, int i, GroupData data)
         {
-            RemoveValuesWhichArentShownInGroupList(data);
+            data = RemoveValuesWhichArentShownInGroupList(data);
 
             groupList[i] = data;
             return groupList;
@@ -138,15 +139,16 @@ namespace addressbook_web_tests
 
         public List<GroupData> AddAndSort(List<GroupData> groupListPrev, GroupData data)
         {
-            RemoveValuesWhichArentShownInGroupList(data);
+            data = RemoveValuesWhichArentShownInGroupList(data);
             groupListPrev.Add(data);
             return Sort(groupListPrev);
         }
 
-        private static void RemoveValuesWhichArentShownInGroupList(GroupData data)
+        private static GroupData RemoveValuesWhichArentShownInGroupList(GroupData data)
         {
             data.GroupFooter = null;
             data.GroupHeader = null;
+            return data;
         }
 
         public List<GroupData> Sort(List<GroupData> groupList)

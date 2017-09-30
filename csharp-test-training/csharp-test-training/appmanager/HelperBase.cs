@@ -60,7 +60,7 @@ namespace addressbook_web_tests
 
         protected int listPosToXpathSelector(int i)
         {
-            return i++;
+            return ++i;
         }
 
     }

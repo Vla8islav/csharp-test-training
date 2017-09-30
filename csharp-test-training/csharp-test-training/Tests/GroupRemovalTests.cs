@@ -15,10 +15,11 @@ namespace addressbook_web_tests
             List<GroupData> groupListPrev = app.GroupHelper.GetGroupList();
             app.GroupHelper.RemoveFromTheListItemNumber(groupPositionToDelete);
             List<GroupData> groupListAfter = app.GroupHelper.GetGroupList();
+
+            List<GroupData> groupListExpected = groupListPrev; 
+            groupListExpected.RemoveAt(groupPositionToDelete);
             
-            groupListPrev.RemoveAt(groupPositionToDelete);
-            
-            app.GroupHelper.CormpareTwoGroupLists(groupListPrev, groupListAfter).CheckTestResult();
+            app.GroupHelper.CormpareTwoGroupLists(groupListAfter, groupListExpected).CheckTestResult();
         }
     }
 }
