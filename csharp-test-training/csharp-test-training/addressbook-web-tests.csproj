@@ -69,6 +69,8 @@
     <Compile Include="DataProviders\GroupFactory.cs" />
     <Compile Include="model\AccountData.cs" />
     <Compile Include="DataProviders\AccountFactory.cs" />
+    <Compile Include="model\CheckResult.cs" />
+    <Compile Include="model\CheckResultSet.cs" />
     <Compile Include="model\ContactData.cs" />
     <Compile Include="Pages\ContactCreationPage.cs" />
     <Compile Include="Pages\GroupCreationPage.cs" />

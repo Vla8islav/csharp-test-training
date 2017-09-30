@@ -17,7 +17,9 @@ namespace addressbook_web_tests
             List<GroupData> groupListAfter = app.GroupHelper.GetGroupList();
 
             groupListPrev.RemoveAt(groupPositionToDelete);
-            Assert.AreEqual(groupListPrev, groupListAfter);
+            CheckResultSet resultSet = app.GroupHelper.CormpareTwoGroupLists(groupListPrev, groupListAfter);
+
+            resultSet.CheckTestResult();
         }
     }
 }

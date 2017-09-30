@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using NUnit.Framework;
 using OpenQA.Selenium;
 
 namespace addressbook_web_tests
@@ -102,6 +103,20 @@ namespace addressbook_web_tests
             }
             
             return groupDataList;
+        }
+
+        public CheckResultSet CormpareTwoGroupLists(List<GroupData> groupListPrev, List<GroupData> groupListAfter)
+        {
+            CheckResultSet retval = new CheckResultSet();
+            List<GroupData> longestList = groupListAfter.Count >= groupListPrev.Count ? groupListAfter : groupListPrev;
+            List<GroupData> shortestList = groupListAfter.Count < groupListPrev.Count ? groupListAfter : groupListPrev;
+
+            for (int i = 0; i < longestList.Count; i++)
+            {
+                retval.Add(longestList[i].Compare(shortestList[i]));
+            }
+            
+            return retval;
         }
     }
 }

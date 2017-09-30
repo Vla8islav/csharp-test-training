@@ -52,8 +52,8 @@ namespace addressbook_web_tests
                 appThreadLocal.Value.NavigationHelper.OpenMainPage();
             }
             
-            
             return appThreadLocal.Value;
         }
+
     }
 }
