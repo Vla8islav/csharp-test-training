@@ -95,5 +95,10 @@ namespace addressbook_web_tests
             }
             return s;
         }
+
+        public override int GetHashCode()
+        {
+            return GroupName.GetHashCode() + GroupHeader.GetHashCode() + GroupFooter.GetHashCode();
+        }
     }
 }
