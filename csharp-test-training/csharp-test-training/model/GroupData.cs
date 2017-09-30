@@ -67,6 +67,11 @@ namespace addressbook_web_tests
         {
             if (null == firstString || null == secondString)
             {
+                if (null == firstString && null == secondString)
+                    // TODO: This looks like a bad workaround, but let it suffice for a while. Don't know != Don't know
+                {
+                    return true;
+                }
                 return false;
             }
 
