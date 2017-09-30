@@ -93,10 +93,7 @@ namespace addressbook_web_tests
             {
                 return "null";
             }
-            else
-            {
-                return s;
-            }
+            return s;
         }
     }
 }
