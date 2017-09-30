@@ -28,9 +28,9 @@ namespace addressbook_web_tests
         private bool IsValidGroupDataEqual(GroupData otherGroupData)
         {
             bool retval = true;
-            retval &= CompareStringsNullFriendly(otherGroupData.GroupName, GroupName);
-            retval &= CompareStringsNullFriendly(otherGroupData.GroupHeader, GroupHeader);
-            retval &= CompareStringsNullFriendly(otherGroupData.GroupFooter, GroupFooter);
+            retval &= PrettyPrint.CompareStringsNullFriendly(otherGroupData.GroupName, GroupName);
+            retval &= PrettyPrint.CompareStringsNullFriendly(otherGroupData.GroupHeader, GroupHeader);
+            retval &= PrettyPrint.CompareStringsNullFriendly(otherGroupData.GroupFooter, GroupFooter);
             return retval;
         }
 
@@ -51,49 +51,20 @@ namespace addressbook_web_tests
                 retval.Message += "You're trying to compare GroupData to itself \n";
                 return retval;
             }
-            retval.Message += PrintElements("GroupName", otherGroupData.GroupName, GroupName);
-            retval.Message += PrintElements("GroupHeader", otherGroupData.GroupHeader, GroupHeader);
-            retval.Message += PrintElements("GroupFooter", otherGroupData.GroupFooter, GroupFooter);
+            retval.Message += PrettyPrint.printTwoNamedStrings("GroupName", otherGroupData.GroupName, GroupName);
+            retval.Message += PrettyPrint.printTwoNamedStrings("GroupHeader", otherGroupData.GroupHeader, GroupHeader);
+            retval.Message += PrettyPrint.printTwoNamedStrings("GroupFooter", otherGroupData.GroupFooter, GroupFooter);
             retval.Result = IsValidGroupDataEqual(otherGroupData);
             return retval;
-        }
-
-        private string PrintElements(string elementName, string propertyValueFirst, string propertyValueSecond)
-        {
-            return $"{printWithNull(elementName)}:\t'{printWithNull(propertyValueFirst)}'\t'{printWithNull(propertyValueSecond)}'\n";
-        }
-
-        private bool CompareStringsNullFriendly(string firstString, string secondString)
-        {
-            if (null == firstString || null == secondString)
-            {
-                if (null == firstString && null == secondString)
-                    // TODO: This looks like a bad workaround, but let it suffice for a while. Don't know != Don't know
-                {
-                    return true;
-                }
-                return false;
-            }
-
-            return firstString.Equals(secondString);
         }
 
         private string printObjectData()
         {
             string retval = "";
-            retval += $"Group name is '{printWithNull(GroupName)}'\n";
-            retval += $"Group header is '{printWithNull(GroupHeader)}'\n";
-            retval += $"Group footer is '{printWithNull(GroupFooter)}'\n";
+            retval += $"Group name is '{PrettyPrint.printWithNull(GroupName)}'\n";
+            retval += $"Group header is '{PrettyPrint.printWithNull(GroupHeader)}'\n";
+            retval += $"Group footer is '{PrettyPrint.printWithNull(GroupFooter)}'\n";
             return retval;
-        }
-
-        private string printWithNull(string s)
-        {
-            if (null == s)
-            {
-                return "null";
-            }
-            return s;
         }
 
         public override int GetHashCode()
