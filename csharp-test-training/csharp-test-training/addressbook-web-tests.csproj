@@ -65,6 +65,7 @@
   <ItemGroup>
     <Compile Include="appmanager\ApplicationManager.cs" />
     <Compile Include="appmanager\ContactHelper.cs" />
+    <Compile Include="appmanager\HelpersGeneral\ObjectComparePrinter.cs" />
     <Compile Include="appmanager\HelpersGeneral\PrettyPrint.cs" />
     <Compile Include="DataProviders\ContactFactory.cs" />
     <Compile Include="DataProviders\GroupFactory.cs" />
@@ -73,6 +74,7 @@
     <Compile Include="model\CheckResult.cs" />
     <Compile Include="model\CheckResultSet.cs" />
     <Compile Include="model\ContactData.cs" />
+    <Compile Include="model\ModelBase.cs" />
     <Compile Include="Pages\ContactCreationPage.cs" />
     <Compile Include="Pages\GroupCreationPage.cs" />
     <Compile Include="Pages\GroupsPage.cs" />

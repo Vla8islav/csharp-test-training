@@ -1,4 +1,5 @@
-﻿using NUnit.Framework;
+﻿using System.Collections.Generic;
+using NUnit.Framework;
 
 namespace addressbook_web_tests
 {
@@ -10,16 +11,25 @@ namespace addressbook_web_tests
         {
             GroupData data = new GroupData
             {
-                GroupName =  "Some new goup" + " modified",
+                GroupName = "Some new goup" + " modified",
                 GroupHeader = "Some group header" + " modified",
                 GroupFooter = "Некоторый русский текст для разнообразия." + " modified"
             };
 
             int groupNumberToModify = 5;
             app.GroupHelper.PrepareANumberOfGroups(groupNumberToModify);
-            app.NavigationHelper.OpenGroupsPage();
-            app.GroupHelper.ModifyGroupNumber(groupNumberToModify, data);
-        }
 
+            List<GroupData> groupListPrev = app.GroupHelper.GetGroupList();
+            app.GroupHelper.ModifyGroupNumber(groupNumberToModify, data);
+            List<GroupData> groupListAfter = app.GroupHelper.GetGroupList();
+
+            List<GroupData> groupListExpected =
+                app.GroupHelper.ModifyGroupNumberInList(groupListPrev, groupNumberToModify, data);
+
+            app.GroupHelper.CormpareTwoGroupLists(
+                    app.GroupHelper.Sort(groupListAfter),
+                    app.GroupHelper.Sort(groupListExpected))
+                .CheckTestResult();
+        }
     }
 }

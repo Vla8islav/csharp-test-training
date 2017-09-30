@@ -2,7 +2,7 @@
 
 namespace addressbook_web_tests
 {
-    public class GroupData : ModelBase
+    public class GroupData : ModelBase, IComparable<GroupData>
     {
 
         public string GroupName { get; set; } = null;
@@ -36,6 +36,16 @@ namespace addressbook_web_tests
 
         public CheckResult Compare(GroupData otherGroupData)
         {
+            if (null == otherGroupData)
+            {
+                otherGroupData = new GroupData
+                {
+                    GroupFooter = null,
+                    GroupHeader = null,
+                    GroupName = null
+                };
+            }
+
             CheckResult retval = new CheckResult();
             ObjectComparePrinter comparePrinter = new ObjectComparePrinter("GroupData");
             comparePrinter.AddPairOfValues("GroupName", otherGroupData.GroupName, GroupName);
@@ -49,6 +59,15 @@ namespace addressbook_web_tests
         public override int GetHashCode()
         {
             return GroupName.GetHashCode() + GroupHeader.GetHashCode() + GroupFooter.GetHashCode();
+        }
+
+        public int CompareTo(GroupData otherGroupData)
+        {
+            if (ReferenceEquals(otherGroupData, null))
+            {
+                return 1;
+            }
+            return String.Compare(GroupName, otherGroupData.GroupName, StringComparison.Ordinal);
         }
     }
 }

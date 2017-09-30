@@ -18,8 +18,11 @@ namespace addressbook_web_tests
             List<GroupData> groupListPrev = app.GroupHelper.GetGroupList();
             app.GroupHelper.Create(data);
             List<GroupData> groupListAfter = app.GroupHelper.GetGroupList();
-            Assert.AreEqual(groupListAfter.Count, groupListPrev.Count + 1,
-                $"Expected group count on a page {app.Driver.Url} is {groupListPrev.Count + 1} actual count {groupListAfter.Count}");
+            
+            app.GroupHelper.CormpareTwoGroupLists(
+                app.GroupHelper.AddAndSort(groupListPrev, data), 
+                app.GroupHelper.Sort(groupListAfter))
+                .CheckTestResult();
         }
         
         [Test]
@@ -34,8 +37,11 @@ namespace addressbook_web_tests
             List<GroupData> groupListPrev = app.GroupHelper.GetGroupList();
             app.GroupHelper.Create(data);
             List<GroupData> groupListAfter = app.GroupHelper.GetGroupList();
-            Assert.AreEqual(groupListAfter.Count, groupListPrev.Count + 1,
-                $"Expected group count on a page {app.Driver.Url} is {groupListPrev.Count + 1} actual count {groupListAfter.Count}");
+            
+            app.GroupHelper.CormpareTwoGroupLists(
+                    app.GroupHelper.AddAndSort(groupListPrev, data), 
+                    app.GroupHelper.Sort(groupListAfter))
+                .CheckTestResult();
         }
 
         [Test]
@@ -51,8 +57,12 @@ namespace addressbook_web_tests
             List<GroupData> groupListPrev = app.GroupHelper.GetGroupList();
             app.GroupHelper.Create(data);
             List<GroupData> groupListAfter = app.GroupHelper.GetGroupList();
-            Assert.AreEqual(groupListAfter.Count, groupListPrev.Count + 1,
-                $"Expected group count on a page {app.Driver.Url} is {groupListPrev.Count + 1} actual count {groupListAfter.Count}");
+
+            app.GroupHelper.CormpareTwoGroupLists(
+                    app.GroupHelper.AddAndSort(groupListPrev, data), 
+                    app.GroupHelper.Sort(groupListAfter))
+                .CheckTestResult();
+            
         }
 
         [Test]
@@ -67,8 +77,11 @@ namespace addressbook_web_tests
             List<GroupData> groupListPrev = app.GroupHelper.GetGroupList();
             app.GroupHelper.Create(data);
             List<GroupData> groupListAfter = app.GroupHelper.GetGroupList();
-            Assert.AreEqual(groupListAfter.Count, groupListPrev.Count + 1,
-                $"Expected group count on a page {app.Driver.Url} is {groupListPrev.Count + 1} actual count {groupListAfter.Count}");
+            
+            app.GroupHelper.CormpareTwoGroupLists(
+                    app.GroupHelper.AddAndSort(groupListPrev, data), 
+                    app.GroupHelper.Sort(groupListAfter))
+                .CheckTestResult();
         }
     }
 }
