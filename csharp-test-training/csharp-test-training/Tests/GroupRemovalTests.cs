@@ -9,16 +9,15 @@ namespace addressbook_web_tests
         [Test]
         public void GroupRemovalTest()
         {
-            const int groupNumberToDelete = 5;
-            app.GroupHelper.PrepareANumberOfGroups(groupNumberToDelete);
+            const int groupPositionToDelete = 4;
+            app.GroupHelper.PrepareANumberOfGroups(groupPositionToDelete + 1);
             
             List<GroupData> groupListPrev = app.GroupHelper.GetGroupList();
-            app.GroupHelper.RemoveFromTheListItemNumber(groupNumberToDelete);
+            app.GroupHelper.RemoveFromTheListItemNumber(groupPositionToDelete);
             List<GroupData> groupListAfter = app.GroupHelper.GetGroupList();
-            Assert.AreEqual(groupListAfter.Count, groupListPrev.Count - 1,
-                $"Expected group count on a page {app.Driver.Url} is {groupListPrev.Count - 1} actual count {groupListAfter.Count}");
 
-            
+            groupListPrev.RemoveAt(groupPositionToDelete);
+            Assert.AreEqual(groupListPrev, groupListAfter);
         }
     }
 }

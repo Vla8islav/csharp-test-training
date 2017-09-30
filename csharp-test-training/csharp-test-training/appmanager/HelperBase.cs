@@ -58,5 +58,10 @@ namespace addressbook_web_tests
             return retval;
         }
 
+        protected int listPosToXpathSelector(int i)
+        {
+            return i++;
+        }
+
     }
 }
