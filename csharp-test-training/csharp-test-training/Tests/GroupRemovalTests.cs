@@ -16,7 +16,7 @@ namespace addressbook_web_tests
             app.GroupHelper.RemoveFromTheListItemNumber(groupPositionToDelete);
             List<GroupData> groupListAfter = app.GroupHelper.GetGroupList();
             
-            groupListPrev.RemoveAt(groupPositionToDelete);
+            groupListPrev.RemoveAt(groupPositionToDelete - groupPositionToDelete);
             
             app.GroupHelper.CormpareTwoGroupLists(groupListPrev, groupListAfter).CheckTestResult();
         }
