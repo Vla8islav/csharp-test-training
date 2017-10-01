@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Reflection;
 using NUnit.Framework;
 using OpenQA.Selenium;
 
@@ -25,7 +27,7 @@ namespace addressbook_web_tests
             FillField(By.Name("group_name"), data.GroupName);
             FillField(By.Name("group_header"), data.GroupHeader);
             FillField(By.Name("group_footer"), data.GroupFooter);
-            
+
             return this;
         }
 
@@ -67,14 +69,6 @@ namespace addressbook_web_tests
             return this;
         }
 
-        public List<GroupData> ModifyGroupNumberInList(List<GroupData> groupList, int i, GroupData data)
-        {
-            data = RemoveValuesWhichArentShownInGroupList(data);
-
-            groupList[i] = data;
-            return groupList;
-        }
-        
         public GroupHelper ClickOnModifyButton()
         {
             Driver.FindElement(By.Name("edit")).Click();
@@ -86,7 +80,7 @@ namespace addressbook_web_tests
             Driver.FindElement(By.Name("update")).Click();
             return this;
         }
-        
+
         public void PrepareANumberOfGroups(int i)
         {
             app.NavigationHelper.OpenGroupsPage();
@@ -99,62 +93,47 @@ namespace addressbook_web_tests
                 }
             }
         }
-        
+
         public List<GroupData> GetGroupList()
         {
             app.NavigationHelper.OpenGroupsPage();
             List<GroupData> groupDataList = new List<GroupData>();
 
-            ReadOnlyCollection<IWebElement> displayedGroups = Driver.FindElements(By.CssSelector("#content span.group"));
+            ReadOnlyCollection<IWebElement>
+                displayedGroups = Driver.FindElements(By.CssSelector("#content span.group"));
 
             foreach (var displayedGroup in displayedGroups)
             {
-                groupDataList.Add(new GroupData{GroupName =  displayedGroup.Text});
+                groupDataList.Add(new GroupData {GroupName = displayedGroup.Text});
             }
-            
+
             return groupDataList;
         }
 
         public CheckResultSet CormpareTwoGroupLists(List<GroupData> groupListPrev, List<GroupData> groupListAfter)
         {
-            CheckResultSet retval = new CheckResultSet();
-            CheckResult compareListLength = new CheckResult(groupListAfter.Count == groupListPrev.Count, $"First list length is {groupListPrev.Count}, second list length is {groupListAfter.Count}");
-            retval.Add(compareListLength);
-            List<GroupData> longestList = groupListAfter.Count >= groupListPrev.Count ? groupListAfter : groupListPrev;
-            List<GroupData> shortestList = groupListAfter.Count < groupListPrev.Count ? groupListAfter : groupListPrev;
-
-            for (int i = 0; i < longestList.Count; i++)
-            {
-                GroupData elementToCompare = null;
-                if (i < shortestList.Count)
-                {
-                    elementToCompare = shortestList[i];
-                }
-                
-                retval.Add(longestList[i].Compare(elementToCompare));
-            }
-            
-            return retval;
+            return CormpareTwoModelLists(groupListPrev, groupListAfter,
+                (firstGroupData, secondGroupData) => firstGroupData.Compare(secondGroupData));
         }
 
+        private GroupData RemoveValuesWhichArentShownInGroupList(GroupData groupData)
+        {
+            groupData.GroupFooter = null;
+            groupData.GroupHeader = null;
+            return groupData;
+        }
+
+        public List<GroupData> ModifyGroupNumberInList(List<GroupData> groupList, int i, GroupData data)
+        {
+            return ModifyGroupNumberInList(groupList, i, data, RemoveValuesWhichArentShownInGroupList);;
+        }
+        
+        
         public List<GroupData> AddAndSort(List<GroupData> groupListPrev, GroupData data)
         {
-            data = RemoveValuesWhichArentShownInGroupList(data);
-            groupListPrev.Add(data);
+            AddAndSort(groupListPrev, data, RemoveValuesWhichArentShownInGroupList);
             return Sort(groupListPrev);
         }
 
-        private static GroupData RemoveValuesWhichArentShownInGroupList(GroupData data)
-        {
-            data.GroupFooter = null;
-            data.GroupHeader = null;
-            return data;
-        }
-
-        public List<GroupData> Sort(List<GroupData> groupList)
-        {
-            groupList.Sort();
-            return groupList;
-        }
     }
 }

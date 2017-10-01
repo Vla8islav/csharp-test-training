@@ -16,13 +16,14 @@ namespace addressbook_web_tests
 
             AccountFactory = new AccountFactory();
             Environment = new TestingEnvironment();
+            HelperBase = new HelperBase(this);
             LoginHelper = new LoginHelper(this);
             NavigationHelper = new NavigationHelper(this, Environment);
             GroupHelper = new GroupHelper(this);
             ContactHelper = new ContactHelper(this);
-
         }
 
+        public HelperBase HelperBase { get; }
         public NavigationHelper NavigationHelper { get; }
         public LoginHelper LoginHelper { get; }
         public GroupHelper GroupHelper { get; }

@@ -40,7 +40,7 @@ namespace addressbook_web_tests
             
             app.GroupHelper.CormpareTwoGroupLists(
                     app.GroupHelper.AddAndSort(groupListPrev, data), 
-                    app.GroupHelper.Sort(groupListAfter))
+                    app.HelperBase.Sort(groupListAfter))
                 .CheckTestResult();
         }
 

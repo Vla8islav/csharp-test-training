@@ -32,6 +32,5 @@ namespace addressbook_web_tests
 
             return firstString.Equals(secondString);
         }
-
     }
 }

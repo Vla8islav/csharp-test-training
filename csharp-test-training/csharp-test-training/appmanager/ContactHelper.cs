@@ -1,4 +1,8 @@
-﻿using System.Text.RegularExpressions;
+﻿using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Linq;
+using System.Text.RegularExpressions;
 using NUnit.Framework;
 using OpenQA.Selenium;
 
@@ -22,6 +26,7 @@ namespace addressbook_web_tests
             FillField(By.Name("firstname"), data.FirstName);
             FillField(By.Name("middlename"), data.MiddleName);
             FillField(By.Name("lastname"), data.LastName);
+            FillField(By.Name("email"), data.EMail);
             return this;
         }
 
@@ -36,7 +41,7 @@ namespace addressbook_web_tests
 
         private ContactHelper ClickCheckboxElementNumber(int i)
         {
-            Driver.FindElement(By.CssSelector($"table[id=maintable] tr:nth-of-type({++i}) input[type='checkbox']"))
+            Driver.FindElement(By.CssSelector($"table[id=maintable] tr:nth-of-type({listPosToXpathSelector(i + 1)}) input[type='checkbox']"))
                 .Click();
             return this;
         }
@@ -61,7 +66,7 @@ namespace addressbook_web_tests
 
         private ContactHelper ClickOnModifyPencilPictogammNumber(int i)
         {
-            Driver.FindElement(By.CssSelector($"table[id=maintable] tr:nth-of-type({++i}) img[title=Edit]")).Click();
+            Driver.FindElement(By.CssSelector($"table[id=maintable] tr:nth-of-type({listPosToXpathSelector(i + 1)}) img[title=Edit]")).Click();
             return this;
         }
 
@@ -78,6 +83,7 @@ namespace addressbook_web_tests
 
         public ContactHelper ModifyContactNumber(int i, ContactData data)
         {
+            app.NavigationHelper.OpenMainPage();
             ClickOnModifyPencilPictogammNumber(i);
             FillContactForm(data);
             ClickUpdateButton();
@@ -101,6 +107,72 @@ namespace addressbook_web_tests
         private int GetNumberOfDisplayedContacts()
         {
             return Driver.FindElements(By.CssSelector("#maintable tr[name='entry']")).Count;
+        }
+
+        public List<ContactData>  GetContactList()
+        {
+            app.NavigationHelper.OpenMainPage();
+            List<ContactData> contactDataList = new List<ContactData>();
+
+            ReadOnlyCollection<IWebElement> displayedContacts = Driver.FindElements(By.CssSelector("#maintable tr[name=entry]"));
+
+            foreach (var displayedContact in displayedContacts)
+            {
+                IWebElement lastNameElement = displayedContact.FindElement(By.CssSelector("td:nth-child(2)"));
+                IWebElement firstNameElement = displayedContact.FindElement(By.CssSelector("td:nth-child(3)"));
+                IWebElement addressElement = displayedContact.FindElement(By.CssSelector("td:nth-child(4)"));
+                IWebElement emailElement = displayedContact.FindElement(By.CssSelector("td:nth-child(5)"));
+                IWebElement phoneElement = displayedContact.FindElement(By.CssSelector("td:nth-child(6)"));
+                
+                contactDataList.Add(new ContactData
+                {
+                    LastName =  lastNameElement.Text,
+                    FirstName =  firstNameElement.Text,
+                    Address =  addressElement.Text,
+                    // TODO: Add email and phone parser
+                    EMail = emailElement.Text,
+                    Telephone =  phoneElement.Text,
+                    
+                });
+            }
+            
+            return contactDataList;
+        }
+        
+        private ContactData RemoveValuesWhichArentShownInGroupList(ContactData contactData)
+        {
+            contactData.MiddleName = null;
+            contactData.Nickname = null;
+            contactData.Photo = null;
+            contactData.Title = null;
+            contactData.Company = null;
+            contactData.Home = null;
+            contactData.Mobile = null;
+            contactData.Work = null;
+            contactData.Fax = null;
+            contactData.EMail2 = null;
+            contactData.EMail3 = null;
+            contactData.Homepage = null;
+            contactData.Birthday = null;
+            contactData.Anniversary = null;
+            contactData.Group = null;
+            contactData.Secondary = null;
+            contactData.SecondaryAddress = null;
+            contactData.SecondaryHome = null;
+            contactData.Notes = null;
+            
+            return contactData;
+        }
+        
+        public CheckResultSet CormpareTwoContactLists(List<ContactData> contactListPrev, List<ContactData> contactListAfter)
+        {
+            return CormpareTwoModelLists(contactListPrev, contactListAfter,
+                (firstContactData, secondContactData) => firstContactData.Compare(secondContactData));
+        }
+
+        public List<ContactData> ModifyContactNumberInList(List<ContactData> contactListPrev, int contactNumberToModify, ContactData data)
+        {
+            return ModifyGroupNumberInList(contactListPrev, contactNumberToModify, data, RemoveValuesWhichArentShownInGroupList);;
         }
     }
 }

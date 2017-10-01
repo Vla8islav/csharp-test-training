@@ -4,10 +4,14 @@
     {
         public static ContactData GetSampleContactData()
         {
-            return new ContactData("TestName")
+            return new ContactData
             {
+                FirstName = "TestName",
                 MiddleName = "TestMiddleName",
-                LastName = "TestLastName"
+                LastName = "TestLastName",
+                Address =	"",
+                Telephone = "",
+                EMail = ""
             };
         }
     }

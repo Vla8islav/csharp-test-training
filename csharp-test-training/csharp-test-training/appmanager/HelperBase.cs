@@ -1,4 +1,6 @@
-﻿using OpenQA.Selenium;
+﻿using System;
+using System.Collections.Generic;
+using OpenQA.Selenium;
 
 namespace addressbook_web_tests
 {
@@ -61,6 +63,57 @@ namespace addressbook_web_tests
         protected int listPosToXpathSelector(int i)
         {
             return ++i;
+        }
+
+        protected CheckResultSet CormpareTwoModelLists<T>(List<T> groupListPrev, List<T> groupListAfter,
+            Func<T, T, CheckResult> myMethodName)
+        {
+            CheckResultSet retval = new CheckResultSet();
+            CheckResult compareListLength = CompareListLength(groupListPrev, groupListAfter);
+            retval.Add(compareListLength);
+            List<T> longestList = groupListAfter.Count >= groupListPrev.Count ? groupListAfter : groupListPrev;
+            List<T> shortestList = groupListAfter.Count < groupListPrev.Count ? groupListAfter : groupListPrev;
+
+            for (int i = 0; i < longestList.Count; i++)
+            {
+                T elementToCompare = default(T);
+                if (i < shortestList.Count)
+                {
+                    elementToCompare = shortestList[i];
+                }
+
+                CheckResult currentCheckResult = myMethodName(longestList[i], elementToCompare);
+                retval.Add(currentCheckResult);
+            }
+            return retval;
+        }
+
+        
+        private static CheckResult CompareListLength<T>(List<T> groupListPrev, List<T> groupListAfter)
+        {
+            CheckResult compareListLength = new CheckResult(groupListAfter.Count == groupListPrev.Count,
+                $"First list length is {groupListPrev.Count}, second list length is {groupListAfter.Count}");
+            return compareListLength;
+        }
+        
+        public List<T> Sort<T>(List<T> groupList)
+        {
+            groupList.Sort();
+            return groupList;
+        }
+        
+        protected List<T> AddAndSort<T>(List<T> list, T data, Func<T, T> removeValuesNotInTheList)
+        {
+            data = removeValuesNotInTheList(data);
+            list.Add(data);
+            return Sort(list);
+        }
+
+        protected List<T> ModifyGroupNumberInList<T>(List<T> list, int i, T data, Func<T, T> removeValuesNotInTheList)
+        {
+            data = removeValuesNotInTheList(data);
+            list[i] = data;
+            return list;
         }
 
     }
