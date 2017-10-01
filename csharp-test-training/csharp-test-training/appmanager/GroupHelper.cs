@@ -54,7 +54,7 @@ namespace addressbook_web_tests
 
         private GroupHelper ClickCheckboxElementNumber(int i)
         {
-            string selector = $"[id=content] span:nth-of-type({listPosToXpathSelector(i)}) input[type=checkbox]";
+            string selector = $"[id=content] span:nth-of-type({ListPosToXpathSelector(i)}) input[type=checkbox]";
             Driver.FindElement(By.CssSelector(selector)).Click();
             return this;
         }

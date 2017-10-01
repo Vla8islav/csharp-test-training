@@ -41,7 +41,7 @@ namespace addressbook_web_tests
 
         private ContactHelper ClickCheckboxElementNumber(int i)
         {
-            Driver.FindElement(By.CssSelector($"table[id=maintable] tr:nth-of-type({listPosToXpathSelector(i + 1)}) input[type='checkbox']"))
+            Driver.FindElement(By.CssSelector($"table[id=maintable] tr:nth-of-type({ListPosToXpathSelector(i + 1)}) input[type='checkbox']"))
                 .Click();
             return this;
         }
@@ -66,7 +66,7 @@ namespace addressbook_web_tests
 
         private ContactHelper ClickOnModifyPencilPictogammNumber(int i)
         {
-            Driver.FindElement(By.CssSelector($"table[id=maintable] tr:nth-of-type({listPosToXpathSelector(i + 1)}) img[title=Edit]")).Click();
+            Driver.FindElement(By.CssSelector($"table[id=maintable] tr:nth-of-type({ListPosToXpathSelector(i + 1)}) img[title=Edit]")).Click();
             return this;
         }
 
@@ -99,7 +99,7 @@ namespace addressbook_web_tests
             {
                 for (int j = 0; j < i - numberOfDisplayedContacts; j++)
                 {
-                    Create(ContactFactory.GetSampleContactData());
+                    Create(ContactFactory.GetContactDataWithUniqueValues());
                 }
             }
         }

@@ -10,16 +10,8 @@ namespace addressbook_web_tests
         [Test]
         public void ContactModificationTest()
         {
-            ContactData data = new ContactData
-            {
-                FirstName = "TestName" + DateTime.Now,
-                MiddleName = "TestMiddleName" + DateTime.Now,
-                LastName = "TestLastName" + DateTime.Now,
-                Address =	"",
-                Telephone = "",
-                EMail = "" + DateTime.Now,
-            };
-            const int contactNumberToModify = 5;
+            ContactData data = ContactFactory.GetContactDataWithUniqueValues();
+            const int contactNumberToModify = 1;
             app.ContactHelper.PrepareANumberOfContacts(contactNumberToModify);
 
             List<ContactData> contactListPrev = app.ContactHelper.GetContactList();

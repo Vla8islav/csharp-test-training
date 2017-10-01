@@ -60,19 +60,19 @@ namespace addressbook_web_tests
             return retval;
         }
 
-        protected int listPosToXpathSelector(int i)
+        protected int ListPosToXpathSelector(int i)
         {
             return ++i;
         }
 
-        protected CheckResultSet CormpareTwoModelLists<T>(List<T> groupListPrev, List<T> groupListAfter,
-            Func<T, T, CheckResult> myMethodName)
+        protected CheckResultSet CormpareTwoModelLists<T>(List<T> listFirst, List<T> listSecond,
+            Func<T, T, CheckResult> compareAndGetTestResult)
         {
             CheckResultSet retval = new CheckResultSet();
-            CheckResult compareListLength = CompareListLength(groupListPrev, groupListAfter);
+            CheckResult compareListLength = CompareListLength(listFirst, listSecond);
             retval.Add(compareListLength);
-            List<T> longestList = groupListAfter.Count >= groupListPrev.Count ? groupListAfter : groupListPrev;
-            List<T> shortestList = groupListAfter.Count < groupListPrev.Count ? groupListAfter : groupListPrev;
+            List<T> longestList = listSecond.Count >= listFirst.Count ? listSecond : listFirst;
+            List<T> shortestList = listSecond.Count < listFirst.Count ? listSecond : listFirst;
 
             for (int i = 0; i < longestList.Count; i++)
             {
@@ -82,36 +82,36 @@ namespace addressbook_web_tests
                     elementToCompare = shortestList[i];
                 }
 
-                CheckResult currentCheckResult = myMethodName(longestList[i], elementToCompare);
+                CheckResult currentCheckResult = compareAndGetTestResult(longestList[i], elementToCompare);
                 retval.Add(currentCheckResult);
             }
             return retval;
         }
 
         
-        private static CheckResult CompareListLength<T>(List<T> groupListPrev, List<T> groupListAfter)
+        private static CheckResult CompareListLength<T>(List<T> listFirst, List<T> listSecond)
         {
-            CheckResult compareListLength = new CheckResult(groupListAfter.Count == groupListPrev.Count,
-                $"First list length is {groupListPrev.Count}, second list length is {groupListAfter.Count}");
+            CheckResult compareListLength = new CheckResult(listSecond.Count == listFirst.Count,
+                $"First list length is {listFirst.Count}, second list length is {listSecond.Count}");
             return compareListLength;
         }
         
-        public List<T> Sort<T>(List<T> groupList)
+        public List<T> Sort<T>(List<T> list)
         {
-            groupList.Sort();
-            return groupList;
+            list.Sort();
+            return list;
         }
         
-        protected List<T> AddAndSort<T>(List<T> list, T data, Func<T, T> removeValuesNotInTheList)
+        protected List<T> AddAndSort<T>(List<T> list, T data, Func<T, T> removeValuesNotShownInBrowserListPage)
         {
-            data = removeValuesNotInTheList(data);
+            data = removeValuesNotShownInBrowserListPage(data);
             list.Add(data);
             return Sort(list);
         }
 
-        protected List<T> ModifyGroupNumberInList<T>(List<T> list, int i, T data, Func<T, T> removeValuesNotInTheList)
+        protected List<T> ModifyGroupNumberInList<T>(List<T> list, int i, T data, Func<T, T> removeValuesNotShownInBrowserListPage)
         {
-            data = removeValuesNotInTheList(data);
+            data = removeValuesNotShownInBrowserListPage(data);
             list[i] = data;
             return list;
         }
