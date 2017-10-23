@@ -34,6 +34,7 @@ namespace addressbook_web_tests
         public GroupHelper SubmitGroupForm()
         {
             Driver.FindElement(By.Name("submit")).Click();
+            _groupCache = null;
             return this;
         }
 
@@ -48,6 +49,7 @@ namespace addressbook_web_tests
 
         private GroupHelper ClickOnDeleteButton()
         {
+            _groupCache = null;
             Driver.FindElement(By.XPath("(//input[@name='delete'])[2]")).Click();
             return this;
         }
@@ -72,12 +74,14 @@ namespace addressbook_web_tests
         public GroupHelper ClickOnModifyButton()
         {
             Driver.FindElement(By.Name("edit")).Click();
+            _groupCache = null;
             return this;
         }
 
         public GroupHelper ClickOnUpdateButton()
         {
             Driver.FindElement(By.Name("update")).Click();
+            _groupCache = null;
             return this;
         }
 
@@ -94,20 +98,25 @@ namespace addressbook_web_tests
             }
         }
 
+        private List<GroupData> _groupCache = null;
+
         public List<GroupData> GetGroupList()
         {
-            app.NavigationHelper.OpenGroupsPage();
-            List<GroupData> groupDataList = new List<GroupData>();
-
-            ReadOnlyCollection<IWebElement>
-                displayedGroups = Driver.FindElements(By.CssSelector("#content span.group"));
-
-            foreach (var displayedGroup in displayedGroups)
+            if (null == _groupCache)
             {
-                groupDataList.Add(new GroupData {GroupName = displayedGroup.Text});
+                _groupCache = new List<GroupData>();
+                app.NavigationHelper.OpenGroupsPage();
+
+                ReadOnlyCollection<IWebElement>
+                    displayedGroups = Driver.FindElements(By.CssSelector("#content span.group"));
+
+                foreach (var displayedGroup in displayedGroups)
+                {
+                    _groupCache.Add(new GroupData {GroupName = displayedGroup.Text});
+                }
             }
 
-            return groupDataList;
+            return new List<GroupData>(_groupCache);
         }
 
         public CheckResultSet CormpareTwoGroupLists(List<GroupData> groupListPrev, List<GroupData> groupListAfter)

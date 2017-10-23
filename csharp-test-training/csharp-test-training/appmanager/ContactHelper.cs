@@ -17,6 +17,7 @@ namespace addressbook_web_tests
 
         public ContactHelper SubmitContactData()
         {
+            _contactCache = null;
             Driver.FindElement(By.Name("submit")).Click();
             return this;
         }
@@ -32,6 +33,7 @@ namespace addressbook_web_tests
 
         public ContactHelper RemoveContactNumber(int i)
         {
+            _contactCache = null;
             app.NavigationHelper.OpenMainPage();
             ClickCheckboxElementNumber(i);
             ClickDeleteButton();
@@ -48,18 +50,21 @@ namespace addressbook_web_tests
 
         private ContactHelper ClickDeleteButton()
         {
+            _contactCache = null;
             Driver.FindElement(By.XPath("//input[@value='Delete']")).Click();
             return this;
         }
 
         private ContactHelper ConfirmDeletion()
         {
+            _contactCache = null;
             Assert.IsTrue(Regex.IsMatch(CloseAlertAndGetItsText(true), "^Delete 1 addresses[\\s\\S]$"));
             return this;
         }
 
         private ContactHelper ClickUpdateButton()
         {
+            _contactCache = null;
             Driver.FindElement(By.Name("update")).Click();
             return this;
         }
@@ -109,34 +114,39 @@ namespace addressbook_web_tests
             return Driver.FindElements(By.CssSelector("#maintable tr[name='entry']")).Count;
         }
 
+        private List<ContactData> _contactCache = null;
+        
         public List<ContactData>  GetContactList()
         {
-            app.NavigationHelper.OpenMainPage();
-            List<ContactData> contactDataList = new List<ContactData>();
-
-            ReadOnlyCollection<IWebElement> displayedContacts = Driver.FindElements(By.CssSelector("#maintable tr[name=entry]"));
-
-            foreach (var displayedContact in displayedContacts)
+            if (_contactCache == null)
             {
-                IWebElement lastNameElement = displayedContact.FindElement(By.CssSelector("td:nth-child(2)"));
-                IWebElement firstNameElement = displayedContact.FindElement(By.CssSelector("td:nth-child(3)"));
-                IWebElement addressElement = displayedContact.FindElement(By.CssSelector("td:nth-child(4)"));
-                IWebElement emailElement = displayedContact.FindElement(By.CssSelector("td:nth-child(5)"));
-                IWebElement phoneElement = displayedContact.FindElement(By.CssSelector("td:nth-child(6)"));
-                
-                contactDataList.Add(new ContactData
+                _contactCache = new List<ContactData>();
+                app.NavigationHelper.OpenMainPage();
+
+                ReadOnlyCollection<IWebElement> displayedContacts = Driver.FindElements(By.CssSelector("#maintable tr[name=entry]"));
+
+                foreach (var displayedContact in displayedContacts)
                 {
-                    LastName =  lastNameElement.Text,
-                    FirstName =  firstNameElement.Text,
-                    Address =  addressElement.Text,
-                    // TODO: Add email and phone parser
-                    EMail = emailElement.Text,
-                    Telephone =  phoneElement.Text,
+                    IWebElement lastNameElement = displayedContact.FindElement(By.CssSelector("td:nth-child(2)"));
+                    IWebElement firstNameElement = displayedContact.FindElement(By.CssSelector("td:nth-child(3)"));
+                    IWebElement addressElement = displayedContact.FindElement(By.CssSelector("td:nth-child(4)"));
+                    IWebElement emailElement = displayedContact.FindElement(By.CssSelector("td:nth-child(5)"));
+                    IWebElement phoneElement = displayedContact.FindElement(By.CssSelector("td:nth-child(6)"));
+                
+                    _contactCache.Add(new ContactData
+                    {
+                        LastName =  lastNameElement.Text,
+                        FirstName =  firstNameElement.Text,
+                        Address =  addressElement.Text,
+                        // TODO: Add email and phone parser
+                        EMail = emailElement.Text,
+                        Telephone =  phoneElement.Text,
                     
-                });
+                    });
+                }
             }
             
-            return contactDataList;
+            return new List<ContactData>(_contactCache);
         }
         
         private ContactData RemoveValuesWhichArentShownInGroupList(ContactData contactData)
