@@ -11,12 +11,12 @@ namespace addressbook_web_tests
         public void ContactModificationTest()
         {
             const int contactNumberToModify = 1;
+            ContactData data = ContactFactory.GetContactDataWithUniqueValues();
             app.ContactHelper.PrepareANumberOfContacts(contactNumberToModify);
 
             List<ContactData> contactListPrev = app.ContactHelper.GetContactList();
             
-            ContactData data = ContactFactory.GetContactDataWithUniqueValues();
-            data.Id = app.ContactHelper.GetContact(contactNumberToModify).Id;
+            data.Id = app.ContactHelper.GetContactInfoFromList(contactNumberToModify).Id;
             app.ContactHelper.ModifyContactNumber(contactNumberToModify, data);
             
             List<ContactData> contactListAfter = app.ContactHelper.GetContactList();

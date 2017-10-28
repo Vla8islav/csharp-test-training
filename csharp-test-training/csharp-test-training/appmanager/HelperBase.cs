@@ -23,6 +23,15 @@ namespace addressbook_web_tests
                 Driver.FindElement(locator).SendKeys(text);
             }
         }
+        
+        public void FillField(IWebElement webElement, string text)
+        {
+            if (null != text)
+            {
+                webElement.Clear();
+                webElement.SendKeys(text);
+            }
+        }
 
         public string CloseAlertAndGetItsText(bool accept)
         {

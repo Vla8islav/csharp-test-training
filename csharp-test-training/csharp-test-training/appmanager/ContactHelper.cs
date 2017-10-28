@@ -5,6 +5,7 @@ using System.Dynamic;
 using System.Globalization;
 using System.Linq;
 using System.Text.RegularExpressions;
+using addressbook_web_tests.Pages;
 using NUnit.Framework;
 using OpenQA.Selenium;
 
@@ -26,10 +27,10 @@ namespace addressbook_web_tests
 
         public ContactHelper FillContactForm(ContactData data)
         {
-            FillField(By.Name("firstname"), data.FirstName);
-            FillField(By.Name("middlename"), data.MiddleName);
-            FillField(By.Name("lastname"), data.LastName);
-            FillField(By.Name("email"), data.EMail);
+            FillField(ContactCreationPage.FirstName, data.FirstName);
+            FillField(ContactCreationPage.MiddleName, data.MiddleName);
+            FillField(ContactCreationPage.LastName, data.LastName);
+            FillField(ContactCreationPage.Email, data.EMail);
             return this;
         }
 
@@ -90,12 +91,17 @@ namespace addressbook_web_tests
 
         public ContactHelper ModifyContactNumber(int i, ContactData data)
         {
-            app.NavigationHelper.OpenMainPage();
-            ClickOnModifyPencilPictogammNumber(i);
+            OpenContactEditForm(i);
             FillContactForm(data);
             ClickUpdateButton();
 
             return this;
+        }
+
+        private void OpenContactEditForm(int i)
+        {
+            app.NavigationHelper.OpenMainPage();
+            ClickOnModifyPencilPictogammNumber(i);
         }
 
         public void PrepareANumberOfContacts(int i)
@@ -124,15 +130,6 @@ namespace addressbook_web_tests
             {
                 _contactCache = new List<ContactData>();
                 app.NavigationHelper.OpenMainPage();
-
-                IWebElement tableElementAsWhole = Driver.FindElement(By.CssSelector("#maintable"));
-                string tableElementAsWholeText = tableElementAsWhole.Text;
-                string[] tableRowsStrings = tableElementAsWholeText.Split('\n');
-                for (int i = 0; i < tableRowsStrings.Length; i++)
-                {
-                    string[] rowColumns = tableRowsStrings[i].Split('\t');
-                }
-                
                 ReadOnlyCollection<IWebElement> displayedContacts = Driver.FindElements(By.CssSelector("#maintable tr[name=entry]"));
 
                 foreach (var displayedContact in displayedContacts)
@@ -151,8 +148,8 @@ namespace addressbook_web_tests
                         FirstName =  firstNameElement.Text,
                         Address =  addressElement.Text,
                         // TODO: Add email and phone parser
-                        EMail = emailElement.Text,
-                        Telephone =  phoneElement.Text,
+                        EMailString = emailElement.Text,
+                        TelephoneString =  phoneElement.Text,
                     
                     });
                 }
@@ -161,9 +158,34 @@ namespace addressbook_web_tests
             return new List<ContactData>(_contactCache);
         }
 
-        public ContactData GetContact(int contactIndex)
+        public ContactData GetContactInfoFromList(int contactIndex)
         {
-            return GetContactList()[contactIndex];
+            if (GetContactList().Count > contactIndex)
+            {
+                return GetContactList()[contactIndex];
+            }
+            return null;
+        }
+        
+        public ContactData GetContactInfoFromEditForm(int contactIndex)
+        {
+            OpenContactEditForm(contactIndex);
+            
+            return new ContactData
+            {
+                Id = Int32.Parse(Driver.FindElement(ContactCreationPage.Id).GetAttribute("value")),
+                FirstName = Driver.FindElement(ContactCreationPage.FirstName).GetAttribute("value"),
+                MiddleName = Driver.FindElement(ContactCreationPage.MiddleName).GetAttribute("value"),
+                LastName = Driver.FindElement(ContactCreationPage.LastName).GetAttribute("value"),
+                EMail = Driver.FindElement(ContactCreationPage.Email).GetAttribute("value"),
+                EMail2 = Driver.FindElement(ContactCreationPage.Email2).GetAttribute("value"),
+                EMail3 = Driver.FindElement(ContactCreationPage.Email3).GetAttribute("value"),
+                Address = Driver.FindElement(ContactCreationPage.Address).GetAttribute("value"),
+                TelephoneFax = Driver.FindElement(ContactCreationPage.TelephoneFax).GetAttribute("value"),
+                TelephoneHome = Driver.FindElement(ContactCreationPage.TelephoneHome).GetAttribute("value"),
+                TelephoneMobile = Driver.FindElement(ContactCreationPage.TelephoneMobile).GetAttribute("value"),
+                TelephoneWork = Driver.FindElement(ContactCreationPage.TelephoneWork).GetAttribute("value"),
+            };
         }
 
         private ContactData RemoveValuesWhichArentShownInGroupList(ContactData contactData)
@@ -173,12 +195,13 @@ namespace addressbook_web_tests
             contactData.Photo = null;
             contactData.Title = null;
             contactData.Company = null;
-            contactData.Home = null;
-            contactData.Mobile = null;
-            contactData.Work = null;
-            contactData.Fax = null;
-            contactData.EMail2 = null;
-            contactData.EMail3 = null;
+            contactData.TelephoneHome = null;
+            contactData.TelephoneMobile = null;
+            contactData.TelephoneWork = null;
+            contactData.TelephoneFax = null;
+//            contactData.EMail = null;
+//            contactData.EMail2 = null;
+//            contactData.EMail3 = null;
             contactData.Homepage = null;
             contactData.Birthday = null;
             contactData.Anniversary = null;
@@ -221,8 +244,9 @@ namespace addressbook_web_tests
 
         public static int? GuessIdOfNewElement(List<ContactData> contactListPrev, List<ContactData> contactListAfter)
         {
-            int? newId = ContactHelper.GetIdInOnlyOneList(contactListPrev, contactListAfter);
+            int? newId = GetIdInOnlyOneList(contactListPrev, contactListAfter);
             return newId;
         }
+
     }
 }

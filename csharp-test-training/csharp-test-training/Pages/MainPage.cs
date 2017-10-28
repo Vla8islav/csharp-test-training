@@ -4,7 +4,7 @@ namespace addressbook_web_tests.Pages
 {
     public class MainPage : PageBase
     {
-        public new string PageUrl { get; } = "addressbook/";
+        public override string PageUrl { get; } = "addressbook/";
 
         public override By GetAnElementUniqueToPage()
         {

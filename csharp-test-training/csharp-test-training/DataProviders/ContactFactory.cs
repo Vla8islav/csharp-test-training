@@ -12,7 +12,7 @@ namespace addressbook_web_tests
                 MiddleName = "TestMiddleName",
                 LastName = "TestLastName",
                 Address =	"",
-                Telephone = "",
+                TelephoneHome = "",
                 EMail = ""
             };
         }
@@ -25,7 +25,7 @@ namespace addressbook_web_tests
                 MiddleName = "TestMiddleName" + DateTime.Now,
                 LastName = "TestLastName" + DateTime.Now,
                 Address =	"",
-                Telephone = "",
+                TelephoneHome = "",
                 EMail = "" + DateTime.Now,
             };
         }

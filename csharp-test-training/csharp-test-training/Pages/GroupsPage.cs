@@ -4,7 +4,7 @@ namespace addressbook_web_tests.Pages
 {
     public class GroupsPage : PageBase
     {
-        public new string PageUrl { get; } = "addressbook/group.php";
+        public override string PageUrl { get; } = "addressbook/group.php";
 
         public override By GetAnElementUniqueToPage()
         {

@@ -8,7 +8,13 @@ namespace addressbook_web_tests
         [Test]
         public void ContactCreationTest()
         {
-            List<ContactData> contactList = app.ContactHelper.GetContactList();
+            CheckResultSet checkResultSet = new CheckResultSet();
+            const int CONTACT_INDEX = 0;
+            ContactData contactInfoFromList = app.ContactHelper.GetContactInfoFromList(CONTACT_INDEX);
+            ContactData contactInfoFromEditForm = app.ContactHelper.GetContactInfoFromEditForm(CONTACT_INDEX);
+            
+            checkResultSet.Add(contactInfoFromList.Compare(contactInfoFromEditForm));
+            checkResultSet.CheckTestResult();
         }
 
     }
