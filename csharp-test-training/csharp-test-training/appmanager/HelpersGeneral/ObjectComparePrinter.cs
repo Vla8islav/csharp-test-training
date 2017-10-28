@@ -4,7 +4,7 @@ using System.ComponentModel;
 
 namespace addressbook_web_tests
 {
-    public class ObjectComparePrinter
+    public class ObjectComparePrinter : CompareHelper
     {
         private Dictionary<string, Tuple<string, string>> propertiesList;
 
@@ -16,9 +16,22 @@ namespace addressbook_web_tests
             propertiesList = new Dictionary<string, Tuple<string, string>>();
         }
 
-        public void AddPairOfValues(string propertyName, string firstValue, string secondValue)
+        public void AddPairOfValuesDiff(string propertyName, string firstValue, string secondValue)
         {
-            propertiesList.Add(propertyName, new Tuple<string, string>(firstValue, secondValue));
+            AddPairOfValuesDiff<string>(propertyName, firstValue, secondValue);
+        }
+        
+        public void AddPairOfValuesDiff(string propertyName, int firstValue, int secondValue)
+        {
+            AddPairOfValuesDiff<int>(propertyName, firstValue, secondValue);
+        }
+        
+        public void AddPairOfValuesDiff<T>(string propertyName, T firstValue, T secondValue)
+        {
+            if (!CompareValuesNullFriendly(firstValue, secondValue))
+            {
+                propertiesList.Add(propertyName, new Tuple<string, string>(PrettyPrint.PrintWithNull(firstValue), PrettyPrint.PrintWithNull(secondValue)));
+            }
         }
         
         public string PrintFirstObjectData()

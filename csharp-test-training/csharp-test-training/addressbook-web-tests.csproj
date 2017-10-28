@@ -65,6 +65,7 @@
   <ItemGroup>
     <Compile Include="appmanager\ApplicationManager.cs" />
     <Compile Include="appmanager\ContactHelper.cs" />
+    <Compile Include="appmanager\HelpersGeneral\CompareHelper.cs" />
     <Compile Include="appmanager\HelpersGeneral\ObjectComparePrinter.cs" />
     <Compile Include="appmanager\HelpersGeneral\PrettyPrint.cs" />
     <Compile Include="DataProviders\ContactFactory.cs" />
@@ -80,6 +81,7 @@
     <Compile Include="Pages\GroupsPage.cs" />
     <Compile Include="Pages\MainPage.cs" />
     <Compile Include="Pages\PageBase.cs" />
+    <Compile Include="Tests\ContactCheckDataTests.cs" />
     <Compile Include="Tests\ContactCreationTests.cs" />
     <Compile Include="DataProviders\FirefoxDriverFactory.cs" />
     <Compile Include="model\GroupData.cs" />

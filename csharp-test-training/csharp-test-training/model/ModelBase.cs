@@ -17,20 +17,5 @@ namespace addressbook_web_tests
             
             return true;
         }
-
-        protected static bool CompareStringsNullFriendly(string firstString, string secondString)
-        {
-            if (null == firstString || null == secondString)
-            {
-                if (null == firstString && null == secondString)
-                    // TODO: This looks like a bad workaround, but let it suffice for a while. Don't know != Don't know
-                {
-                    return true;
-                }
-                return false;
-            }
-
-            return firstString.Equals(secondString);
-        }
     }
 }

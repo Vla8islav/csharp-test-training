@@ -15,6 +15,15 @@
             }
             return s;
         }
+        
+        public static string PrintWithNull<T>(T s)
+        {
+            if (null == s)
+            {
+                return "null";
+            }
+            return s.ToString();
+        }
 
     }
 }

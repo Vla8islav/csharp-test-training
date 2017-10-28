@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Dynamic;
+using System.Globalization;
 using System.Linq;
 using System.Text.RegularExpressions;
 using NUnit.Framework;
@@ -116,17 +118,26 @@ namespace addressbook_web_tests
 
         private List<ContactData> _contactCache = null;
         
-        public List<ContactData>  GetContactList()
+        public List<ContactData> GetContactList()
         {
             if (_contactCache == null)
             {
                 _contactCache = new List<ContactData>();
                 app.NavigationHelper.OpenMainPage();
 
+                IWebElement tableElementAsWhole = Driver.FindElement(By.CssSelector("#maintable"));
+                string tableElementAsWholeText = tableElementAsWhole.Text;
+                string[] tableRowsStrings = tableElementAsWholeText.Split('\n');
+                for (int i = 0; i < tableRowsStrings.Length; i++)
+                {
+                    string[] rowColumns = tableRowsStrings[i].Split('\t');
+                }
+                
                 ReadOnlyCollection<IWebElement> displayedContacts = Driver.FindElements(By.CssSelector("#maintable tr[name=entry]"));
 
                 foreach (var displayedContact in displayedContacts)
                 {
+                    IWebElement idElement = displayedContact.FindElement(By.CssSelector("td:nth-child(1) input"));
                     IWebElement lastNameElement = displayedContact.FindElement(By.CssSelector("td:nth-child(2)"));
                     IWebElement firstNameElement = displayedContact.FindElement(By.CssSelector("td:nth-child(3)"));
                     IWebElement addressElement = displayedContact.FindElement(By.CssSelector("td:nth-child(4)"));
@@ -135,6 +146,7 @@ namespace addressbook_web_tests
                 
                     _contactCache.Add(new ContactData
                     {
+                        Id = Int32.Parse(idElement.GetAttribute("id")),
                         LastName =  lastNameElement.Text,
                         FirstName =  firstNameElement.Text,
                         Address =  addressElement.Text,
@@ -148,7 +160,12 @@ namespace addressbook_web_tests
             
             return new List<ContactData>(_contactCache);
         }
-        
+
+        public ContactData GetContact(int contactIndex)
+        {
+            return GetContactList()[contactIndex];
+        }
+
         private ContactData RemoveValuesWhichArentShownInGroupList(ContactData contactData)
         {
             contactData.MiddleName = null;
@@ -183,6 +200,29 @@ namespace addressbook_web_tests
         public List<ContactData> ModifyContactNumberInList(List<ContactData> contactListPrev, int contactNumberToModify, ContactData data)
         {
             return ModifyGroupNumberInList(contactListPrev, contactNumberToModify, data, RemoveValuesWhichArentShownInGroupList);;
+        }
+
+        public static List<ContactData> GetElementsWithDiffId(List<ContactData> f, List<ContactData> s)
+        {
+
+            var result = s.Where(p => !f.Any(p2 => p2.Id == p.Id));
+            return new List<ContactData>(result);
+        }
+
+        public static int? GetIdInOnlyOneList(List<ContactData> contactListPrev, List<ContactData> contactListAfter)
+        {
+            var litsDiffs = GetElementsWithDiffId(contactListPrev, contactListAfter);
+            if (litsDiffs.Count > 0)
+            {
+                return litsDiffs.First().Id;
+            }
+            return null;
+        }
+
+        public static int? GuessIdOfNewElement(List<ContactData> contactListPrev, List<ContactData> contactListAfter)
+        {
+            int? newId = ContactHelper.GetIdInOnlyOneList(contactListPrev, contactListAfter);
+            return newId;
         }
     }
 }

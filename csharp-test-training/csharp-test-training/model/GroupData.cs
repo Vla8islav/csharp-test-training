@@ -28,9 +28,9 @@ namespace addressbook_web_tests
         private bool IsValidGroupDataEqual(GroupData otherGroupData)
         {
             bool retval = true;
-            retval &= CompareStringsNullFriendly(otherGroupData.GroupName, GroupName);
-            retval &= CompareStringsNullFriendly(otherGroupData.GroupHeader, GroupHeader);
-            retval &= CompareStringsNullFriendly(otherGroupData.GroupFooter, GroupFooter);
+            retval &= CompareHelper.CompareValuesNullFriendly(otherGroupData.GroupName, GroupName);
+            retval &= CompareHelper.CompareValuesNullFriendly(otherGroupData.GroupHeader, GroupHeader);
+            retval &= CompareHelper.CompareValuesNullFriendly(otherGroupData.GroupFooter, GroupFooter);
             return retval;
         }
 
@@ -48,9 +48,9 @@ namespace addressbook_web_tests
 
             CheckResult retval = new CheckResult();
             ObjectComparePrinter comparePrinter = new ObjectComparePrinter("GroupData");
-            comparePrinter.AddPairOfValues("GroupName", otherGroupData.GroupName, GroupName);
-            comparePrinter.AddPairOfValues("GroupHeader", otherGroupData.GroupHeader, GroupHeader);
-            comparePrinter.AddPairOfValues("GroupFooter", otherGroupData.GroupFooter, GroupFooter);
+            comparePrinter.AddPairOfValuesDiff("GroupName", otherGroupData.GroupName, GroupName);
+            comparePrinter.AddPairOfValuesDiff("GroupHeader", otherGroupData.GroupHeader, GroupHeader);
+            comparePrinter.AddPairOfValuesDiff("GroupFooter", otherGroupData.GroupFooter, GroupFooter);
             retval.Message = comparePrinter.PrintListOfPropertiesSideBySide();
             retval.Result = IsValidGroupDataEqual(otherGroupData);
             return retval;

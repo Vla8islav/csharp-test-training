@@ -10,14 +10,16 @@ namespace addressbook_web_tests
         [Test]
         public void ContactModificationTest()
         {
-            ContactData data = ContactFactory.GetContactDataWithUniqueValues();
             const int contactNumberToModify = 1;
             app.ContactHelper.PrepareANumberOfContacts(contactNumberToModify);
 
             List<ContactData> contactListPrev = app.ContactHelper.GetContactList();
-            app.ContactHelper.ModifyContactNumber(contactNumberToModify, data);
-            List<ContactData> contactListAfter = app.ContactHelper.GetContactList();
             
+            ContactData data = ContactFactory.GetContactDataWithUniqueValues();
+            data.Id = app.ContactHelper.GetContact(contactNumberToModify).Id;
+            app.ContactHelper.ModifyContactNumber(contactNumberToModify, data);
+            
+            List<ContactData> contactListAfter = app.ContactHelper.GetContactList();
             
             List<ContactData> contactListExpected =
                 app.ContactHelper.ModifyContactNumberInList(contactListPrev, contactNumberToModify, data);

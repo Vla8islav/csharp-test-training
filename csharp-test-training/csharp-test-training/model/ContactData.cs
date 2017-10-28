@@ -10,6 +10,7 @@ namespace addressbook_web_tests
             {
                 otherContactData = new ContactData()
                 {
+                    Id = null,
                     FirstName = null,
                     MiddleName = null,
                     LastName = null,
@@ -40,30 +41,31 @@ namespace addressbook_web_tests
             CheckResult retval = new CheckResult();
             ObjectComparePrinter comparePrinter = new ObjectComparePrinter("GroupData");
 
-            comparePrinter.AddPairOfValues("FirstName", otherContactData.FirstName, FirstName);
-            comparePrinter.AddPairOfValues("MiddleName", otherContactData.MiddleName, MiddleName);
-            comparePrinter.AddPairOfValues("LastName", otherContactData.LastName, LastName);
-            comparePrinter.AddPairOfValues("Nickname", otherContactData.Nickname, Nickname);
-            comparePrinter.AddPairOfValues("Photo", otherContactData.Photo, Photo);
-            comparePrinter.AddPairOfValues("Title", otherContactData.Title, Title);
-            comparePrinter.AddPairOfValues("Company", otherContactData.Company, Company);
-            comparePrinter.AddPairOfValues("Address", otherContactData.Address, Address);
-            comparePrinter.AddPairOfValues("Telephone", otherContactData.Telephone, Telephone);
-            comparePrinter.AddPairOfValues("Home", otherContactData.Home, Home);
-            comparePrinter.AddPairOfValues("Mobile", otherContactData.Mobile, Mobile);
-            comparePrinter.AddPairOfValues("Work", otherContactData.Work, Work);
-            comparePrinter.AddPairOfValues("Fax", otherContactData.Fax, Fax);
-            comparePrinter.AddPairOfValues("EMail", otherContactData.EMail, EMail);
-            comparePrinter.AddPairOfValues("EMail2", otherContactData.EMail2, EMail2);
-            comparePrinter.AddPairOfValues("EMail3", otherContactData.EMail3, EMail3);
-            comparePrinter.AddPairOfValues("Homepage", otherContactData.Homepage, Homepage);
-            comparePrinter.AddPairOfValues("Birthday", otherContactData.Birthday, Birthday);
-            comparePrinter.AddPairOfValues("Anniversary", otherContactData.Anniversary, Anniversary);
-            comparePrinter.AddPairOfValues("Group", otherContactData.Group, Group);
-            comparePrinter.AddPairOfValues("Secondary", otherContactData.Secondary, Secondary);
-            comparePrinter.AddPairOfValues("SecondaryAddress", otherContactData.SecondaryAddress, SecondaryAddress);
-            comparePrinter.AddPairOfValues("SecondaryHome", otherContactData.SecondaryHome, SecondaryHome);
-            comparePrinter.AddPairOfValues("Notes", otherContactData.Notes, Notes);
+            comparePrinter.AddPairOfValuesDiff("Id", otherContactData.Id, Id);
+            comparePrinter.AddPairOfValuesDiff("FirstName", otherContactData.FirstName, FirstName);
+            comparePrinter.AddPairOfValuesDiff("MiddleName", otherContactData.MiddleName, MiddleName);
+            comparePrinter.AddPairOfValuesDiff("LastName", otherContactData.LastName, LastName);
+            comparePrinter.AddPairOfValuesDiff("Nickname", otherContactData.Nickname, Nickname);
+            comparePrinter.AddPairOfValuesDiff("Photo", otherContactData.Photo, Photo);
+            comparePrinter.AddPairOfValuesDiff("Title", otherContactData.Title, Title);
+            comparePrinter.AddPairOfValuesDiff("Company", otherContactData.Company, Company);
+            comparePrinter.AddPairOfValuesDiff("Address", otherContactData.Address, Address);
+            comparePrinter.AddPairOfValuesDiff("Telephone", otherContactData.Telephone, Telephone);
+            comparePrinter.AddPairOfValuesDiff("Home", otherContactData.Home, Home);
+            comparePrinter.AddPairOfValuesDiff("Mobile", otherContactData.Mobile, Mobile);
+            comparePrinter.AddPairOfValuesDiff("Work", otherContactData.Work, Work);
+            comparePrinter.AddPairOfValuesDiff("Fax", otherContactData.Fax, Fax);
+            comparePrinter.AddPairOfValuesDiff("EMail", otherContactData.EMail, EMail);
+            comparePrinter.AddPairOfValuesDiff("EMail2", otherContactData.EMail2, EMail2);
+            comparePrinter.AddPairOfValuesDiff("EMail3", otherContactData.EMail3, EMail3);
+            comparePrinter.AddPairOfValuesDiff("Homepage", otherContactData.Homepage, Homepage);
+            comparePrinter.AddPairOfValuesDiff("Birthday", otherContactData.Birthday, Birthday);
+            comparePrinter.AddPairOfValuesDiff("Anniversary", otherContactData.Anniversary, Anniversary);
+            comparePrinter.AddPairOfValuesDiff("Group", otherContactData.Group, Group);
+            comparePrinter.AddPairOfValuesDiff("Secondary", otherContactData.Secondary, Secondary);
+            comparePrinter.AddPairOfValuesDiff("SecondaryAddress", otherContactData.SecondaryAddress, SecondaryAddress);
+            comparePrinter.AddPairOfValuesDiff("SecondaryHome", otherContactData.SecondaryHome, SecondaryHome);
+            comparePrinter.AddPairOfValuesDiff("Notes", otherContactData.Notes, Notes);
 
             retval.Message = comparePrinter.PrintListOfPropertiesSideBySide();
             retval.Result = IsValidContactDataEqual(otherContactData);
@@ -74,20 +76,21 @@ namespace addressbook_web_tests
         {
             bool retval = true;
 
-            retval &= CompareStringsNullFriendly(otherContactData.FirstName, FirstName);
+            retval &= CompareHelper.CompareValuesNullFriendly(otherContactData.Id, Id);
+            retval &= CompareHelper.CompareValuesNullFriendly(otherContactData.FirstName, FirstName);
 //            retval &= CompareStringsNullFriendly(otherContactData.MiddleName, MiddleName);
-            retval &= CompareStringsNullFriendly(otherContactData.LastName, LastName);
+            retval &= CompareHelper.CompareValuesNullFriendly(otherContactData.LastName, LastName);
 //            retval &= CompareStringsNullFriendly(otherContactData.Nickname, Nickname);
 //            retval &= CompareStringsNullFriendly(otherContactData.Photo, Photo);
 //            retval &= CompareStringsNullFriendly(otherContactData.Title, Title);
 //            retval &= CompareStringsNullFriendly(otherContactData.Company, Company);
-            retval &= CompareStringsNullFriendly(otherContactData.Address, Address);
-            retval &= CompareStringsNullFriendly(otherContactData.Telephone, Telephone);
+            retval &= CompareHelper.CompareValuesNullFriendly(otherContactData.Address, Address);
+            retval &= CompareHelper.CompareValuesNullFriendly(otherContactData.Telephone, Telephone);
 //            retval &= CompareStringsNullFriendly(otherContactData.Home, Home);
 //            retval &= CompareStringsNullFriendly(otherContactData.Mobile, Mobile);
 //            retval &= CompareStringsNullFriendly(otherContactData.Work, Work);
 //            retval &= CompareStringsNullFriendly(otherContactData.Fax, Fax);
-            retval &= CompareStringsNullFriendly(otherContactData.EMail, EMail);
+            retval &= CompareHelper.CompareValuesNullFriendly(otherContactData.EMail, EMail);
 //            retval &= CompareStringsNullFriendly(otherContactData.EMail2, EMail2);
 //            retval &= CompareStringsNullFriendly(otherContactData.EMail3, EMail3);
 //            retval &= CompareStringsNullFriendly(otherContactData.Homepage, Homepage);
@@ -108,6 +111,12 @@ namespace addressbook_web_tests
             {
                 return 1;
             }
+            
+            if (Id.HasValue && otherContactData.Id.HasValue)
+            {
+                return Id.Value - otherContactData.Id.Value;
+            }
+
             int firstNameComparsion = String.Compare(FirstName, otherContactData.FirstName, StringComparison.Ordinal);
             if (firstNameComparsion != 0)
             {
@@ -138,6 +147,7 @@ namespace addressbook_web_tests
             return IsValidContactDataEqual(otherContactData);
         }
 
+        public int? Id { get; set; }
         public string FirstName { get; set; }
         public string MiddleName { get; set; }
         public string LastName { get; set; }

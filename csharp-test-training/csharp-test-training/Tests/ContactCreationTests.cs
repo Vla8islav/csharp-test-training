@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using NUnit.Framework;
 
 namespace addressbook_web_tests
@@ -15,6 +16,7 @@ namespace addressbook_web_tests
             List<ContactData> contactListAfter = app.ContactHelper.GetContactList();
 
             List<ContactData> contactListExpected = contactListPrev;
+            newContactData.Id = ContactHelper.GuessIdOfNewElement(contactListPrev, contactListAfter);
             contactListExpected.Add(newContactData);
 
             app.ContactHelper.CormpareTwoContactLists(
