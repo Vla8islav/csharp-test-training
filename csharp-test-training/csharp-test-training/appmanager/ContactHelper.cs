@@ -98,12 +98,6 @@ namespace addressbook_web_tests
             return this;
         }
 
-        private void OpenContactEditForm(int i)
-        {
-            app.NavigationHelper.OpenMainPage();
-            ClickOnModifyPencilPictogammNumber(i);
-        }
-
         public void PrepareANumberOfContacts(int i)
         {
             app.NavigationHelper.OpenMainPage();
@@ -177,14 +171,19 @@ namespace addressbook_web_tests
                 FirstName = Driver.FindElement(ContactCreationPage.FirstName).GetAttribute("value"),
                 MiddleName = Driver.FindElement(ContactCreationPage.MiddleName).GetAttribute("value"),
                 LastName = Driver.FindElement(ContactCreationPage.LastName).GetAttribute("value"),
-                EMail = Driver.FindElement(ContactCreationPage.Email).GetAttribute("value"),
-                EMail2 = Driver.FindElement(ContactCreationPage.Email2).GetAttribute("value"),
-                EMail3 = Driver.FindElement(ContactCreationPage.Email3).GetAttribute("value"),
+                Nickname = Driver.FindElement(ContactCreationPage.Nickname).GetAttribute("value"),
+                Company = Driver.FindElement(ContactCreationPage.Company).GetAttribute("value"),
+                Title = Driver.FindElement(ContactCreationPage.Title).GetAttribute("value"),
                 Address = Driver.FindElement(ContactCreationPage.Address).GetAttribute("value"),
-                TelephoneFax = Driver.FindElement(ContactCreationPage.TelephoneFax).GetAttribute("value"),
                 TelephoneHome = Driver.FindElement(ContactCreationPage.TelephoneHome).GetAttribute("value"),
                 TelephoneMobile = Driver.FindElement(ContactCreationPage.TelephoneMobile).GetAttribute("value"),
                 TelephoneWork = Driver.FindElement(ContactCreationPage.TelephoneWork).GetAttribute("value"),
+                TelephoneFax = Driver.FindElement(ContactCreationPage.TelephoneFax).GetAttribute("value"),
+                EMail = Driver.FindElement(ContactCreationPage.Email).GetAttribute("value"),
+                EMail2 = Driver.FindElement(ContactCreationPage.Email2).GetAttribute("value"),
+                EMail3 = Driver.FindElement(ContactCreationPage.Email3).GetAttribute("value"),
+                Homepage = Driver.FindElement(ContactCreationPage.Homepage).GetAttribute("value"),
+                
             };
         }
 
@@ -247,6 +246,30 @@ namespace addressbook_web_tests
             int? newId = GetIdInOnlyOneList(contactListPrev, contactListAfter);
             return newId;
         }
+
+        private void OpenContactEditForm(int i)
+        {
+            app.NavigationHelper.OpenMainPage();
+            ClickOnModifyPencilPictogammNumber(i);
+        }
+
+        public string GetContactInfoFromViewForm(int contactIndex)
+        {
+            
+            app.NavigationHelper.OpenMainPage();
+            ClickOnPesonPictogammNumber(contactIndex);
+            return Driver.FindElement(By.CssSelector("#content")).Text;
+           
+        }
+
+        private ContactHelper ClickOnPesonPictogammNumber(int i)
+        {
+            Driver.FindElement(By.CssSelector($"table[id=maintable] tr:nth-of-type({ListPosToXpathSelector(i + 1)}) img[title=Details]")).Click();
+            return this;
+        }
+        
+        
+            
 
     }
 }

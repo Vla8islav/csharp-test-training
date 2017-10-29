@@ -154,6 +154,40 @@ namespace addressbook_web_tests
             return IsValidContactDataEqual(otherContactData);
         }
 
+        public string ViewFormString
+        {
+            get
+            {
+                string displayedName = FirstName;
+                if (!string.IsNullOrEmpty(MiddleName))
+                {
+                    displayedName += $" {MiddleName}";
+                }
+                if (!string.IsNullOrEmpty(LastName))
+                {
+                    displayedName += $" {LastName}";
+                }
+
+                displayedName = ConcatenanateStringsNewline(new List<string>
+                {
+                    displayedName,
+                    Nickname,
+                    Title,
+                    Company,
+                    Address,
+                    String.IsNullOrEmpty(TelephoneHome) ? null : $"H: {TelephoneHome}",
+                    String.IsNullOrEmpty(TelephoneMobile) ? null : $"M: {TelephoneMobile}",
+                    String.IsNullOrEmpty(TelephoneWork) ? null : $"W: {TelephoneWork}",
+                    String.IsNullOrEmpty(TelephoneFax) ? null : $"F: {TelephoneFax}",
+                    EMailString,
+                    String.IsNullOrEmpty(Homepage) ? null : "Homepage:",
+                    Homepage
+                });
+
+                return displayedName;
+            }
+        }
+
         public int? Id { get; set; }
         public string FirstName { get; set; }
         public string MiddleName { get; set; }
@@ -164,6 +198,10 @@ namespace addressbook_web_tests
         public string Company { get; set; }
         public string Address { get; set; }
         private string _telephoneString;
+        private string _telephoneHome;
+        private string _telephoneMobile;
+        private string _telephoneWork;
+        private string _telephoneFax;
 
         public string TelephoneString
         {
@@ -183,11 +221,50 @@ namespace addressbook_web_tests
             set { _telephoneString = value.Trim().Trim('\r').Trim('\n'); }
         }
 
-        public string TelephoneHome { get; set; }
-        public string TelephoneMobile { get; set; }
-        public string TelephoneWork { get; set; }
-        public string TelephoneFax { get; set; }
+        public string TelephoneHome
+        {
+            get { return _telephoneHome; }
+            set
+            {
+                _telephoneString = null;
+                _telephoneHome = value;
+            }
+        }
+
+        public string TelephoneMobile
+        {
+            get { return _telephoneMobile; }
+            set
+            {
+                _telephoneString = null;
+                _telephoneMobile = value;
+            }
+        }
+
+        public string TelephoneWork
+        {
+            get { return _telephoneWork; }
+            set
+            {
+                _telephoneString = null;
+                _telephoneWork = value;
+            }
+        }
+
+        public string TelephoneFax
+        {
+            get { return _telephoneFax; }
+            set
+            {
+                _telephoneString = null;
+                _telephoneFax = value;
+            }
+        }
+
         private string _eMailString = null;
+        private string _eMail = null;
+        private string _eMail2 = null;
+        private string _eMail3 = null;
 
         public string EMailString
         {
@@ -207,9 +284,36 @@ namespace addressbook_web_tests
             set { _eMailString = value.Trim().Trim('\r').Trim('\n'); }
         }
 
-        public string EMail { get; set; }
-        public string EMail2 { get; set; }
-        public string EMail3 { get; set; }
+        public string EMail
+        {
+            get { return _eMail; }
+            set
+            {
+                _eMailString = null;
+                _eMail = value;
+            }
+        }
+
+        public string EMail2
+        {
+            get { return _eMail2; }
+            set
+            {
+                _eMailString = null;
+                _eMail2 = value;
+            }
+        }
+
+        public string EMail3
+        {
+            get { return _eMail3; }
+            set
+            {
+                _eMailString = null;
+                _eMail3 = value;
+            }
+        }
+
         public string Homepage { get; set; }
         public string Birthday { get; set; }
         public string Anniversary { get; set; }
@@ -231,7 +335,6 @@ namespace addressbook_web_tests
                 }
             }
             return retval.Trim('\n', '\r');
-
         }
     }
 }

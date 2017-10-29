@@ -25,5 +25,14 @@
             return s.ToString();
         }
 
+        public static string CleanSpecialCharacters(string s)
+        {
+            if (null == s)
+            {
+                return "";
+            }
+            return s.Replace("\n", "").Replace("\r", "");
+        }
+       
     }
 }
