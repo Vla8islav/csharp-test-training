@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using NUnit.Framework;
 
 namespace addressbook_web_tests
@@ -6,74 +7,11 @@ namespace addressbook_web_tests
     [TestFixture]
     public class GroupCreationTests : TestBaseWithLogin
     {
-        [Test]
-        public void GroupCreationTest()
-        {
-            GroupData data = new GroupData
-            {
-                GroupName = "Some new goup",
-                GroupHeader = "Some group header",
-                GroupFooter = "Некоторый русский текст для разнообразия."
-            };
-            List<GroupData> groupListPrev = app.GroupHelper.GetGroupList();
-            app.GroupHelper.Create(data);
-            List<GroupData> groupListAfter = app.GroupHelper.GetGroupList();
-            
-            app.GroupHelper.CormpareTwoGroupLists(
-                app.GroupHelper.AddAndSort(groupListPrev, data), 
-                app.GroupHelper.Sort(groupListAfter))
-                .CheckTestResult();
-        }
-        
-        [Test]
-        public void BadNameGroupCreationTest()
-        {
-            GroupData data = new GroupData
-            {
-                GroupName = "a'a",
-                GroupHeader = "Some group header",
-                GroupFooter = "Некоторый русский текст для разнообразия."
-            };
-            List<GroupData> groupListPrev = app.GroupHelper.GetGroupList();
-            app.GroupHelper.Create(data);
-            List<GroupData> groupListAfter = app.GroupHelper.GetGroupList();
-            
-            app.GroupHelper.CormpareTwoGroupLists(
-                    app.GroupHelper.AddAndSort(groupListPrev, data), 
-                    app.HelperBase.Sort(groupListAfter))
-                .CheckTestResult();
-        }
 
-        [Test]
-        public void GroupCreationLeaveFooterIntactTest()
+        [Test, TestCaseSource(nameof(RandomGroupDataProvider))]
+        public void GroupCreationTest(Tuple<GroupData,string> dataTuple)
         {
-            GroupData data = new GroupData
-            {
-                GroupName = "Some new goup",
-                GroupHeader = "Some group header",
-                GroupFooter = null
-            };
-
-            List<GroupData> groupListPrev = app.GroupHelper.GetGroupList();
-            app.GroupHelper.Create(data);
-            List<GroupData> groupListAfter = app.GroupHelper.GetGroupList();
-
-            app.GroupHelper.CormpareTwoGroupLists(
-                    app.GroupHelper.AddAndSort(groupListPrev, data), 
-                    app.GroupHelper.Sort(groupListAfter))
-                .CheckTestResult();
-            
-        }
-
-        [Test]
-        public void EmptyGroupCrationTest()
-        {
-            GroupData data = new GroupData
-            {
-                GroupName = "",
-                GroupHeader = "",
-                GroupFooter = ""
-            };
+            GroupData data = dataTuple.Item1;
             List<GroupData> groupListPrev = app.GroupHelper.GetGroupList();
             app.GroupHelper.Create(data);
             List<GroupData> groupListAfter = app.GroupHelper.GetGroupList();
@@ -83,5 +21,49 @@ namespace addressbook_web_tests
                     app.GroupHelper.Sort(groupListAfter))
                 .CheckTestResult();
         }
+
+        public static IEnumerable<Tuple<GroupData,string>> RandomGroupDataProvider()
+        {
+            var retval = new List<Tuple<GroupData,string>>();
+            
+            retval.Add(new Tuple<GroupData, string>(new GroupData
+                {
+                    GroupName = "a'a",
+                    GroupHeader = "Some group header",
+                    GroupFooter = "Некоторый русский текст для разнообразия."
+                },
+                "NameWith ' symbol"));
+            
+            retval.Add(new Tuple<GroupData, string>(new GroupData
+                {
+                    GroupName = "Some new goup",
+                    GroupHeader = "Some group header",
+                    GroupFooter = null
+                },
+                "LeaveFooterIntact"));
+            
+            retval.Add(new Tuple<GroupData, string>(new GroupData
+                {
+                    GroupName = "",
+                    GroupHeader = "",
+                    GroupFooter = ""
+                },
+                "EmptyGroup"));
+            
+
+            for (int i = 0; i < 3; i++)
+            {
+                Tuple<GroupData,string> currentTuple = new Tuple<GroupData, string>(new GroupData
+                {
+                    GroupName = $"Some new goup {StringGenerator.RandomString()}",
+                    GroupHeader = $"Some group header {StringGenerator.RandomString()}",
+                    GroupFooter = $"Некоторый русский текст для разнообразия. {StringGenerator.RandomString()}"
+                },
+                    "RandomString");  
+                retval.Add(currentTuple);
+            }
+            return retval;
+        }
+
     }
 }

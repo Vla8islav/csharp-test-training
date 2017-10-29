@@ -68,6 +68,7 @@
     <Compile Include="appmanager\HelpersGeneral\CompareHelper.cs" />
     <Compile Include="appmanager\HelpersGeneral\ObjectComparePrinter.cs" />
     <Compile Include="appmanager\HelpersGeneral\PrettyPrint.cs" />
+    <Compile Include="appmanager\HelpersGeneral\StringGenerator.cs" />
     <Compile Include="DataProviders\ContactFactory.cs" />
     <Compile Include="DataProviders\GroupFactory.cs" />
     <Compile Include="model\AccountData.cs" />
