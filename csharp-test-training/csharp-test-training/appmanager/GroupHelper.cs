@@ -54,14 +54,14 @@ namespace addressbook_web_tests
             return this;
         }
 
-        private GroupHelper ClickCheckboxElementNumber(int i)
+        private GroupHelper ClickCheckboxElementNumber(int groupIndex)
         {
-            string selector = $"[id=content] span:nth-of-type({ListPosToXpathSelector(i)}) input[type=checkbox]";
+            string selector = $"[id=content] span:nth-of-type({ListPosToXpathSelector(groupIndex)}) input[type=checkbox]";
             Driver.FindElement(By.CssSelector(selector)).Click();
             return this;
         }
 
-        public GroupHelper ModifyGroupNumber(int i, GroupData data)
+        public GroupHelper ModifyGroupByIndex(int i, GroupData data)
         {
             app.NavigationHelper.OpenGroupsPage();
             ClickCheckboxElementNumber(i);
@@ -85,13 +85,14 @@ namespace addressbook_web_tests
             return this;
         }
 
-        public void PrepareANumberOfGroups(int i)
+        public void PrepareANumberOfGroups(int groupIndex)
         {
             app.NavigationHelper.OpenGroupsPage();
-            int numberOfDisplayedContacts = GetGroupList().Count;
-            if (numberOfDisplayedContacts < i)
+            int numberOfDisplayedGroups = GetGroupList().Count;
+            int numberOfGroupsThatShouldBeDisplayed = groupIndex + 1;
+            if (numberOfDisplayedGroups < numberOfGroupsThatShouldBeDisplayed)
             {
-                for (int j = 0; j < i - numberOfDisplayedContacts; j++)
+                for (int j = 0; j < numberOfGroupsThatShouldBeDisplayed - numberOfDisplayedGroups; j++)
                 {
                     Create(GroupFactory.GetSampleGroupData());
                 }

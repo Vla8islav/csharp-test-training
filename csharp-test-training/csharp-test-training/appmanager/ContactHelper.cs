@@ -31,6 +31,11 @@ namespace addressbook_web_tests
             FillField(ContactCreationPage.MiddleName, data.MiddleName);
             FillField(ContactCreationPage.LastName, data.LastName);
             FillField(ContactCreationPage.Email, data.EMail);
+            FillField(ContactCreationPage.Address, data.Address);
+            FillField(ContactCreationPage.TelephoneHome, data.TelephoneHome);
+            FillField(ContactCreationPage.TelephoneMobile, data.TelephoneMobile);
+            FillField(ContactCreationPage.TelephoneWork, data.TelephoneWork);
+            FillField(ContactCreationPage.TelephoneFax, data.TelephoneFax);
             return this;
         }
 
@@ -98,13 +103,14 @@ namespace addressbook_web_tests
             return this;
         }
 
-        public void PrepareANumberOfContacts(int i)
+        public void PrepareContactWithIndex(int contactIndex)
         {
             app.NavigationHelper.OpenMainPage();
             int numberOfDisplayedContacts = GetNumberOfDisplayedContacts();
-            if (numberOfDisplayedContacts < i)
+            int desiredNumberOfDisplayedContacts = contactIndex + 1;
+            if (numberOfDisplayedContacts < desiredNumberOfDisplayedContacts)
             {
-                for (int j = 0; j < i - numberOfDisplayedContacts; j++)
+                for (int j = 0; j < desiredNumberOfDisplayedContacts - numberOfDisplayedContacts; j++)
                 {
                     Create(ContactFactory.GetContactDataWithUniqueValues());
                 }
@@ -247,10 +253,10 @@ namespace addressbook_web_tests
             return newId;
         }
 
-        private void OpenContactEditForm(int i)
+        private void OpenContactEditForm(int contactIndex)
         {
             app.NavigationHelper.OpenMainPage();
-            ClickOnModifyPencilPictogammNumber(i);
+            ClickOnModifyPencilPictogammNumber(contactIndex);
         }
 
         public string GetContactInfoFromViewForm(int contactIndex)

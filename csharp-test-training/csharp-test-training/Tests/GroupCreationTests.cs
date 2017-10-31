@@ -8,7 +8,7 @@ namespace addressbook_web_tests
     public class GroupCreationTests : TestBaseWithLogin
     {
 
-        [Test, TestCaseSource(nameof(RandomGroupDataProvider))]
+        [Test, TestCaseSource(nameof(GroupDataProvider))]
         public void GroupCreationTest(Tuple<GroupData,string> dataTuple)
         {
             GroupData data = dataTuple.Item1;
@@ -22,7 +22,7 @@ namespace addressbook_web_tests
                 .CheckTestResult();
         }
 
-        public static IEnumerable<Tuple<GroupData,string>> RandomGroupDataProvider()
+        public static IEnumerable<Tuple<GroupData,string>> GroupDataProvider()
         {
             var retval = new List<Tuple<GroupData,string>>();
             

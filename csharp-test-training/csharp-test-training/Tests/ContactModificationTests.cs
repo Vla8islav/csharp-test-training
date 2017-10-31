@@ -12,7 +12,7 @@ namespace addressbook_web_tests
         {
             const int contactNumberToModify = 1;
             ContactData data = ContactFactory.GetContactDataWithUniqueValues();
-            app.ContactHelper.PrepareANumberOfContacts(contactNumberToModify);
+            app.ContactHelper.PrepareContactWithIndex(contactNumberToModify);
 
             List<ContactData> contactListPrev = app.ContactHelper.GetContactList();
             

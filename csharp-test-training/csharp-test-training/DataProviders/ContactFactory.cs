@@ -8,12 +8,12 @@ namespace addressbook_web_tests
         {
             return new ContactData
             {
-                FirstName = "TestName",
-                MiddleName = "TestMiddleName",
-                LastName = "TestLastName",
-                Address =	"",
-                TelephoneHome = "",
-                EMail = ""
+                FirstName = $"TestName{StringGenerator.RandomString()}",
+                MiddleName = $"TestMiddleName{StringGenerator.RandomString()}",
+                LastName = $"TestLastName{StringGenerator.RandomString()}",
+                Address =	$"{StringGenerator.RandomString()}",
+                TelephoneHome = $"{StringGenerator.RandomString()}",
+                EMail = $"{StringGenerator.RandomString()}"
             };
         }
         

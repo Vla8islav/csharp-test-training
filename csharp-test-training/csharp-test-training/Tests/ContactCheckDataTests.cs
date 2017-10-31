@@ -11,6 +11,8 @@ namespace addressbook_web_tests
         public void ContactCheckEditViewConformToListTest()
         {
             CheckResultSet checkResultSet = new CheckResultSet();
+            app.ContactHelper.PrepareContactWithIndex(CONTACT_INDEX);
+            
             ContactData contactInfoFromList = app.ContactHelper.GetContactInfoFromList(CONTACT_INDEX);
             ContactData contactInfoFromEditForm = app.ContactHelper.GetContactInfoFromEditForm(CONTACT_INDEX);
             
@@ -23,6 +25,7 @@ namespace addressbook_web_tests
         public void ContactCheckViewFormConformsToEditTest()
         {
             CheckResultSet checkResultSet = new CheckResultSet();
+            app.ContactHelper.PrepareContactWithIndex(CONTACT_INDEX);
             ContactData contactInfoFromEditForm = app.ContactHelper.GetContactInfoFromEditForm(CONTACT_INDEX);
             
             string contactInfoFromViewString = PrettyPrint.CleanSpecialCharacters(app.ContactHelper.GetContactInfoFromViewForm(CONTACT_INDEX));

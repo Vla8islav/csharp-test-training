@@ -10,7 +10,7 @@ namespace addressbook_web_tests
         public void ContactRemovalTest()
         {
             const int contactNumberToDelete = 3;
-            app.ContactHelper.PrepareANumberOfContacts(contactNumberToDelete + 1);
+            app.ContactHelper.PrepareContactWithIndex(contactNumberToDelete + 1);
             
             List<ContactData> contactListPrev = app.ContactHelper.GetContactList();
             app.ContactHelper.RemoveContactNumber(contactNumberToDelete);

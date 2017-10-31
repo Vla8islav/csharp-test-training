@@ -20,7 +20,7 @@ namespace addressbook_web_tests
             app.GroupHelper.PrepareANumberOfGroups(groupNumberToModify);
 
             List<GroupData> groupListPrev = app.GroupHelper.GetGroupList();
-            app.GroupHelper.ModifyGroupNumber(groupNumberToModify, data);
+            app.GroupHelper.ModifyGroupByIndex(groupNumberToModify, data);
             List<GroupData> groupListAfter = app.GroupHelper.GetGroupList();
 
             List<GroupData> groupListExpected =

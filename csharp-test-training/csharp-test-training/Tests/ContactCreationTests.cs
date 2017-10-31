@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using NUnit.Framework;
 
@@ -6,10 +7,10 @@ namespace addressbook_web_tests
 {
     public class ContactCreationTests : TestBaseWithLogin
     {
-        [Test]
-        public void ContactCreationTest()
+        [Test, TestCaseSource(nameof(ContactDataProvider))]
+        public void ContactCreationTest(Tuple<ContactData,string> dataTuple)
         {
-            ContactData newContactData = ContactFactory.GetSampleContactData();
+            ContactData newContactData = dataTuple.Item1;
             
             List<ContactData> contactListPrev = app.ContactHelper.GetContactList();
             app.ContactHelper.Create(newContactData);
@@ -25,6 +26,17 @@ namespace addressbook_web_tests
                 .CheckTestResult();
         }
         
+        
+        public static IEnumerable<Tuple<ContactData,string>> ContactDataProvider()
+        {
+            var retval = new List<Tuple<ContactData,string>>();
+            
+            retval.Add(new Tuple<ContactData, string>(ContactFactory.GetSampleContactData(),
+                "Default random contact data"));
+            
+            return retval;
+        }
+
         
     }
 }
