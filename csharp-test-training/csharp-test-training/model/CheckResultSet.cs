@@ -12,9 +12,10 @@ namespace addressbook_web_tests
             _resultSetList = new List<CheckResult>();
         }
 
-        public void Add(CheckResult result)
+        public CheckResultSet Add(CheckResult result)
         {
             _resultSetList.Add(result);
+            return this;
         }
 
 

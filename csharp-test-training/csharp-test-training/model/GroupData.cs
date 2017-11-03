@@ -69,5 +69,6 @@ namespace addressbook_web_tests
             }
             return String.Compare(GroupName, otherGroupData.GroupName, StringComparison.Ordinal);
         }
+        
     }
 }
