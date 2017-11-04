@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ArrayOfGroupData xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <GroupData>
+    <TestObjectInstanceName>NameWith ' symbol</TestObjectInstanceName>
+    <GroupName>a'a</GroupName>
+    <GroupHeader>Some group header</GroupHeader>
+    <GroupFooter>Некоторый русский текст для разнообразия.</GroupFooter>
+  </GroupData>
+  <GroupData>
+    <TestObjectInstanceName>LeaveFooterIntact</TestObjectInstanceName>
+    <GroupName>Some new goup</GroupName>
+    <GroupHeader>Some group header</GroupHeader>
+  </GroupData>
+  <GroupData>
+    <TestObjectInstanceName>EmptyGroup</TestObjectInstanceName>
+    <GroupName />
+    <GroupHeader />
+    <GroupFooter />
+  </GroupData>
+  <GroupData>
+    <TestObjectInstanceName>GroupForModification</TestObjectInstanceName>
+    <GroupName>Some new goup modified</GroupName>
+    <GroupHeader>Some group header modified</GroupHeader>
+    <GroupFooter>Некоторый русский текст для разнообразия. modified</GroupFooter>
+  </GroupData>
+  <GroupData>
+    <TestObjectInstanceName>RandomString_0</TestObjectInstanceName>
+    <GroupName>Some new goup vJ9Jp</GroupName>
+    <GroupHeader>Some group header nN8wW</GroupHeader>
+    <GroupFooter>Некоторый русский текст для разнообразия. esQhc</GroupFooter>
+  </GroupData>
+  <GroupData>
+    <TestObjectInstanceName>RandomString_1</TestObjectInstanceName>
+    <GroupName>Some new goup s67ft</GroupName>
+    <GroupHeader>Some group header BdN83</GroupHeader>
+    <GroupFooter>Некоторый русский текст для разнообразия. lynYv</GroupFooter>
+  </GroupData>
+  <GroupData>
+    <TestObjectInstanceName>RandomString_2</TestObjectInstanceName>
+    <GroupName>Some new goup 5xX32</GroupName>
+    <GroupHeader>Some group header 6576n</GroupHeader>
+    <GroupFooter>Некоторый русский текст для разнообразия. gTs6r</GroupFooter>
+  </GroupData>
+</ArrayOfGroupData>

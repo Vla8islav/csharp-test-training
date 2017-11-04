@@ -1,0 +1,44 @@
+[
+    {
+        "GroupName": "a'a",
+        "GroupHeader": "Some group header",
+        "GroupFooter": "Некоторый русский текст для разнообразия.",
+        "TestObjectInstanceName": "NameWith ' symbol"
+    },
+    {
+        "GroupName": "Some new goup",
+        "GroupHeader": "Some group header",
+        "GroupFooter": null,
+        "TestObjectInstanceName": "LeaveFooterIntact"
+    },
+    {
+        "GroupName": "",
+        "GroupHeader": "",
+        "GroupFooter": "",
+        "TestObjectInstanceName": "EmptyGroup"
+    },
+    {
+        "GroupName": "Some new goup modified",
+        "GroupHeader": "Some group header modified",
+        "GroupFooter": "Некоторый русский текст для разнообразия. modified",
+        "TestObjectInstanceName": "GroupForModification"
+    },
+    {
+        "GroupName": "Some new goup vJ9Jp",
+        "GroupHeader": "Some group header nN8wW",
+        "GroupFooter": "Некоторый русский текст для разнообразия. esQhc",
+        "TestObjectInstanceName": "RandomString_0"
+    },
+    {
+        "GroupName": "Some new goup s67ft",
+        "GroupHeader": "Some group header BdN83",
+        "GroupFooter": "Некоторый русский текст для разнообразия. lynYv",
+        "TestObjectInstanceName": "RandomString_1"
+    },
+    {
+        "GroupName": "Some new goup 5xX32",
+        "GroupHeader": "Some group header 6576n",
+        "GroupFooter": "Некоторый русский текст для разнообразия. gTs6r",
+        "TestObjectInstanceName": "RandomString_2"
+    }
+]
