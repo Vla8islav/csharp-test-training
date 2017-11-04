@@ -1,11 +1,13 @@
-﻿using FileHelpers;
+﻿using System;
+using FileHelpers;
 
 namespace addressbook_web_tests
 {
     [DelimitedRecord(","), IgnoreFirst, IgnoreEmptyLines]
     public class ContactDataCsv
     {
-        public int? Id { get; set; }
+        [FieldQuoted('"', QuoteMode.OptionalForBoth)]
+        public string Id { get; set; }
         [FieldQuoted('"', QuoteMode.OptionalForBoth)]
         public string FirstName { get; set; }
         [FieldQuoted('"', QuoteMode.OptionalForBoth)]
@@ -59,6 +61,7 @@ namespace addressbook_web_tests
         {
             return new ContactData
             {
+                Id = Int32.Parse(Id),
                 FirstName = FirstName,
                 MiddleName = MiddleName,
                 LastName = LastName,
