@@ -77,6 +77,7 @@
     <Compile Include="appmanager\HelpersGeneral\PrettyPrint.cs" />
     <Compile Include="appmanager\HelpersGeneral\StringGenerator.cs" />
     <Compile Include="DataProviders\ContactFactory.cs" />
+    <Compile Include="DataProviders\DataFactoryBase.cs" />
     <Compile Include="DataProviders\GroupFactory.cs" />
     <Compile Include="model\AccountData.cs" />
     <Compile Include="DataProviders\AccountFactory.cs" />
@@ -117,6 +118,8 @@
     <Content Include="Data\Contacts.csv" />
     <Content Include="Data\Contacts.json" />
     <Content Include="Data\Contacts.xml" />
+    <Content Include="Data\Groups.json" />
+    <Content Include="Data\Groups.xml" />
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">

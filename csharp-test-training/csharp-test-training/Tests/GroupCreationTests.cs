@@ -25,42 +25,12 @@ namespace addressbook_web_tests
         public static IEnumerable<Tuple<GroupData,string>> GroupDataProvider()
         {
             var retval = new List<Tuple<GroupData,string>>();
-            
-            retval.Add(new Tuple<GroupData, string>(new GroupData
-                {
-                    GroupName = "a'a",
-                    GroupHeader = "Some group header",
-                    GroupFooter = "Некоторый русский текст для разнообразия."
-                },
-                "NameWith ' symbol"));
-            
-            retval.Add(new Tuple<GroupData, string>(new GroupData
-                {
-                    GroupName = "Some new goup",
-                    GroupHeader = "Some group header",
-                    GroupFooter = null
-                },
-                "LeaveFooterIntact"));
-            
-            retval.Add(new Tuple<GroupData, string>(new GroupData
-                {
-                    GroupName = "",
-                    GroupHeader = "",
-                    GroupFooter = ""
-                },
-                "EmptyGroup"));
-            
-
+            retval.Add(GroupFactory.GetGroupFactoryTupleByName("NameWith ' symbol"));
+            retval.Add(GroupFactory.GetGroupFactoryTupleByName("LeaveFooterIntact"));
+            retval.Add(GroupFactory.GetGroupFactoryTupleByName("EmptyGroup"));
             for (int i = 0; i < 3; i++)
             {
-                Tuple<GroupData,string> currentTuple = new Tuple<GroupData, string>(new GroupData
-                {
-                    GroupName = $"Some new goup {StringGenerator.RandomString()}",
-                    GroupHeader = $"Some group header {StringGenerator.RandomString()}",
-                    GroupFooter = $"Некоторый русский текст для разнообразия. {StringGenerator.RandomString()}"
-                },
-                    "RandomString");  
-                retval.Add(currentTuple);
+                retval.Add(GroupFactory.GetGroupFactoryTupleByName($"RandomString_{i}"));
             }
             return retval;
         }

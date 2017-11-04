@@ -3,25 +3,25 @@
   <ContactData>
     <TestObjectInstanceName>Default contact data</TestObjectInstanceName>
     <Id xsi:nil="true" />
-    <FirstName>TestNamewQN8j</FirstName>
-    <MiddleName>TestMiddleNamee0sKk</MiddleName>
-    <LastName>TestLastName63P35</LastName>
-    <Address>i2Bbk</Address>
-    <TelephoneString>gJi5k</TelephoneString>
-    <TelephoneHome>gJi5k</TelephoneHome>
-    <EMailString>GOEZl</EMailString>
-    <EMail>GOEZl</EMail>
+    <FirstName>TestNameLLVJP</FirstName>
+    <MiddleName>TestMiddleNamefc97o</MiddleName>
+    <LastName>TestLastNameF5GmQ</LastName>
+    <Address>tSeSM</Address>
+    <TelephoneString>djWsv</TelephoneString>
+    <TelephoneHome>djWsv</TelephoneHome>
+    <EMailString>dkolD</EMailString>
+    <EMail>dkolD</EMail>
   </ContactData>
   <ContactData>
     <TestObjectInstanceName>Contact data with unique values</TestObjectInstanceName>
     <Id xsi:nil="true" />
-    <FirstName>TestName2017-11-04 21:36:31</FirstName>
-    <MiddleName>TestMiddleName2017-11-04 21:36:31</MiddleName>
-    <LastName>TestLastName2017-11-04 21:36:31</LastName>
+    <FirstName>TestName2017-11-04 23:00:30</FirstName>
+    <MiddleName>TestMiddleName2017-11-04 23:00:30</MiddleName>
+    <LastName>TestLastName2017-11-04 23:00:30</LastName>
     <Address />
     <TelephoneString />
     <TelephoneHome />
-    <EMailString>2017-11-04 21:36:31</EMailString>
-    <EMail>2017-11-04 21:36:31</EMail>
+    <EMailString>2017-11-04 23:00:30</EMailString>
+    <EMail>2017-11-04 23:00:30</EMail>
   </ContactData>
 </ArrayOfContactData>

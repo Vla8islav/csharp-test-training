@@ -4,13 +4,12 @@ namespace addressbook_web_tests
 {
     public class ModelBase : IEquatable<GroupData>
     {
-        public string InstanceAlias { get; set; } = null;
+        public string TestObjectInstanceName { get; set; }
         public new string ToString()
         {
-            return InstanceAlias;
+            return TestObjectInstanceName;
         }
 
-        
         public bool Equals(GroupData otherGroupData)
         {
             if (ReferenceEquals(otherGroupData, null))

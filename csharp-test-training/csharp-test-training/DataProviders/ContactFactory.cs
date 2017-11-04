@@ -5,13 +5,14 @@ using System.Linq;
 using System.Xml.Serialization;
 using FileHelpers;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using NUnit.Framework;
 using NUnit.Framework.Constraints;
 
 namespace addressbook_web_tests
 {
-    public class ContactFactory
+    public class ContactFactory : DataFactoryBase
     {
-
         public static ContactData GetSampleContactData()
         {
             return GetContactDataByInstanceNameFromJson("Default contact data");
@@ -22,46 +23,29 @@ namespace addressbook_web_tests
             return GetContactDataByInstanceNameFromJson("Contact data with unique values");
         }
 
+        private static List<ContactData> _contactsFromFile;
+
         private static ContactData GetContactDataByInstanceNameFromXml(string instanceName)
         {
             return GetContactsFromFileXml().First(c => c.TestObjectInstanceName == instanceName);
         }
-        
+
         private static ContactData GetContactDataByInstanceNameFromJson(string instanceName)
         {
             return GetContactsFromFileJson().First(c => c.TestObjectInstanceName == instanceName);
         }
         
-        static private List<ContactData> _contactsFromFile;
-
-        private static List<ContactData> GetContactsFromFileCsv()
+        private static ContactData GetContactDataByInstanceNameFromCsv(string instanceName)
         {
-            if (null == _contactsFromFile)
-            {
-                _contactsFromFile = new List<ContactData>();
-                var engine = new FileHelperEngine<ContactDataCsv>();
-                var contactsFromFileCsv = new List<ContactDataCsv>(engine.ReadFile(HelperBase.GetDataFileFullPath("Contacts.csv")));
-                foreach (var contactDataCsv in contactsFromFileCsv)
-                {
-                    _contactsFromFile.Add(contactDataCsv.ContactData()); 
-                }
-            }
-            
-            return _contactsFromFile;
+            return GetContactsFromFileCsv().First(c => c.TestObjectInstanceName == instanceName);
         }
-        
+
         private static List<ContactData> GetContactsFromFileXml()
         {
             if (null == _contactsFromFile)
             {
-                _contactsFromFile = new List<ContactData>();
-                using (StreamReader reader =
-                    new StreamReader(HelperBase.GetDataFileFullPath("Contacts.xml")))
-                {
-                    _contactsFromFile = (List<ContactData>) new XmlSerializer(typeof(List<ContactData>)).Deserialize(reader);
-                }                    
+                _contactsFromFile = GetObjectFromFileXml<ContactData>("Contacts.xml");
             }
-            
             return _contactsFromFile;
         }
 
@@ -69,14 +53,24 @@ namespace addressbook_web_tests
         {
             if (null == _contactsFromFile)
             {
-                _contactsFromFile = new List<ContactData>();
-                using (StreamReader reader =
-                    new StreamReader(HelperBase.GetDataFileFullPath("Contacts.json")))
-                {
-                    _contactsFromFile = (List<ContactData>) JsonConvert.DeserializeObject(reader.ReadToEnd());
-                }                    
+                _contactsFromFile = GetObjectFromFileJson<ContactData>("Contacts.json");
             }
-            
+            return _contactsFromFile;
+        }
+        
+        private static List<ContactData> GetContactsFromFileCsv()
+        {
+            if (null == _contactsFromFile)
+            {
+                _contactsFromFile = new List<ContactData>();
+                var engine = new FileHelperEngine<ContactDataCsv>();
+                var contactsFromFileCsv =
+                    new List<ContactDataCsv>(engine.ReadFile(HelperBase.GetDataFileFullPath("Contacts.csv")));
+                foreach (var contactDataCsv in contactsFromFileCsv)
+                {
+                    _contactsFromFile.Add(contactDataCsv.ContactData());
+                }
+            }
             return _contactsFromFile;
         }
     }

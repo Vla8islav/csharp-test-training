@@ -6,14 +6,14 @@ namespace addressbook_web_tests
 {
     public class ObjectComparePrinter : CompareHelper
     {
-        private Dictionary<string, Tuple<string, string>> propertiesList;
+        private readonly Dictionary<string, Tuple<string, string>> _propertiesList;
 
         public string CompareObjectName {get;}
 
         public ObjectComparePrinter(string compareObjectName)
         {
             CompareObjectName = compareObjectName;
-            propertiesList = new Dictionary<string, Tuple<string, string>>();
+            _propertiesList = new Dictionary<string, Tuple<string, string>>();
         }
 
         public void AddPairOfValuesDiff(string propertyName, string firstValue, string secondValue)
@@ -30,14 +30,14 @@ namespace addressbook_web_tests
         {
             if (!CompareValuesNullFriendly(firstValue, secondValue))
             {
-                propertiesList.Add(propertyName, new Tuple<string, string>(PrettyPrint.PrintWithNull(firstValue), PrettyPrint.PrintWithNull(secondValue)));
+                _propertiesList.Add(propertyName, new Tuple<string, string>(PrettyPrint.PrintWithNull(firstValue), PrettyPrint.PrintWithNull(secondValue)));
             }
         }
         
         public string PrintFirstObjectData()
         {
             string retval = "";
-            foreach (var propertyPair in propertiesList)
+            foreach (var propertyPair in _propertiesList)
             {
                 retval += $"{propertyPair.Key} is '{propertyPair.Value.Item1}'\n";
                 
@@ -48,7 +48,7 @@ namespace addressbook_web_tests
         public string PrintSecondObjectData()
         {
             string retval = "";
-            foreach (var propertyPair in propertiesList)
+            foreach (var propertyPair in _propertiesList)
             {
                 retval += $"{propertyPair.Key} is '{propertyPair.Value.Item2}'\n";
                 
@@ -59,7 +59,7 @@ namespace addressbook_web_tests
         public string PrintListOfPropertiesSideBySide()
         {
             string retval = "";
-            foreach (var propertyPair in propertiesList)
+            foreach (var propertyPair in _propertiesList)
             {
                 retval += PrettyPrint.PrintTwoNamedStrings(propertyPair.Key, propertyPair.Value.Item1,
                     propertyPair.Value.Item2); 

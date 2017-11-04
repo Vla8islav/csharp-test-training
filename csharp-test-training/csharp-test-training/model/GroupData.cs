@@ -4,11 +4,12 @@ namespace addressbook_web_tests
 {
     public class GroupData : ModelBase, IComparable<GroupData>
     {
+        public GroupData()
+        {
+        }
 
         public string GroupName { get; set; } = null;
-
         public string GroupHeader { get; set; } = null;
-
         public string GroupFooter { get; set; } = null;
 
         public new bool Equals(GroupData otherGroupData)
@@ -58,7 +59,20 @@ namespace addressbook_web_tests
 
         public override int GetHashCode()
         {
-            return GroupName.GetHashCode() + GroupHeader.GetHashCode() + GroupFooter.GetHashCode();
+            int retval = 0;
+            if (GroupName != null)
+            {
+                retval += GroupName.GetHashCode();
+            }
+            if (GroupHeader != null)
+            {
+                retval += GroupHeader.GetHashCode();
+            }
+            if (GroupFooter != null)
+            {
+                retval += GroupFooter.GetHashCode();
+            }
+            return retval;
         }
 
         public int CompareTo(GroupData otherGroupData)

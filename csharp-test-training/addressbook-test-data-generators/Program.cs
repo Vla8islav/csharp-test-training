@@ -14,54 +14,105 @@ namespace addressbook_test_data_generators
         public static void Main(string[] args)
         {
             WritePregeneratedContactData();
+            WritePregeneratedGroupData();
         }
 
+        private static void WritePregeneratedGroupData()
+        {
+            List<GroupData> groups = new List<GroupData>
+            {
+                new GroupData
+                {
+                    GroupName = "a'a",
+                    GroupHeader = "Some group header",
+                    GroupFooter = "Некоторый русский текст для разнообразия.",
+                    TestObjectInstanceName = "NameWith ' symbol"
+                },
+                new GroupData
+                {
+                    GroupName = "Some new goup",
+                    GroupHeader = "Some group header",
+                    GroupFooter = null,
+                    TestObjectInstanceName = "LeaveFooterIntact"
+                },
+                new GroupData
+                {
+                    GroupName = "",
+                    GroupHeader = "",
+                    GroupFooter = "",
+                    TestObjectInstanceName = "EmptyGroup"
+                },
+                new GroupData
+                {
+                    GroupName = "Some new goup" + " modified",
+                    GroupHeader = "Some group header" + " modified",
+                    GroupFooter = "Некоторый русский текст для разнообразия." + " modified",
+                    TestObjectInstanceName = "GroupForModification"
+                              
+                }
                 
+            };
+            
+            for (int i = 0; i < 3; i++)
+            {
+                groups.Add(new GroupData
+                    {
+                        GroupName = $"Some new goup {StringGenerator.RandomString()}",
+                        GroupHeader = $"Some group header {StringGenerator.RandomString()}",
+                        GroupFooter = $"Некоторый русский текст для разнообразия. {StringGenerator.RandomString()}",
+                        TestObjectInstanceName = $"RandomString_{i}"
+                    });  
+            }
+            
+            WriteToJson("Groups.json", groups);
+            WriteToXml<GroupData>("Groups.xml", groups);
+        }
+
+
         private static void WritePregeneratedContactData()
         {
 
-            List<ContactData> contacts
-                = new List<ContactData>();
-           
-            contacts.Add(new ContactData
+            List<ContactData> contacts = new List<ContactData>
             {
-                FirstName = $"TestName{StringGenerator.RandomString()}",
-                MiddleName = $"TestMiddleName{StringGenerator.RandomString()}",
-                LastName = $"TestLastName{StringGenerator.RandomString()}",
-                Address = $"{StringGenerator.RandomString()}",
-                TelephoneHome = $"{StringGenerator.RandomString()}",
-                EMail = $"{StringGenerator.RandomString()}",
-                TestObjectInstanceName = "Default contact data"
-            });
-            contacts.Add(new ContactData
-            {
-                FirstName = "TestName" + DateTime.Now,
-                MiddleName = "TestMiddleName" + DateTime.Now,
-                LastName = "TestLastName" + DateTime.Now,
-                Address = "",
-                TelephoneHome = "",
-                EMail = DateTime.Now.ToString(),
-                TestObjectInstanceName = "Contact data with unique values"
-            });
-           
-            WriteToCsv(contacts);
-            WriteToXml(contacts);
-            WriteToJson(contacts);
+                new ContactData
+                {
+                    FirstName = $"TestName{StringGenerator.RandomString()}",
+                    MiddleName = $"TestMiddleName{StringGenerator.RandomString()}",
+                    LastName = $"TestLastName{StringGenerator.RandomString()}",
+                    Address = $"{StringGenerator.RandomString()}",
+                    TelephoneHome = $"{StringGenerator.RandomString()}",
+                    EMail = $"{StringGenerator.RandomString()}",
+                    TestObjectInstanceName = "Default contact data"
+                },
+                new ContactData
+                {
+                    FirstName = "TestName" + DateTime.Now,
+                    MiddleName = "TestMiddleName" + DateTime.Now,
+                    LastName = "TestLastName" + DateTime.Now,
+                    Address = "",
+                    TelephoneHome = "",
+                    EMail = DateTime.Now.ToString(),
+                    TestObjectInstanceName = "Contact data with unique values"
+                }
+            };
+
+            WriteToCsv("Contacts.csv", contacts);
+            WriteToXml<ContactData>("Contacts.xml", contacts);
+            WriteToJson<ContactData>("Contacts.json", contacts);
         }
 
-        private static void WriteToCsv(List<ContactData> contacts)
+        private static void WriteToCsv(string fileName, List<ContactData> contacts)
         {
             List<ContactDataCsv> contactsCsv = new List<ContactDataCsv>();
             foreach (var contact in contacts)
             {
                 contactsCsv.Add(new ContactDataCsv(contact));
             }
-            WriteToCsv(contactsCsv);
+            WriteToCsv(fileName, contactsCsv);
         }
         
-        private static void WriteToCsv(List<ContactDataCsv> contacts)
+        private static void WriteToCsv(string fileName, List<ContactDataCsv> contacts)
         {
-            string fileName = "Contacts.csv";
             contacts.Insert(0, new ContactDataCsv
             {
                 Id = "Id",
@@ -96,21 +147,21 @@ namespace addressbook_test_data_generators
             engine.WriteFile(HelperBase.GetDataFileFullPath(fileName), contacts);
         }
         
-        private static void WriteToXml(List<ContactData> contacts)
+        private static void WriteToXml<T>(string fileName, List<T> contacts)
         {
             using (StreamWriter writer =
-                new StreamWriter(HelperBase.GetDataFileFullPath("Contacts.xml")))
+                new StreamWriter(HelperBase.GetDataFileFullPath(fileName)))
             {
-                new XmlSerializer(typeof(List<ContactData>)).Serialize(writer, contacts);
+                new XmlSerializer(typeof(List<T>)).Serialize(writer, contacts);
             }
         }
         
-        private static void WriteToJson(List<ContactData> contacts)
+        private static void WriteToJson<T>(string fileName, List<T> objects)
         {
             using (StreamWriter writer =
-                new StreamWriter(HelperBase.GetDataFileFullPath("Contacts.json")))
+                new StreamWriter(HelperBase.GetDataFileFullPath(fileName)))
             {
-                writer.Write(JsonHelper.PrettyPrintJson(JsonConvert.SerializeObject(contacts)));
+                writer.Write(JsonHelper.PrettyPrintJson(JsonConvert.SerializeObject(objects)));
             }
         }
     }

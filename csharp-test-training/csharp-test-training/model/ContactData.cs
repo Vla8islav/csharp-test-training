@@ -5,7 +5,6 @@ namespace addressbook_web_tests
 {
     public class ContactData : ModelBase, IComparable<ContactData>
     {
-        public string TestObjectInstanceName { get; set; }
 
         public CheckResult Compare(ContactData otherContactData)
         {
