@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using OpenQA.Selenium;
 
 namespace addressbook_web_tests
@@ -124,6 +125,27 @@ namespace addressbook_web_tests
             list[i] = data;
             return list;
         }
+        
+        public static string GetSolutionDirectoryFullPath()
+        {
+            return Path.GetFullPath(Path.Combine(AppDomain.CurrentDomain.BaseDirectory,
+                "..\\..\\..\\"));
+        }
 
+        public static string GetDataFolderFullPath()
+        {
+            return Path.GetFullPath(Path.Combine(GetSolutionDirectoryFullPath(),
+                "csharp-test-training\\Data\\"));
+        }
+
+        public static string GetDataFileFullPath(string filename)
+        {
+            return Path.GetFullPath(Path.Combine(GetDataFolderFullPath(), filename));
+        }
+        
+        public static string GetJsonSchemaFolderFullPath()
+        {
+            return GetDataFolderFullPath();
+        }
     }
 }

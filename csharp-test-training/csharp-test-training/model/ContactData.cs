@@ -5,6 +5,8 @@ namespace addressbook_web_tests
 {
     public class ContactData : ModelBase, IComparable<ContactData>
     {
+        public string TestObjectInstanceName { get; set; }
+
         public CheckResult Compare(ContactData otherContactData)
         {
             if (null == otherContactData)
@@ -322,6 +324,7 @@ namespace addressbook_web_tests
         public string SecondaryAddress { get; set; }
         public string SecondaryHome { get; set; }
         public string Notes { get; set; }
+        
 
         private static string ConcatenanateStringsNewline(List<string> list)
         {

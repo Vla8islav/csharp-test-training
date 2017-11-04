@@ -35,6 +35,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="FileHelpers, Version=3.2.6.0, Culture=neutral, PublicKeyToken=3e0c08d59cc3d657">
+      <HintPath>..\packages\FileHelpers.3.2.6-alpha\lib\net45\FileHelpers.dll</HintPath>
+    </Reference>
     <Reference Include="nunit.framework, Version=2.6.4.14350, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77, processorArchitecture=MSIL">
       <HintPath>..\packages\NUnit.2.6.4\lib\nunit.framework.dll</HintPath>
       <Private>True</Private>
@@ -76,6 +79,7 @@
     <Compile Include="model\CheckResult.cs" />
     <Compile Include="model\CheckResultSet.cs" />
     <Compile Include="model\ContactData.cs" />
+    <Compile Include="model\ContactDataCsv.cs" />
     <Compile Include="model\ModelBase.cs" />
     <Compile Include="Pages\ContactCreationPage.cs" />
     <Compile Include="Pages\ContactViewPage.cs" />
@@ -104,6 +108,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Data\Contacts.csv" />
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
