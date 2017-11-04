@@ -7,6 +7,8 @@ namespace addressbook_web_tests
     public class ContactDataCsv
     {
         [FieldQuoted('"', QuoteMode.OptionalForBoth)]
+        public string TestObjectInstanceName { get; set; }
+        [FieldQuoted('"', QuoteMode.OptionalForBoth)]
         public string Id { get; set; }
         [FieldQuoted('"', QuoteMode.OptionalForBoth)]
         public string FirstName { get; set; }
@@ -54,8 +56,39 @@ namespace addressbook_web_tests
         public string SecondaryHome { get; set; }
         [FieldQuoted('"', QuoteMode.OptionalForBoth)]
         public string Notes { get; set; }
-        [FieldQuoted('"', QuoteMode.OptionalForBoth)]
-        public string TestObjectInstanceName { get; set; }
+
+        public ContactDataCsv()
+        {
+        }
+
+        public ContactDataCsv(ContactData c)
+        {
+            Id = c.Id.ToString();
+            FirstName = c.FirstName;
+            MiddleName = c.MiddleName;
+            LastName = c.LastName;
+            Nickname = c.Nickname;
+            Photo = c.Photo;
+            Title = c.Title;
+            Company = c.Company;
+            Address = c.Address;
+            TelephoneHome = c.TelephoneHome;
+            TelephoneMobile = c.TelephoneMobile;
+            TelephoneWork = c.TelephoneWork;
+            TelephoneFax = c.TelephoneFax;
+            EMail = c.EMail;
+            EMail2 = c.EMail2;
+            EMail3 = c.EMail3;
+            Homepage = c.Homepage;
+            Birthday = c.Birthday;
+            Anniversary = c.Anniversary;
+            Group = c.Group;
+            Secondary = c.Secondary;
+            SecondaryAddress = c.SecondaryAddress;
+            SecondaryHome = c.SecondaryHome;
+            Notes = c.Notes;
+            TestObjectInstanceName = c.TestObjectInstanceName;
+        }
 
         public ContactData ContactData()
         {

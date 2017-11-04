@@ -1,8 +1,11 @@
 ﻿
 using System;
 using System.Collections.Generic;
+using System.IO;
+using System.Xml.Serialization;
 using addressbook_web_tests;
 using FileHelpers;
+using Newtonsoft.Json;
 
 namespace addressbook_test_data_generators
 {
@@ -10,17 +13,56 @@ namespace addressbook_test_data_generators
     {
         public static void Main(string[] args)
         {
-            WritePregeneratedContactData("Contacts.csv");
+            WritePregeneratedContactData();
         }
 
                 
-        private static void WritePregeneratedContactData(string fileName)
+        private static void WritePregeneratedContactData()
         {
-            var engine = new FileHelperEngine<ContactDataCsv>();
 
-            List<ContactDataCsv> contacts
-                = new List<ContactDataCsv>();
-            contacts.Add(new ContactDataCsv
+            List<ContactData> contacts
+                = new List<ContactData>();
+           
+            contacts.Add(new ContactData
+            {
+                FirstName = $"TestName{StringGenerator.RandomString()}",
+                MiddleName = $"TestMiddleName{StringGenerator.RandomString()}",
+                LastName = $"TestLastName{StringGenerator.RandomString()}",
+                Address = $"{StringGenerator.RandomString()}",
+                TelephoneHome = $"{StringGenerator.RandomString()}",
+                EMail = $"{StringGenerator.RandomString()}",
+                TestObjectInstanceName = "Default contact data"
+            });
+            contacts.Add(new ContactData
+            {
+                FirstName = "TestName" + DateTime.Now,
+                MiddleName = "TestMiddleName" + DateTime.Now,
+                LastName = "TestLastName" + DateTime.Now,
+                Address = "",
+                TelephoneHome = "",
+                EMail = DateTime.Now.ToString(),
+                TestObjectInstanceName = "Contact data with unique values"
+            });
+           
+            WriteToCsv(contacts);
+            WriteToXml(contacts);
+            WriteToJson(contacts);
+        }
+
+        private static void WriteToCsv(List<ContactData> contacts)
+        {
+            List<ContactDataCsv> contactsCsv = new List<ContactDataCsv>();
+            foreach (var contact in contacts)
+            {
+                contactsCsv.Add(new ContactDataCsv(contact));
+            }
+            WriteToCsv(contactsCsv);
+        }
+        
+        private static void WriteToCsv(List<ContactDataCsv> contacts)
+        {
+            string fileName = "Contacts.csv";
+            contacts.Insert(0, new ContactDataCsv
             {
                 Id = "Id",
                 FirstName = "FirstName",
@@ -49,29 +91,27 @@ namespace addressbook_test_data_generators
                 TestObjectInstanceName = "TestObjectInstanceName"
             });
             
-            contacts.Add(new ContactDataCsv
-            {
-                FirstName = $"TestName{StringGenerator.RandomString()}",
-                MiddleName = $"TestMiddleName{StringGenerator.RandomString()}",
-                LastName = $"TestLastName{StringGenerator.RandomString()}",
-                Address = $"{StringGenerator.RandomString()}",
-                TelephoneHome = $"{StringGenerator.RandomString()}",
-                EMail = $"{StringGenerator.RandomString()}",
-                Nickname = "Default contact data"
-            });
-            contacts.Add(new ContactDataCsv
-            {
-                FirstName = "TestName" + DateTime.Now,
-                MiddleName = "TestMiddleName" + DateTime.Now,
-                LastName = "TestLastName" + DateTime.Now,
-                Address = "",
-                TelephoneHome = "",
-                EMail = "" + DateTime.Now,
-                Nickname = "Contact data with unique values"
-            });
 
+            var engine = new FileHelperEngine<ContactDataCsv>();
             engine.WriteFile(HelperBase.GetDataFileFullPath(fileName), contacts);
         }
-
+        
+        private static void WriteToXml(List<ContactData> contacts)
+        {
+            using (StreamWriter writer =
+                new StreamWriter(HelperBase.GetDataFileFullPath("Contacts.xml")))
+            {
+                new XmlSerializer(typeof(List<ContactData>)).Serialize(writer, contacts);
+            }
+        }
+        
+        private static void WriteToJson(List<ContactData> contacts)
+        {
+            using (StreamWriter writer =
+                new StreamWriter(HelperBase.GetDataFileFullPath("Contacts.json")))
+            {
+                writer.Write(JsonHelper.PrettyPrintJson(JsonConvert.SerializeObject(contacts)));
+            }
+        }
     }
 }

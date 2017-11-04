@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ArrayOfContactData xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <ContactData>
+    <TestObjectInstanceName>Default contact data</TestObjectInstanceName>
+    <Id xsi:nil="true" />
+    <FirstName>TestNamewQN8j</FirstName>
+    <MiddleName>TestMiddleNamee0sKk</MiddleName>
+    <LastName>TestLastName63P35</LastName>
+    <Address>i2Bbk</Address>
+    <TelephoneString>gJi5k</TelephoneString>
+    <TelephoneHome>gJi5k</TelephoneHome>
+    <EMailString>GOEZl</EMailString>
+    <EMail>GOEZl</EMail>
+  </ContactData>
+  <ContactData>
+    <TestObjectInstanceName>Contact data with unique values</TestObjectInstanceName>
+    <Id xsi:nil="true" />
+    <FirstName>TestName2017-11-04 21:36:31</FirstName>
+    <MiddleName>TestMiddleName2017-11-04 21:36:31</MiddleName>
+    <LastName>TestLastName2017-11-04 21:36:31</LastName>
+    <Address />
+    <TelephoneString />
+    <TelephoneHome />
+    <EMailString>2017-11-04 21:36:31</EMailString>
+    <EMail>2017-11-04 21:36:31</EMail>
+  </ContactData>
+</ArrayOfContactData>
