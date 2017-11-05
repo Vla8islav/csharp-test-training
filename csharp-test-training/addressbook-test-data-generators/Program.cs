@@ -1,23 +1,90 @@
-﻿
-using System;
+﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.IO;
+using System.Text;
 using System.Xml.Serialization;
 using addressbook_web_tests;
+using CommandLine;
+using CommandLine.Text;
 using FileHelpers;
 using Newtonsoft.Json;
 
 namespace addressbook_test_data_generators
 {
+    class Options
+    {
+        [Option('v', "verbose", DefaultValue = true,
+            HelpText = "Prints all messages to standard output.")]
+        public bool Verbose { get; set; }
+
+        [Option('t', "data-type", DefaultValue = "groups",
+            HelpText = "Data type to generate. May be either groups, contacts")]
+        public string DataType { get; set; }
+
+        [Option('f', "data-format", DefaultValue = "json",
+            HelpText = "Format of the output data. xml, json")]
+        public string DataFormat { get; set; }
+
+        [Option('n', "generate-objects", DefaultValue = 10,
+            HelpText = "Minimal number of objects to generate. Default number is 10")]
+        public int ObjectNumberToGenerate { get; set; }
+
+        [Option('a', "filename", DefaultValue = "",
+            HelpText =
+                "Absolute or relative name of the json file. Default is Contacts.json and Groups.json")]
+        public string OutputFilename { get; set; }
+
+        [ParserState]
+        public IParserState LastParserState { get; set; }
+
+        [HelpOption]
+        public string GetUsage()
+        {
+            return HelpText.AutoBuild(this,
+                current => HelpText.DefaultParsingErrorsHandler(this, current));
+        }
+    }
+
     internal class Program
     {
         public static void Main(string[] args)
         {
-            WritePregeneratedContactData();
-            WritePregeneratedGroupData();
+            var options = new Options();
+            if (Parser.Default.ParseArguments(args, options))
+            {
+                int objectsToGenerate = options.ObjectNumberToGenerate;
+                string dataFormat = options.DataFormat;
+                string dataType = options.DataType;
+                string filename = options.OutputFilename;
+                if (String.IsNullOrEmpty(filename))
+                {
+                    switch (dataType)
+                    {
+                        case "groups":
+                            filename = "Groups";
+                            break;
+                        case "contacts":
+                            filename = "Contacts";
+                            break;
+                    }
+                    filename += $".{dataFormat}";
+                }
+
+                switch (dataType)
+                {
+                    case "groups":
+                        WritePregeneratedGroupData(dataFormat, objectsToGenerate, filename);
+                        break;
+                    case "contacts":
+                        WritePregeneratedContactData(dataFormat, objectsToGenerate, filename);
+                        break;
+                }
+            }
+
         }
 
-        private static void WritePregeneratedGroupData()
+        private static void WritePregeneratedGroupData(string dataFormat, int objectsToGenerate, string filename)
         {
             List<GroupData> groups = new List<GroupData>
             {
@@ -48,30 +115,26 @@ namespace addressbook_test_data_generators
                     GroupHeader = "Some group header" + " modified",
                     GroupFooter = "Некоторый русский текст для разнообразия." + " modified",
                     TestObjectInstanceName = "GroupForModification"
-                              
                 }
-                
             };
-            
-            for (int i = 0; i < 3; i++)
+
+            for (int i = 0; groups.Count < objectsToGenerate; i++)
             {
                 groups.Add(new GroupData
-                    {
-                        GroupName = $"Some new goup {StringGenerator.RandomString()}",
-                        GroupHeader = $"Some group header {StringGenerator.RandomString()}",
-                        GroupFooter = $"Некоторый русский текст для разнообразия. {StringGenerator.RandomString()}",
-                        TestObjectInstanceName = $"RandomString_{i}"
-                    });  
+                {
+                    GroupName = $"Some new goup {StringGenerator.RandomString()}",
+                    GroupHeader = $"Some group header {StringGenerator.RandomString()}",
+                    GroupFooter = $"Некоторый русский текст для разнообразия. {StringGenerator.RandomString()}",
+                    TestObjectInstanceName = $"RandomString_{i}"
+                });
             }
-            
-            WriteToJson("Groups.json", groups);
-            WriteToXml<GroupData>("Groups.xml", groups);
+
+            WriteDataOnDisk(dataFormat, groups, filename);
         }
 
 
-        private static void WritePregeneratedContactData()
+        private static void WritePregeneratedContactData(string dataFormat, int objectsToGenerate, string filename)
         {
-
             List<ContactData> contacts = new List<ContactData>
             {
                 new ContactData
@@ -96,9 +159,40 @@ namespace addressbook_test_data_generators
                 }
             };
 
-            WriteToCsv("Contacts.csv", contacts);
-            WriteToXml<ContactData>("Contacts.xml", contacts);
-            WriteToJson<ContactData>("Contacts.json", contacts);
+            for (int i = 0; contacts.Count < objectsToGenerate; i++)
+            {
+                contacts.Add(new ContactData
+                {
+                    FirstName = $"TestName{StringGenerator.RandomString()}",
+                    MiddleName = $"TestMiddleName{StringGenerator.RandomString()}",
+                    LastName = $"TestLastName{StringGenerator.RandomString()}",
+                    Address = $"{StringGenerator.RandomString()}",
+                    TelephoneHome = $"{StringGenerator.RandomString()}",
+                    EMail = $"{StringGenerator.RandomString()}",
+                    TestObjectInstanceName = $"RandomContactCata_{i}"
+                });
+            }
+
+//            WriteToCsv("Contacts.csv", contacts);
+            WriteDataOnDisk(dataFormat, contacts, filename);
+        }
+
+        private static void WriteDataOnDisk<T>(string dataFormat, List<T> contacts, string filename)
+        {
+            if (!Path.IsPathRooted(filename))
+            {
+                filename = HelperBase.GetDataFileFullPath(filename);
+            }
+
+            switch (dataFormat)
+            {
+                case "xml":
+                    WriteToXml(filename, contacts);
+                    break;
+                case "json":
+                    WriteToJson(filename, contacts);
+                    break;
+            }
         }
 
         private static void WriteToCsv(string fileName, List<ContactData> contacts)
@@ -110,7 +204,7 @@ namespace addressbook_test_data_generators
             }
             WriteToCsv(fileName, contactsCsv);
         }
-        
+
         private static void WriteToCsv(string fileName, List<ContactDataCsv> contacts)
         {
             contacts.Insert(0, new ContactDataCsv
@@ -141,25 +235,25 @@ namespace addressbook_test_data_generators
                 Notes = "Notes",
                 TestObjectInstanceName = "TestObjectInstanceName"
             });
-            
+
 
             var engine = new FileHelperEngine<ContactDataCsv>();
             engine.WriteFile(HelperBase.GetDataFileFullPath(fileName), contacts);
         }
-        
+
         private static void WriteToXml<T>(string fileName, List<T> contacts)
         {
             using (StreamWriter writer =
-                new StreamWriter(HelperBase.GetDataFileFullPath(fileName)))
+                new StreamWriter(fileName))
             {
                 new XmlSerializer(typeof(List<T>)).Serialize(writer, contacts);
             }
         }
-        
+
         private static void WriteToJson<T>(string fileName, List<T> objects)
         {
             using (StreamWriter writer =
-                new StreamWriter(HelperBase.GetDataFileFullPath(fileName)))
+                new StreamWriter(fileName))
             {
                 writer.Write(JsonHelper.PrettyPrintJson(JsonConvert.SerializeObject(objects)));
             }

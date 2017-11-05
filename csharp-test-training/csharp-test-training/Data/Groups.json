@@ -24,21 +24,39 @@
         "TestObjectInstanceName": "GroupForModification"
     },
     {
-        "GroupName": "Some new goup vJ9Jp",
-        "GroupHeader": "Some group header nN8wW",
-        "GroupFooter": "Некоторый русский текст для разнообразия. esQhc",
+        "GroupName": "Some new goup D9hMI",
+        "GroupHeader": "Some group header NLExN",
+        "GroupFooter": "Некоторый русский текст для разнообразия. N89qC",
         "TestObjectInstanceName": "RandomString_0"
     },
     {
-        "GroupName": "Some new goup s67ft",
-        "GroupHeader": "Some group header BdN83",
-        "GroupFooter": "Некоторый русский текст для разнообразия. lynYv",
+        "GroupName": "Some new goup NECf9",
+        "GroupHeader": "Some group header ni03N",
+        "GroupFooter": "Некоторый русский текст для разнообразия. MsANg",
         "TestObjectInstanceName": "RandomString_1"
     },
     {
-        "GroupName": "Some new goup 5xX32",
-        "GroupHeader": "Some group header 6576n",
-        "GroupFooter": "Некоторый русский текст для разнообразия. gTs6r",
+        "GroupName": "Some new goup nN3p6",
+        "GroupHeader": "Some group header QiolJ",
+        "GroupFooter": "Некоторый русский текст для разнообразия. UGMHU",
         "TestObjectInstanceName": "RandomString_2"
+    },
+    {
+        "GroupName": "Some new goup wlYZ2",
+        "GroupHeader": "Some group header RWRYR",
+        "GroupFooter": "Некоторый русский текст для разнообразия. eJo85",
+        "TestObjectInstanceName": "RandomString_3"
+    },
+    {
+        "GroupName": "Some new goup eL1Rk",
+        "GroupHeader": "Some group header AETtv",
+        "GroupFooter": "Некоторый русский текст для разнообразия. oabWo",
+        "TestObjectInstanceName": "RandomString_4"
+    },
+    {
+        "GroupName": "Some new goup hVsib",
+        "GroupHeader": "Some group header lTkUO",
+        "GroupFooter": "Некоторый русский текст для разнообразия. R5eYb",
+        "TestObjectInstanceName": "RandomString_5"
     }
 ]

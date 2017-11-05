@@ -3,25 +3,121 @@
   <ContactData>
     <TestObjectInstanceName>Default contact data</TestObjectInstanceName>
     <Id xsi:nil="true" />
-    <FirstName>TestNameLLVJP</FirstName>
-    <MiddleName>TestMiddleNamefc97o</MiddleName>
-    <LastName>TestLastNameF5GmQ</LastName>
-    <Address>tSeSM</Address>
-    <TelephoneString>djWsv</TelephoneString>
-    <TelephoneHome>djWsv</TelephoneHome>
-    <EMailString>dkolD</EMailString>
-    <EMail>dkolD</EMail>
+    <FirstName>TestNamewRA3V</FirstName>
+    <MiddleName>TestMiddleNameOnU1n</MiddleName>
+    <LastName>TestLastNamew64xF</LastName>
+    <Address>nvdLs</Address>
+    <TelephoneString>QG19d</TelephoneString>
+    <TelephoneHome>QG19d</TelephoneHome>
+    <EMailString>T6Xbu</EMailString>
+    <EMail>T6Xbu</EMail>
   </ContactData>
   <ContactData>
     <TestObjectInstanceName>Contact data with unique values</TestObjectInstanceName>
     <Id xsi:nil="true" />
-    <FirstName>TestName2017-11-04 23:00:30</FirstName>
-    <MiddleName>TestMiddleName2017-11-04 23:00:30</MiddleName>
-    <LastName>TestLastName2017-11-04 23:00:30</LastName>
+    <FirstName>TestName2017-11-05 15:43:50</FirstName>
+    <MiddleName>TestMiddleName2017-11-05 15:43:50</MiddleName>
+    <LastName>TestLastName2017-11-05 15:43:50</LastName>
     <Address />
     <TelephoneString />
     <TelephoneHome />
-    <EMailString>2017-11-04 23:00:30</EMailString>
-    <EMail>2017-11-04 23:00:30</EMail>
+    <EMailString>2017-11-05 15:43:50</EMailString>
+    <EMail>2017-11-05 15:43:50</EMail>
+  </ContactData>
+  <ContactData>
+    <TestObjectInstanceName>RandomContactCata_0</TestObjectInstanceName>
+    <Id xsi:nil="true" />
+    <FirstName>TestNamep4fiJ</FirstName>
+    <MiddleName>TestMiddleNamey4nRt</MiddleName>
+    <LastName>TestLastNamecB9OZ</LastName>
+    <Address>xu1kW</Address>
+    <TelephoneString>Xdllk</TelephoneString>
+    <TelephoneHome>Xdllk</TelephoneHome>
+    <EMailString>qZBaC</EMailString>
+    <EMail>qZBaC</EMail>
+  </ContactData>
+  <ContactData>
+    <TestObjectInstanceName>RandomContactCata_1</TestObjectInstanceName>
+    <Id xsi:nil="true" />
+    <FirstName>TestNameSQ3G8</FirstName>
+    <MiddleName>TestMiddleName1aWnQ</MiddleName>
+    <LastName>TestLastNametILcQ</LastName>
+    <Address>PGmjp</Address>
+    <TelephoneString>iEwFW</TelephoneString>
+    <TelephoneHome>iEwFW</TelephoneHome>
+    <EMailString>MT48c</EMailString>
+    <EMail>MT48c</EMail>
+  </ContactData>
+  <ContactData>
+    <TestObjectInstanceName>RandomContactCata_2</TestObjectInstanceName>
+    <Id xsi:nil="true" />
+    <FirstName>TestNameY3MPa</FirstName>
+    <MiddleName>TestMiddleNameLH3Qh</MiddleName>
+    <LastName>TestLastNameWXOTm</LastName>
+    <Address>PRIVU</Address>
+    <TelephoneString>kxbud</TelephoneString>
+    <TelephoneHome>kxbud</TelephoneHome>
+    <EMailString>Neyuv</EMailString>
+    <EMail>Neyuv</EMail>
+  </ContactData>
+  <ContactData>
+    <TestObjectInstanceName>RandomContactCata_3</TestObjectInstanceName>
+    <Id xsi:nil="true" />
+    <FirstName>TestNamehgYK2</FirstName>
+    <MiddleName>TestMiddleName056BF</MiddleName>
+    <LastName>TestLastNameINWCT</LastName>
+    <Address>K0ccH</Address>
+    <TelephoneString>4Kjn2</TelephoneString>
+    <TelephoneHome>4Kjn2</TelephoneHome>
+    <EMailString>lbbvM</EMailString>
+    <EMail>lbbvM</EMail>
+  </ContactData>
+  <ContactData>
+    <TestObjectInstanceName>RandomContactCata_4</TestObjectInstanceName>
+    <Id xsi:nil="true" />
+    <FirstName>TestNameqTIe9</FirstName>
+    <MiddleName>TestMiddleName09Dbw</MiddleName>
+    <LastName>TestLastNameTVHPM</LastName>
+    <Address>XaYbT</Address>
+    <TelephoneString>XCVm1</TelephoneString>
+    <TelephoneHome>XCVm1</TelephoneHome>
+    <EMailString>X7uRQ</EMailString>
+    <EMail>X7uRQ</EMail>
+  </ContactData>
+  <ContactData>
+    <TestObjectInstanceName>RandomContactCata_5</TestObjectInstanceName>
+    <Id xsi:nil="true" />
+    <FirstName>TestNameYeKyY</FirstName>
+    <MiddleName>TestMiddleNameyE1Cc</MiddleName>
+    <LastName>TestLastNameLwApy</LastName>
+    <Address>iDTbf</Address>
+    <TelephoneString>KCAcz</TelephoneString>
+    <TelephoneHome>KCAcz</TelephoneHome>
+    <EMailString>o8fnm</EMailString>
+    <EMail>o8fnm</EMail>
+  </ContactData>
+  <ContactData>
+    <TestObjectInstanceName>RandomContactCata_6</TestObjectInstanceName>
+    <Id xsi:nil="true" />
+    <FirstName>TestName3OvKY</FirstName>
+    <MiddleName>TestMiddleNameyLS1X</MiddleName>
+    <LastName>TestLastNameSjW8H</LastName>
+    <Address>kBqyS</Address>
+    <TelephoneString>TnTwG</TelephoneString>
+    <TelephoneHome>TnTwG</TelephoneHome>
+    <EMailString>Ver9t</EMailString>
+    <EMail>Ver9t</EMail>
+  </ContactData>
+  <ContactData>
+    <TestObjectInstanceName>RandomContactCata_7</TestObjectInstanceName>
+    <Id xsi:nil="true" />
+    <FirstName>TestName0iOZj</FirstName>
+    <MiddleName>TestMiddleName6BzQ9</MiddleName>
+    <LastName>TestLastNameXvbDM</LastName>
+    <Address>kqBUO</Address>
+    <TelephoneString>nRrUT</TelephoneString>
+    <TelephoneHome>nRrUT</TelephoneHome>
+    <EMailString>P59ED</EMailString>
+    <EMail>P59ED</EMail>
   </ContactData>
 </ArrayOfContactData>
