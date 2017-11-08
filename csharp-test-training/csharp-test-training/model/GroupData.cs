@@ -1,16 +1,26 @@
 ﻿using System;
+using LinqToDB.Mapping;
 
 namespace addressbook_web_tests
 {
+    [Table(Name = "group_list")]
     public class GroupData : ModelBase, IComparable<GroupData>
     {
         public GroupData()
         {
         }
 
-        public string GroupName { get; set; } = null;
-        public string GroupHeader { get; set; } = null;
-        public string GroupFooter { get; set; } = null;
+        [Column(Name = "group_id"), PrimaryKey, Identity]
+        public int? Id { get; set; } = null;
+
+        [Column(Name = "group_name")]
+        public string Name { get; set; } = null;
+
+        [Column(Name = "group_header")]
+        public string Header { get; set; } = null;
+
+        [Column(Name = "group_footer")]
+        public string Footer { get; set; } = null;
 
         public new bool Equals(GroupData otherGroupData)
         {
@@ -22,16 +32,17 @@ namespace addressbook_web_tests
             {
                 return true;
             }
-            
+
             return IsValidGroupDataEqual(otherGroupData);
         }
 
         private bool IsValidGroupDataEqual(GroupData otherGroupData)
         {
             bool retval = true;
-            retval &= CompareHelper.CompareValuesNullFriendly(otherGroupData.GroupName, GroupName);
-            retval &= CompareHelper.CompareValuesNullFriendly(otherGroupData.GroupHeader, GroupHeader);
-            retval &= CompareHelper.CompareValuesNullFriendly(otherGroupData.GroupFooter, GroupFooter);
+            retval &= CompareHelper.CompareValuesNullFriendly(otherGroupData.Id, Id);
+            retval &= CompareHelper.CompareValuesNullFriendly(otherGroupData.Name, Name);
+            retval &= CompareHelper.CompareValuesNullFriendly(otherGroupData.Header, Header);
+            retval &= CompareHelper.CompareValuesNullFriendly(otherGroupData.Footer, Footer);
             return retval;
         }
 
@@ -41,36 +52,61 @@ namespace addressbook_web_tests
             {
                 otherGroupData = new GroupData
                 {
-                    GroupFooter = null,
-                    GroupHeader = null,
-                    GroupName = null
+                    Footer = null,
+                    Header = null
                 };
             }
 
             CheckResult retval = new CheckResult();
             ObjectComparePrinter comparePrinter = new ObjectComparePrinter("GroupData");
-            comparePrinter.AddPairOfValuesDiff("GroupName", otherGroupData.GroupName, GroupName);
-            comparePrinter.AddPairOfValuesDiff("GroupHeader", otherGroupData.GroupHeader, GroupHeader);
-            comparePrinter.AddPairOfValuesDiff("GroupFooter", otherGroupData.GroupFooter, GroupFooter);
+            comparePrinter.AddPairOfValuesDiff("Id", otherGroupData.Id, Id);
+            comparePrinter.AddPairOfValuesDiff("GroupName", otherGroupData.Name, Name);
+            comparePrinter.AddPairOfValuesDiff("GroupHeader", otherGroupData.Header, Header);
+            comparePrinter.AddPairOfValuesDiff("GroupFooter", otherGroupData.Footer, Footer);
             retval.Message = comparePrinter.PrintListOfPropertiesSideBySide();
             retval.Result = IsValidGroupDataEqual(otherGroupData);
             return retval;
         }
 
+        public CheckResult CompareNames(GroupData otherGroupData)
+        {
+            if (null == otherGroupData)
+            {
+                otherGroupData = new GroupData
+                {
+                    Footer = null,
+                    Header = null,
+                    Name = null
+                };
+            }
+
+            CheckResult retval = new CheckResult();
+            ObjectComparePrinter comparePrinter = new ObjectComparePrinter("GroupData");
+            comparePrinter.AddPairOfValuesDiff("GroupName", otherGroupData.Name, Name);
+            retval.Message = comparePrinter.PrintListOfPropertiesSideBySide();
+            retval.Result = CompareHelper.CompareValuesNullFriendly(otherGroupData.Name, Name);
+            return retval;
+        }
+
+
         public override int GetHashCode()
         {
             int retval = 0;
-            if (GroupName != null)
+            if (Name != null)
             {
-                retval += GroupName.GetHashCode();
+                retval += Name.GetHashCode();
             }
-            if (GroupHeader != null)
+            if (Header != null)
             {
-                retval += GroupHeader.GetHashCode();
+                retval += Header.GetHashCode();
             }
-            if (GroupFooter != null)
+            if (Footer != null)
             {
-                retval += GroupFooter.GetHashCode();
+                retval += Footer.GetHashCode();
+            }
+            if (Id != null)
+            {
+                retval += Id.GetHashCode();
             }
             return retval;
         }
@@ -81,8 +117,9 @@ namespace addressbook_web_tests
             {
                 return 1;
             }
-            return String.Compare(GroupName, otherGroupData.GroupName, StringComparison.Ordinal);
+            var i = Id - otherGroupData.Id;
+            if (i != null) return (int) i;
+            return 0;
         }
-        
     }
 }

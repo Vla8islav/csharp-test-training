@@ -75,7 +75,7 @@ namespace addressbook_web_tests
             return ++i;
         }
 
-        protected CheckResultSet CormpareTwoModelLists<T>(List<T> listFirst, List<T> listSecond,
+        public CheckResultSet CormpareTwoModelLists<T>(List<T> listFirst, List<T> listSecond,
             Func<T, T, CheckResult> compareAndGetTestResult)
         {
             CheckResultSet retval = new CheckResultSet();

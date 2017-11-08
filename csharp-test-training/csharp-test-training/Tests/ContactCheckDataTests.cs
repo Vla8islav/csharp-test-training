@@ -5,16 +5,16 @@ namespace addressbook_web_tests
 {
     public class ContactCheckDataTests : TestBaseWithLogin
     {
-        const int CONTACT_INDEX = 1;
+        const int ContactIndex = 1;
         
         [Test]
         public void ContactCheckEditViewConformToListTest()
         {
             CheckResultSet checkResultSet = new CheckResultSet();
-            app.ContactHelper.PrepareContactWithIndex(CONTACT_INDEX);
+            app.ContactHelper.PrepareContactWithIndex(ContactIndex);
             
-            ContactData contactInfoFromList = app.ContactHelper.GetContactInfoFromList(CONTACT_INDEX);
-            ContactData contactInfoFromEditForm = app.ContactHelper.GetContactInfoFromEditForm(CONTACT_INDEX);
+            ContactData contactInfoFromList = app.ContactHelper.GetContactInfoFromList(ContactIndex);
+            ContactData contactInfoFromEditForm = app.ContactHelper.GetContactInfoFromEditForm(ContactIndex);
             
             checkResultSet.Add(contactInfoFromList.Compare(contactInfoFromEditForm));
             
@@ -25,10 +25,10 @@ namespace addressbook_web_tests
         public void ContactCheckViewFormConformsToEditTest()
         {
             CheckResultSet checkResultSet = new CheckResultSet();
-            app.ContactHelper.PrepareContactWithIndex(CONTACT_INDEX);
-            ContactData contactInfoFromEditForm = app.ContactHelper.GetContactInfoFromEditForm(CONTACT_INDEX);
+            app.ContactHelper.PrepareContactWithIndex(ContactIndex);
+            ContactData contactInfoFromEditForm = app.ContactHelper.GetContactInfoFromEditForm(ContactIndex);
             
-            string contactInfoFromViewString = PrettyPrint.CleanSpecialCharacters(app.ContactHelper.GetContactInfoFromViewForm(CONTACT_INDEX));
+            string contactInfoFromViewString = PrettyPrint.CleanSpecialCharacters(app.ContactHelper.GetContactInfoFromViewForm(ContactIndex));
             string contactInfoFromEditFormString = PrettyPrint.CleanSpecialCharacters(contactInfoFromEditForm.ViewFormString);
             
             checkResultSet.Add(new CheckResult(contactInfoFromViewString == contactInfoFromEditFormString,

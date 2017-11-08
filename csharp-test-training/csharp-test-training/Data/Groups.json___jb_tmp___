@@ -1,0 +1,62 @@
+[
+    {
+        "Name": "a'a",
+        "Header": "Some group header",
+        "Footer": "Некоторый русский текст для разнообразия.",
+        "TestObjectInstanceName": "NameWith ' symbol"
+    },
+    {
+        "Name": "Some new goup",
+        "Header": "Some group header",
+        "Footer": null,
+        "TestObjectInstanceName": "LeaveFooterIntact"
+    },
+    {
+        "Name": "",
+        "Header": "",
+        "Footer": "",
+        "TestObjectInstanceName": "EmptyGroup"
+    },
+    {
+        "Name": "Some new goup modified",
+        "Header": "Some group header modified",
+        "Footer": "Некоторый русский текст для разнообразия. modified",
+        "TestObjectInstanceName": "GroupForModification"
+    },
+    {
+        "Name": "Some new goup D9hMI",
+        "Header": "Some group header NLExN",
+        "Footer": "Некоторый русский текст для разнообразия. N89qC",
+        "TestObjectInstanceName": "RandomString_0"
+    },
+    {
+        "Name": "Some new goup NECf9",
+        "Header": "Some group header ni03N",
+        "Footer": "Некоторый русский текст для разнообразия. MsANg",
+        "TestObjectInstanceName": "RandomString_1"
+    },
+    {
+        "Name": "Some new goup nN3p6",
+        "Header": "Some group header QiolJ",
+        "Footer": "Некоторый русский текст для разнообразия. UGMHU",
+        "TestObjectInstanceName": "RandomString_2"
+    },
+    {
+        "Name": "Some new goup wlYZ2",
+        "Header": "Some group header RWRYR",
+        "Footer": "Некоторый русский текст для разнообразия. eJo85",
+        "TestObjectInstanceName": "RandomString_3"
+    },
+    {
+        "Name": "Some new goup eL1Rk",
+        "Header": "Some group header AETtv",
+        "Footer": "Некоторый русский текст для разнообразия. oabWo",
+        "TestObjectInstanceName": "RandomString_4"
+    },
+    {
+        "Name": "Some new goup hVsib",
+        "Header": "Some group header lTkUO",
+        "Footer": "Некоторый русский текст для разнообразия. R5eYb",
+        "TestObjectInstanceName": "RandomString_5"
+    }
+]

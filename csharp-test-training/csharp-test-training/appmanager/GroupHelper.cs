@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Reflection;
+using LinqToDB;
 using NUnit.Framework;
 using OpenQA.Selenium;
 
@@ -24,9 +26,9 @@ namespace addressbook_web_tests
 
         public GroupHelper FillGroupForm(GroupData data)
         {
-            FillField(By.Name("group_name"), data.GroupName);
-            FillField(By.Name("group_header"), data.GroupHeader);
-            FillField(By.Name("group_footer"), data.GroupFooter);
+            FillField(By.Name("group_name"), data.Name);
+            FillField(By.Name("group_header"), data.Header);
+            FillField(By.Name("group_footer"), data.Footer);
 
             return this;
         }
@@ -41,7 +43,16 @@ namespace addressbook_web_tests
         public GroupHelper RemoveFromTheListItemNumber(int i)
         {
             app.NavigationHelper.OpenGroupsPage();
-            ClickCheckboxElementNumber(i);
+            ClickCheckboxElement(i);
+            ClickOnDeleteButton();
+
+            return this;
+        }
+
+        public GroupHelper RemoveFromTheListItemNumber(GroupData groupData)
+        {
+            app.NavigationHelper.OpenGroupsPage();
+            ClickCheckboxElement(groupData);
             ClickOnDeleteButton();
 
             return this;
@@ -54,19 +65,37 @@ namespace addressbook_web_tests
             return this;
         }
 
-        private GroupHelper ClickCheckboxElementNumber(int groupIndex)
+        private GroupHelper ClickCheckboxElement(int groupIndex)
         {
-            string selector = $"[id=content] span:nth-of-type({ListPosToXpathSelector(groupIndex)}) input[type=checkbox]";
+            string selector =
+                $"[id=content] span:nth-of-type({ListPosToXpathSelector(groupIndex)}) input[type=checkbox]";
             Driver.FindElement(By.CssSelector(selector)).Click();
             return this;
         }
 
-        public GroupHelper ModifyGroupByIndex(int i, GroupData data)
+        private GroupHelper ClickCheckboxElement(GroupData group)
+        {
+            string selector = $".group input[value='{group.Id}']";
+            Driver.FindElement(By.CssSelector(selector)).Click();
+            return this;
+        }
+
+        public GroupHelper ModifyGroup(int i, GroupData newGroup)
         {
             app.NavigationHelper.OpenGroupsPage();
-            ClickCheckboxElementNumber(i);
+            ClickCheckboxElement(i);
             ClickOnModifyButton();
-            FillGroupForm(data);
+            FillGroupForm(newGroup);
+            ClickOnUpdateButton();
+            return this;
+        }
+
+        public GroupHelper ModifyGroup(GroupData groupToModify, GroupData newGroup)
+        {
+            app.NavigationHelper.OpenGroupsPage();
+            ClickCheckboxElement(groupToModify);
+            ClickOnModifyButton();
+            FillGroupForm(newGroup);
             ClickOnUpdateButton();
             return this;
         }
@@ -113,37 +142,77 @@ namespace addressbook_web_tests
 
                 foreach (var displayedGroup in displayedGroups)
                 {
-                    _groupCache.Add(new GroupData {GroupName = displayedGroup.Text});
+                    _groupCache.Add(new GroupData
+                    {
+                        Name = displayedGroup.Text,
+                        Id = Int32.Parse(displayedGroup.FindElement(By.CssSelector("input")).GetAttribute("value"))
+                    });
                 }
             }
 
             return new List<GroupData>(_groupCache);
         }
 
-        public CheckResultSet CormpareTwoGroupLists(List<GroupData> groupListPrev, List<GroupData> groupListAfter)
+        public CheckResultSet CormpareGroupLists(List<GroupData> groupListPrev, List<GroupData> groupListAfter)
         {
             return CormpareTwoModelLists(groupListPrev, groupListAfter,
                 (firstGroupData, secondGroupData) => firstGroupData.Compare(secondGroupData));
         }
 
+        public CheckResultSet CormpareGroupListsVisibleValues(List<GroupData> gl1, List<GroupData> gl2)
+        {
+            return app.GroupHelper.CormpareTwoModelLists(gl1, gl2,
+                (g1, g2) => new CheckResult(g1.Id == g2.Id && g1.Name == g2.Name,
+                    $"{g1.Id} == {g2.Id} && {g1.Name} == {g2.Name}")
+            );
+        }
+
+        public CheckResultSet CormpareGroupListsNames(List<GroupData> g1, List<GroupData> g2)
+        {
+            return CormpareTwoModelLists(g1, g2,
+                (g1D, g2D) => g1D.CompareNames(g2D));
+        }
+
         private GroupData RemoveValuesWhichArentShownInGroupList(GroupData groupData)
         {
-            groupData.GroupFooter = null;
-            groupData.GroupHeader = null;
+            groupData.Footer = null;
+            groupData.Header = null;
             return groupData;
         }
 
-        public List<GroupData> ModifyGroupNumberInList(List<GroupData> groupList, int i, GroupData data)
+        public List<GroupData> ModifyGroupInList(List<GroupData> groupList, GroupData groupToModify, GroupData data)
         {
-            return ModifyGroupNumberInList(groupList, i, data, RemoveValuesWhichArentShownInGroupList);;
+            // This should work, but it doesn't 
+            // int elementIndex = groupList.IndexOf(groupList.First(g => g.Id == groupToModify.Id)); 
+            int elementIndex = 0;
+            for (; elementIndex < groupList.Count; elementIndex++)
+            {
+                if (groupList[elementIndex].Id == groupToModify.Id)
+                {
+                    break;
+                }
+            }
+            return ModifyGroupInList(groupList, 
+                elementIndex,
+                data);
         }
-        
-        
+
+        public List<GroupData> ModifyGroupInList(List<GroupData> groupList, int i, GroupData data)
+        {
+            return ModifyGroupNumberInList(groupList, i, data, RemoveValuesWhichArentShownInGroupList);
+        }
+
+
         public List<GroupData> AddAndSort(List<GroupData> groupListPrev, GroupData data)
         {
             AddAndSort(groupListPrev, data, RemoveValuesWhichArentShownInGroupList);
             return Sort(groupListPrev);
         }
 
+        public List<GroupData> GetGroupListDb()
+        {
+            AddressBookDb db = new AddressBookDb();
+            return (from g in db.Groups select g).ToList();
+        }
     }
 }

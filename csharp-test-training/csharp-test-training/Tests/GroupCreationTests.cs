@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using NUnit.Framework;
 
 namespace addressbook_web_tests
@@ -8,7 +9,7 @@ namespace addressbook_web_tests
     public class GroupCreationTests : TestBaseWithLogin
     {
 
-        [Test, TestCaseSource(nameof(GroupDataProvider))]
+        [Test, TestCaseSource(nameof(GroupFactory.GroupDataProvider))]
         public void GroupCreationTest(Tuple<GroupData,string> dataTuple)
         {
             GroupData data = dataTuple.Item1;
@@ -16,24 +17,23 @@ namespace addressbook_web_tests
             app.GroupHelper.Create(data);
             List<GroupData> groupListAfter = app.GroupHelper.GetGroupList();
             
-            app.GroupHelper.CormpareTwoGroupLists(
+            app.GroupHelper.CormpareGroupLists(
                     app.GroupHelper.AddAndSort(groupListPrev, data), 
                     app.GroupHelper.Sort(groupListAfter))
                 .CheckTestResult();
         }
-
-        public static IEnumerable<Tuple<GroupData,string>> GroupDataProvider()
+        
+        [Test]
+        public void TestDbConnectivity()
         {
-            var retval = new List<Tuple<GroupData,string>>();
-            retval.Add(GroupFactory.GetGroupFactoryTupleByName("NameWith ' symbol"));
-            retval.Add(GroupFactory.GetGroupFactoryTupleByName("LeaveFooterIntact"));
-            retval.Add(GroupFactory.GetGroupFactoryTupleByName("EmptyGroup"));
-            for (int i = 0; i < 3; i++)
-            {
-                retval.Add(GroupFactory.GetGroupFactoryTupleByName($"RandomString_{i}"));
-            }
-            return retval;
-        }
+            List<GroupData> fromWeb = app.GroupHelper.GetGroupList();
+            List<GroupData> fromDb = app.GroupHelper.GetGroupListDb();
+            
 
+            app.GroupHelper.CormpareGroupListsNames(
+                    app.GroupHelper.Sort(fromWeb), 
+                    app.GroupHelper.Sort(fromDb))
+                .CheckTestResult();
+        }
     }
 }

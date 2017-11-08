@@ -1,62 +1,72 @@
 [
     {
-        "GroupName": "a'a",
-        "GroupHeader": "Some group header",
-        "GroupFooter": "Некоторый русский текст для разнообразия.",
+        "Id": null,
+        "Name": "a'a",
+        "Header": "Some group header",
+        "Footer": "Некоторый русский текст для разнообразия.",
         "TestObjectInstanceName": "NameWith ' symbol"
     },
     {
-        "GroupName": "Some new goup",
-        "GroupHeader": "Some group header",
-        "GroupFooter": null,
+        "Id": null,
+        "Name": "Some new goup",
+        "Header": "Some group header",
+        "Footer": null,
         "TestObjectInstanceName": "LeaveFooterIntact"
     },
     {
-        "GroupName": "",
-        "GroupHeader": "",
-        "GroupFooter": "",
+        "Id": null,
+        "Name": "",
+        "Header": "",
+        "Footer": "",
         "TestObjectInstanceName": "EmptyGroup"
     },
     {
-        "GroupName": "Some new goup modified",
-        "GroupHeader": "Some group header modified",
-        "GroupFooter": "Некоторый русский текст для разнообразия. modified",
+        "Id": null,
+        "Name": "Some new goup modified",
+        "Header": "Some group header modified",
+        "Footer": "Некоторый русский текст для разнообразия. modified",
         "TestObjectInstanceName": "GroupForModification"
     },
     {
-        "GroupName": "Some new goup D9hMI",
-        "GroupHeader": "Some group header NLExN",
-        "GroupFooter": "Некоторый русский текст для разнообразия. N89qC",
+        "Id": null,
+        "Name": "Some new goup F61wp",
+        "Header": "Some group header jGD7g",
+        "Footer": "Некоторый русский текст для разнообразия. t1e9g",
         "TestObjectInstanceName": "RandomString_0"
     },
     {
-        "GroupName": "Some new goup NECf9",
-        "GroupHeader": "Some group header ni03N",
-        "GroupFooter": "Некоторый русский текст для разнообразия. MsANg",
+        "Id": null,
+        "Name": "Some new goup gPC02",
+        "Header": "Some group header 7AZLL",
+        "Footer": "Некоторый русский текст для разнообразия. Yh02y",
         "TestObjectInstanceName": "RandomString_1"
     },
     {
-        "GroupName": "Some new goup nN3p6",
-        "GroupHeader": "Some group header QiolJ",
-        "GroupFooter": "Некоторый русский текст для разнообразия. UGMHU",
+        "Id": null,
+        "Name": "Some new goup Fon5q",
+        "Header": "Some group header 6OqOp",
+        "Footer": "Некоторый русский текст для разнообразия. r1x5z",
         "TestObjectInstanceName": "RandomString_2"
     },
     {
-        "GroupName": "Some new goup wlYZ2",
-        "GroupHeader": "Some group header RWRYR",
-        "GroupFooter": "Некоторый русский текст для разнообразия. eJo85",
+        "Id": null,
+        "Name": "Some new goup zoVYZ",
+        "Header": "Some group header j4cLl",
+        "Footer": "Некоторый русский текст для разнообразия. EhpkQ",
         "TestObjectInstanceName": "RandomString_3"
     },
     {
-        "GroupName": "Some new goup eL1Rk",
-        "GroupHeader": "Some group header AETtv",
-        "GroupFooter": "Некоторый русский текст для разнообразия. oabWo",
+        "Id": null,
+        "Name": "Some new goup BPKIb",
+        "Header": "Some group header ENjTk",
+        "Footer": "Некоторый русский текст для разнообразия. RjyLL",
         "TestObjectInstanceName": "RandomString_4"
     },
     {
-        "GroupName": "Some new goup hVsib",
-        "GroupHeader": "Some group header lTkUO",
-        "GroupFooter": "Некоторый русский текст для разнообразия. R5eYb",
+        "Id": null,
+        "Name": "Some new goup GMdVW",
+        "Header": "Some group header uMcdP",
+        "Footer": "Некоторый русский текст для разнообразия. KMcUl",
         "TestObjectInstanceName": "RandomString_5"
     }
 ]

@@ -20,7 +20,7 @@ namespace addressbook_web_tests
 
         public static ContactData GetContactDataWithUniqueValues()
         {
-            return GetContactDataByInstanceNameFromJson("Contact data with unique values");
+            return GetContactDataByInstanceNameFromJson($"RandomContactData_{new Random().Next()% 8}");
         }
 
         private static List<ContactData> _contactsFromFile;

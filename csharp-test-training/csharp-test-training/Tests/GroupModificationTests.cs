@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using NUnit.Framework;
 
 namespace addressbook_web_tests
@@ -14,13 +15,15 @@ namespace addressbook_web_tests
             app.GroupHelper.PrepareANumberOfGroups(groupNumberToModify);
 
             List<GroupData> groupListPrev = app.GroupHelper.GetGroupList();
-            app.GroupHelper.ModifyGroupByIndex(groupNumberToModify, data);
-            List<GroupData> groupListAfter = app.GroupHelper.GetGroupList();
+            data.Id = groupListPrev[groupNumberToModify].Id;
+            app.GroupHelper.ModifyGroup(groupListPrev[groupNumberToModify], data);
+            List<GroupData> groupListAfter = app.GroupHelper.GetGroupListDb();
 
+            
             List<GroupData> groupListExpected =
-                app.GroupHelper.ModifyGroupNumberInList(groupListPrev, groupNumberToModify, data);
+                app.GroupHelper.ModifyGroupInList(groupListPrev, groupListPrev[groupNumberToModify], data);
 
-            app.GroupHelper.CormpareTwoGroupLists(
+            app.GroupHelper.CormpareGroupListsVisibleValues(
                     app.GroupHelper.Sort(groupListAfter),
                     app.GroupHelper.Sort(groupListExpected))
                 .CheckTestResult();

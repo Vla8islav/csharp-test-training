@@ -1,4 +1,6 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
+using LinqToDB;
 using NUnit.Framework;
 
 namespace addressbook_web_tests
@@ -11,15 +13,18 @@ namespace addressbook_web_tests
         {
             const int groupPositionToDelete = 4;
             app.GroupHelper.PrepareANumberOfGroups(groupPositionToDelete + 1);
-            
-            List<GroupData> groupListPrev = app.GroupHelper.GetGroupList();
-            app.GroupHelper.RemoveFromTheListItemNumber(groupPositionToDelete);
-            List<GroupData> groupListAfter = app.GroupHelper.GetGroupList();
 
-            List<GroupData> groupListExpected = groupListPrev; 
-            groupListExpected.RemoveAt(groupPositionToDelete);
-            
-            app.GroupHelper.CormpareTwoGroupLists(groupListAfter, groupListExpected).CheckTestResult();
+            List<GroupData> groupListPrev = app.GroupHelper.GetGroupList();
+            app.GroupHelper.RemoveFromTheListItemNumber(groupListPrev[groupPositionToDelete]);
+            List<GroupData> groupListAfter = app.GroupHelper.GetGroupListDb();
+
+            List<GroupData> groupListExpected =
+                groupListPrev.Where(g => g.Id != groupListPrev[groupPositionToDelete].Id).ToList();
+
+            app.GroupHelper.CormpareGroupListsVisibleValues(
+                    app.GroupHelper.Sort(groupListAfter),
+                    app.GroupHelper.Sort(groupListExpected))
+                .CheckTestResult();
         }
     }
 }

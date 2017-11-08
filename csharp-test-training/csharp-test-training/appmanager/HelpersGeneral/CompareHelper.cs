@@ -1,4 +1,6 @@
-﻿namespace addressbook_web_tests
+﻿using LinqToDB.Extensions;
+
+namespace addressbook_web_tests
 {
     public class CompareHelper
     {
@@ -16,12 +18,17 @@
         {
             if (null == e1 || null == e2)
             {
-                if (null == e1 && null == e2)
-                    // TODO: This looks like a bad workaround, but let it suffice for a while. Don't know != Don't know
+                string e1StringEquivalent = "", e2StringEquivalent = "";
+                if (e1 != null)
                 {
-                    return true;
+                    e1StringEquivalent = e1.ToString();
                 }
-                return false;
+                if (e2 != null)
+                {
+                    e2StringEquivalent = e2.ToString();
+                }
+
+                return e1StringEquivalent == e2StringEquivalent;
             }
 
             return e1.Equals(e2);

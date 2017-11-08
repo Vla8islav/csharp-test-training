@@ -18,6 +18,19 @@ namespace addressbook_web_tests
             return this;
         }
 
+        public List<CheckResult> GetCheckResults()
+        {
+            return new List<CheckResult>(_resultSetList);
+        }
+
+
+        public void Concatenate(CheckResultSet checkResultSet)
+        {
+            foreach (var checkResult in checkResultSet.GetCheckResults())
+            {
+                _resultSetList.Add(checkResult);
+            }
+        }
 
         public void CheckTestResult()
         {
