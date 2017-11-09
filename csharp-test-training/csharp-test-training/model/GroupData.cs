@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using LinqToDB.Mapping;
 
 namespace addressbook_web_tests
@@ -6,10 +8,6 @@ namespace addressbook_web_tests
     [Table(Name = "group_list")]
     public class GroupData : ModelBase, IComparable<GroupData>
     {
-        public GroupData()
-        {
-        }
-
         [Column(Name = "group_id"), PrimaryKey, Identity]
         public int? Id { get; set; } = null;
 
@@ -21,6 +19,16 @@ namespace addressbook_web_tests
 
         [Column(Name = "group_footer")]
         public string Footer { get; set; } = null;
+
+        public List<ContactData> GetContacts()
+        {
+            using (AddressBookDb aBookDb =new AddressBookDb())
+            {
+                return (from c in aBookDb.Contacts
+                    from gcr in aBookDb.Gcr.Where(p => p.GroupId == Id && p.ContactId == c.Id)
+                    select c).ToList();
+            }
+        }
 
         public new bool Equals(GroupData otherGroupData)
         {
@@ -120,6 +128,12 @@ namespace addressbook_web_tests
             var i = Id - otherGroupData.Id;
             if (i != null) return (int) i;
             return 0;
+        }
+
+        public static List<GroupData> GetAllGroups()
+        {
+            AddressBookDb db = new AddressBookDb();
+            return (from g in db.Groups select g).ToList();
         }
     }
 }

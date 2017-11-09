@@ -5,7 +5,7 @@ using NUnit.Framework;
 namespace addressbook_web_tests
 {
     [TestFixture]
-    public class GroupModificationTests : TestBaseWithLogin
+    public class GroupModificationTests : TestBaseUiWithLogin
     {
         [Test]
         public void GroupModificationTest()
@@ -17,7 +17,7 @@ namespace addressbook_web_tests
             List<GroupData> groupListPrev = app.GroupHelper.GetGroupList();
             data.Id = groupListPrev[groupNumberToModify].Id;
             app.GroupHelper.ModifyGroup(groupListPrev[groupNumberToModify], data);
-            List<GroupData> groupListAfter = app.GroupHelper.GetGroupListDb();
+            List<GroupData> groupListAfter = GroupData.GetAllGroups();
 
             
             List<GroupData> groupListExpected =

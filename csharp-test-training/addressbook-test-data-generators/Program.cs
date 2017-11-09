@@ -18,7 +18,7 @@ namespace addressbook_test_data_generators
             HelpText = "Prints all messages to standard output.")]
         public bool Verbose { get; set; }
 
-        [Option('t', "data-type", DefaultValue = "groups",
+        [Option('t', "data-type", DefaultValue = "contacts",
             HelpText = "Data type to generate. May be either groups, contacts")]
         public string DataType { get; set; }
 
@@ -90,30 +90,30 @@ namespace addressbook_test_data_generators
             {
                 new GroupData
                 {
-                    GroupName = "a'a",
-                    GroupHeader = "Some group header",
-                    GroupFooter = "Некоторый русский текст для разнообразия.",
+                    Name = "a'a",
+                    Header = "Some group header",
+                    Footer = "Некоторый русский текст для разнообразия.",
                     TestObjectInstanceName = "NameWith ' symbol"
                 },
                 new GroupData
                 {
-                    GroupName = "Some new goup",
-                    GroupHeader = "Some group header",
-                    GroupFooter = null,
+                    Name = "Some new goup",
+                    Header = "Some group header",
+                    Footer = null,
                     TestObjectInstanceName = "LeaveFooterIntact"
                 },
                 new GroupData
                 {
-                    GroupName = "",
-                    GroupHeader = "",
-                    GroupFooter = "",
+                    Name = "",
+                    Header = "",
+                    Footer = "",
                     TestObjectInstanceName = "EmptyGroup"
                 },
                 new GroupData
                 {
-                    GroupName = "Some new goup" + " modified",
-                    GroupHeader = "Some group header" + " modified",
-                    GroupFooter = "Некоторый русский текст для разнообразия." + " modified",
+                    Name = "Some new goup" + " modified",
+                    Header = "Some group header" + " modified",
+                    Footer = "Некоторый русский текст для разнообразия." + " modified",
                     TestObjectInstanceName = "GroupForModification"
                 }
             };
@@ -122,9 +122,9 @@ namespace addressbook_test_data_generators
             {
                 groups.Add(new GroupData
                 {
-                    GroupName = $"Some new goup {StringGenerator.RandomString()}",
-                    GroupHeader = $"Some group header {StringGenerator.RandomString()}",
-                    GroupFooter = $"Некоторый русский текст для разнообразия. {StringGenerator.RandomString()}",
+                    Name = $"Some new goup {StringGenerator.RandomString()}",
+                    Header = $"Some group header {StringGenerator.RandomString()}",
+                    Footer = $"Некоторый русский текст для разнообразия. {StringGenerator.RandomString()}",
                     TestObjectInstanceName = $"RandomString_{i}"
                 });
             }
@@ -149,12 +149,12 @@ namespace addressbook_test_data_generators
                 },
                 new ContactData
                 {
-                    FirstName = "TestName" + DateTime.Now,
-                    MiddleName = "TestMiddleName" + DateTime.Now,
-                    LastName = "TestLastName" + DateTime.Now,
-                    Address = "",
-                    TelephoneHome = "",
-                    EMail = DateTime.Now.ToString(),
+                    FirstName = $"TestName {StringGenerator.RandomString()} {DateTime.Now}",
+                    MiddleName = $"TestMiddleName {StringGenerator.RandomString()}",
+                    LastName = $"TestLastName {StringGenerator.RandomString()} {DateTime.Now}",
+                    Address = $"{StringGenerator.RandomString()}",
+                    TelephoneHome = $"{StringGenerator.RandomString()}",
+                    EMail = $"{StringGenerator.RandomString()} {DateTime.Now}",
                     TestObjectInstanceName = "Contact data with unique values"
                 }
             };
@@ -169,7 +169,7 @@ namespace addressbook_test_data_generators
                     Address = $"{StringGenerator.RandomString()}",
                     TelephoneHome = $"{StringGenerator.RandomString()}",
                     EMail = $"{StringGenerator.RandomString()}",
-                    TestObjectInstanceName = $"RandomContactCata_{i}"
+                    TestObjectInstanceName = $"RandomContactData_{i}"
                 });
             }
 

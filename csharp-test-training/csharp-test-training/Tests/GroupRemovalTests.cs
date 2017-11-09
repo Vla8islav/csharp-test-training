@@ -6,7 +6,7 @@ using NUnit.Framework;
 namespace addressbook_web_tests
 {
     [TestFixture]
-    public class GroupRemovalTests : TestBaseWithLogin
+    public class GroupRemovalTests : TestBaseUiWithLogin
     {
         [Test]
         public void GroupRemovalTest()
@@ -16,7 +16,7 @@ namespace addressbook_web_tests
 
             List<GroupData> groupListPrev = app.GroupHelper.GetGroupList();
             app.GroupHelper.RemoveFromTheListItemNumber(groupListPrev[groupPositionToDelete]);
-            List<GroupData> groupListAfter = app.GroupHelper.GetGroupListDb();
+            List<GroupData> groupListAfter = GroupData.GetAllGroups();
 
             List<GroupData> groupListExpected =
                 groupListPrev.Where(g => g.Id != groupListPrev[groupPositionToDelete].Id).ToList();

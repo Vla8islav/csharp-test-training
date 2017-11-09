@@ -88,6 +88,7 @@
     <Compile Include="model\AccountData.cs" />
     <Compile Include="DataProviders\AccountFactory.cs" />
     <Compile Include="model\AddressBookDB.cs" />
+    <Compile Include="model\GroupContactRelation.cs" />
     <Compile Include="model\CheckResult.cs" />
     <Compile Include="model\CheckResultSet.cs" />
     <Compile Include="model\ContactData.cs" />
@@ -106,6 +107,7 @@
     <Compile Include="appmanager\GroupHelper.cs" />
     <Compile Include="Tests\ContactModificationTests.cs" />
     <Compile Include="Tests\ContactRemovalTests.cs" />
+    <Compile Include="Tests\DbAdHocTests.cs" />
     <Compile Include="Tests\GroupCreationTests.cs" />
     <Compile Include="appmanager\HelperBase.cs" />
     <Compile Include="appmanager\LoginHelper.cs" />
@@ -115,8 +117,9 @@
     <Compile Include="Tests\GroupRemovalTests.cs" />
     <Compile Include="Tests\LoginTests.cs" />
     <Compile Include="Tests\TestBase.cs" />
+    <Compile Include="Tests\TestBaseUi.cs" />
     <Compile Include="TestingEnvironment.cs" />
-    <Compile Include="Tests\TestBaseWithLogin.cs" />
+    <Compile Include="Tests\TestBaseUiWithLogin.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

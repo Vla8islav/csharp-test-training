@@ -2,7 +2,7 @@
 
 namespace addressbook_web_tests
 {
-    public class TestBaseWithLogin : TestBase
+    public class TestBaseUiWithLogin : TestBaseUi
     {
         [SetUp]
         public void SetupLogin()

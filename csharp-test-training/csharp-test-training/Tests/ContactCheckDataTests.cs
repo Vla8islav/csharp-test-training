@@ -3,7 +3,7 @@ using NUnit.Framework;
 
 namespace addressbook_web_tests
 {
-    public class ContactCheckDataTests : TestBaseWithLogin
+    public class ContactCheckDataTests : TestBaseUiWithLogin
     {
         const int ContactIndex = 1;
         

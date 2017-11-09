@@ -1,10 +1,38 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Security.Permissions;
+using LinqToDB;
+using LinqToDB.Mapping;
+using LinqToDB.SqlQuery;
 
 namespace addressbook_web_tests
 {
+    [Table(Name = "addressbook")]
     public class ContactData : ModelBase, IComparable<ContactData>
     {
+        public List<GroupData> GetGroups()
+        {
+            using (AddressBookDb aBookDb = new AddressBookDb())
+            {
+                return (from g in aBookDb.Groups
+                    from gcr in aBookDb.Gcr.Where(p => p.ContactId == Id && p.GroupId == g.Id)
+                    select g).ToList();
+            }
+        }
+
+        public static List<ContactData> GetAllContacts()
+        {
+            AddressBookDb db = new AddressBookDb();
+            return (from c in db.Contacts
+                select c).ToList();
+        }
+
+        public static List<ContactData> GetAllActiveContacts()
+        {
+            DateTime nullEquivalentOfDateTime = new DateTime();
+            return GetAllContacts().FindAll(c => c.Deprecated == nullEquivalentOfDateTime);
+        }
 
         public CheckResult Compare(ContactData otherContactData)
         {
@@ -189,10 +217,18 @@ namespace addressbook_web_tests
             }
         }
 
+        [Column(Name = "id"), PrimaryKey, Identity]
         public int? Id { get; set; }
+
+        [Column(Name = "firstname")]
         public string FirstName { get; set; }
+
+        [Column(Name = "middlename")]
         public string MiddleName { get; set; }
+
+        [Column(Name = "lastname")]
         public string LastName { get; set; }
+
         public string Nickname { get; set; }
         public string Photo { get; set; }
         public string Title { get; set; }
@@ -323,7 +359,10 @@ namespace addressbook_web_tests
         public string SecondaryAddress { get; set; }
         public string SecondaryHome { get; set; }
         public string Notes { get; set; }
-        
+
+        [Column(Name = "deprecated")]
+        public DateTime? Deprecated { get; set; }
+
 
         private static string ConcatenanateStringsNewline(List<string> list)
         {

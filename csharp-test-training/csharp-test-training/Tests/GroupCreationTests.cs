@@ -6,7 +6,7 @@ using NUnit.Framework;
 namespace addressbook_web_tests
 {
     [TestFixture]
-    public class GroupCreationTests : TestBaseWithLogin
+    public class GroupCreationTests : TestBaseUiWithLogin
     {
 
         [Test, TestCaseSource(nameof(GroupFactory.GroupDataProvider))]
@@ -23,17 +23,6 @@ namespace addressbook_web_tests
                 .CheckTestResult();
         }
         
-        [Test]
-        public void TestDbConnectivity()
-        {
-            List<GroupData> fromWeb = app.GroupHelper.GetGroupList();
-            List<GroupData> fromDb = app.GroupHelper.GetGroupListDb();
-            
 
-            app.GroupHelper.CormpareGroupListsNames(
-                    app.GroupHelper.Sort(fromWeb), 
-                    app.GroupHelper.Sort(fromDb))
-                .CheckTestResult();
-        }
     }
 }

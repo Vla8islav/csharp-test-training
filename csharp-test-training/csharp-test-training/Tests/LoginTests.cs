@@ -3,7 +3,7 @@
 namespace addressbook_web_tests
 {
     [TestFixture]
-    public class LoginTests : TestBase
+    public class LoginTests : TestBaseUi
     {
 
         [SetUp]

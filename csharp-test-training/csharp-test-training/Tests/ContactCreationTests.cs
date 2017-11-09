@@ -5,7 +5,7 @@ using NUnit.Framework;
 
 namespace addressbook_web_tests
 {
-    public class ContactCreationTests : TestBaseWithLogin
+    public class ContactCreationTests : TestBaseUiWithLogin
     {
         [Test, TestCaseSource(nameof(ContactDataProvider))]
         public void ContactCreationTest(Tuple<ContactData,string> dataTuple)

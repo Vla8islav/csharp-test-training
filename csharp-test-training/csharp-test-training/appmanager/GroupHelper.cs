@@ -208,11 +208,5 @@ namespace addressbook_web_tests
             AddAndSort(groupListPrev, data, RemoveValuesWhichArentShownInGroupList);
             return Sort(groupListPrev);
         }
-
-        public List<GroupData> GetGroupListDb()
-        {
-            AddressBookDb db = new AddressBookDb();
-            return (from g in db.Groups select g).ToList();
-        }
     }
 }
