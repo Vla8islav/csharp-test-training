@@ -8,6 +8,7 @@ using System.Text.RegularExpressions;
 using addressbook_web_tests.Pages;
 using NUnit.Framework;
 using OpenQA.Selenium;
+using OpenQA.Selenium.Support.UI;
 
 namespace addressbook_web_tests
 {
@@ -315,6 +316,43 @@ namespace addressbook_web_tests
             Driver.FindElement(By.CssSelector(
                 $"table[id=maintable] tr:nth-of-type({ListPosToXpathSelector(i + 1)}) img[title=Details]")).Click();
             return this;
+        }
+
+        public void AddContactToGroup(ContactData c, GroupData g)
+        {
+            app.NavigationHelper.OpenMainPage();
+            ClickCheckboxElement(c);
+            SelectGroupToAdd(g);
+            ClickOnAddToGroupButton();
+        }
+
+        private void ClickOnAddToGroupButton()
+        {
+            app.Driver.FindElement(By.Name("add")).Click();
+        }
+        
+        private void ClickOnRemoveFromGroupButton()
+        {
+            app.Driver.FindElement(By.Name("remove")).Click();
+        }
+
+        private void SelectGroupToAdd(GroupData g)
+        {
+            new SelectElement(app.Driver.FindElement(By.Name("to_group"))).SelectByValue(g.Id.ToString());
+            
+        }
+        
+        private void SelectGroup(GroupData g)
+        {
+            new SelectElement(app.Driver.FindElement(By.Name("group"))).SelectByValue(g.Id.ToString());
+        }
+
+        public void RemoveContactFromGroup(ContactData c, GroupData g)
+        {
+            app.NavigationHelper.OpenMainPage();
+            SelectGroup(g);
+            ClickCheckboxElement(c);
+            ClickOnRemoveFromGroupButton();
         }
     }
 }
