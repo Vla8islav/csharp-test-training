@@ -14,15 +14,16 @@ namespace addressbook_web_tests
             ContactData data = ContactFactory.GetContactDataWithUniqueValues();
             app.ContactHelper.PrepareContactWithIndex(contactNumberToModify);
 
-            List<ContactData> contactListPrev = app.ContactHelper.GetContactList();
+            List<ContactData> contactListPrev = ContactData.GetAllActiveContacts();
             
-            data.Id = app.ContactHelper.GetContactInfoFromList(contactNumberToModify).Id;
-            app.ContactHelper.ModifyContactNumber(contactNumberToModify, data);
+            data.Id = contactListPrev[contactNumberToModify].Id;
+            app.ContactHelper.ModifyContact(contactListPrev[contactNumberToModify], data);
             
-            List<ContactData> contactListAfter = app.ContactHelper.GetContactList();
+            List<ContactData> contactListAfter = ContactData.GetAllActiveContacts();
             
-            List<ContactData> contactListExpected =
-                app.ContactHelper.ModifyContactNumberInList(contactListPrev, contactNumberToModify, data);
+            List<ContactData> contactListExpected = contactListPrev;
+            contactListExpected[contactNumberToModify] = data;
+                
 
             app.ContactHelper.CormpareTwoContactLists(
                     app.HelperBase.Sort(contactListAfter),

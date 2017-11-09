@@ -12,12 +12,12 @@ namespace addressbook_web_tests
         {
             ContactData newContactData = dataTuple.Item1;
             
-            List<ContactData> contactListPrev = app.ContactHelper.GetContactList();
+            List<ContactData> contactListPrev = ContactData.GetAllActiveContacts();
             app.ContactHelper.Create(newContactData);
-            List<ContactData> contactListAfter = app.ContactHelper.GetContactList();
+            List<ContactData> contactListAfter = ContactData.GetAllActiveContacts();
 
             List<ContactData> contactListExpected = contactListPrev;
-            newContactData.Id = ContactHelper.GuessIdOfNewElement(contactListPrev, contactListAfter);
+            newContactData.Id = ContactHelper.GuessIdOfNewElement(new List<ModelWithId>(contactListPrev), new List<ModelWithId>(contactListAfter));
             contactListExpected.Add(newContactData);
 
             app.ContactHelper.CormpareTwoContactLists(

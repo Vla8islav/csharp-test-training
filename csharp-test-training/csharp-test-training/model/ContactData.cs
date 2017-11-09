@@ -9,7 +9,7 @@ using LinqToDB.SqlQuery;
 namespace addressbook_web_tests
 {
     [Table(Name = "addressbook")]
-    public class ContactData : ModelBase, IComparable<ContactData>
+    public class ContactData : ModelWithId, IComparable<ContactData>
     {
         public List<GroupData> GetGroups()
         {
@@ -213,12 +213,22 @@ namespace addressbook_web_tests
                     Homepage
                 });
 
+                var currentContactGroups = GetGroups();
+                if (currentContactGroups != null && currentContactGroups.Count > 0)
+                {
+                    displayedName += "Member of: ";
+                    foreach (var group in currentContactGroups)
+                    {
+                        displayedName += group.Name;
+                    }
+                }
+
                 return displayedName;
             }
         }
 
         [Column(Name = "id"), PrimaryKey, Identity]
-        public int? Id { get; set; }
+        public override int? Id { get; set; }
 
         [Column(Name = "firstname")]
         public string FirstName { get; set; }
@@ -233,6 +243,7 @@ namespace addressbook_web_tests
         public string Photo { get; set; }
         public string Title { get; set; }
         public string Company { get; set; }
+        [Column(Name = "address")]
         public string Address { get; set; }
         private string _telephoneString;
         private string _telephoneHome;
@@ -258,6 +269,7 @@ namespace addressbook_web_tests
             set { _telephoneString = value.Trim().Trim('\r').Trim('\n'); }
         }
 
+        [Column(Name = "home")]
         public string TelephoneHome
         {
             get { return _telephoneHome; }
@@ -268,6 +280,7 @@ namespace addressbook_web_tests
             }
         }
 
+        [Column(Name = "mobile")]
         public string TelephoneMobile
         {
             get { return _telephoneMobile; }
@@ -278,6 +291,7 @@ namespace addressbook_web_tests
             }
         }
 
+        [Column(Name = "work")]
         public string TelephoneWork
         {
             get { return _telephoneWork; }
@@ -288,6 +302,7 @@ namespace addressbook_web_tests
             }
         }
 
+        [Column(Name = "fax")]
         public string TelephoneFax
         {
             get { return _telephoneFax; }
@@ -321,6 +336,7 @@ namespace addressbook_web_tests
             set { _eMailString = value.Trim().Trim('\r').Trim('\n'); }
         }
 
+        [Column(Name = "email")]
         public string EMail
         {
             get { return _eMail; }
@@ -331,6 +347,7 @@ namespace addressbook_web_tests
             }
         }
 
+        [Column(Name = "email2")]
         public string EMail2
         {
             get { return _eMail2; }
@@ -341,6 +358,7 @@ namespace addressbook_web_tests
             }
         }
 
+        [Column(Name = "email3")]
         public string EMail3
         {
             get { return _eMail3; }

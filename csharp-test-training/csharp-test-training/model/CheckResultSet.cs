@@ -24,12 +24,13 @@ namespace addressbook_web_tests
         }
 
 
-        public void Concatenate(CheckResultSet checkResultSet)
+        public CheckResultSet Concatenate(CheckResultSet checkResultSet)
         {
             foreach (var checkResult in checkResultSet.GetCheckResults())
             {
                 _resultSetList.Add(checkResult);
             }
+            return this;
         }
 
         public void CheckTestResult()

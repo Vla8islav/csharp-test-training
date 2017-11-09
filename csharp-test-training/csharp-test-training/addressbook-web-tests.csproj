@@ -94,6 +94,7 @@
     <Compile Include="model\ContactData.cs" />
     <Compile Include="model\ContactDataCsv.cs" />
     <Compile Include="model\ModelBase.cs" />
+    <Compile Include="model\ModelWithId.cs" />
     <Compile Include="Pages\ContactCreationPage.cs" />
     <Compile Include="Pages\ContactViewPage.cs" />
     <Compile Include="Pages\GroupCreationPage.cs" />

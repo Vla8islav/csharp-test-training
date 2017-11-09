@@ -14,7 +14,7 @@ namespace addressbook_web_tests
             int groupNumberToModify = 5;
             app.GroupHelper.PrepareANumberOfGroups(groupNumberToModify);
 
-            List<GroupData> groupListPrev = app.GroupHelper.GetGroupList();
+            List<GroupData> groupListPrev = GroupData.GetAllGroups();
             data.Id = groupListPrev[groupNumberToModify].Id;
             app.GroupHelper.ModifyGroup(groupListPrev[groupNumberToModify], data);
             List<GroupData> groupListAfter = GroupData.GetAllGroups();

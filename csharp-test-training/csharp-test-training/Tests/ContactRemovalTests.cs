@@ -12,12 +12,12 @@ namespace addressbook_web_tests
             const int contactNumberToDelete = 3;
             app.ContactHelper.PrepareContactWithIndex(contactNumberToDelete + 1);
             
-            List<ContactData> contactListPrev = app.ContactHelper.GetContactList();
-            app.ContactHelper.RemoveContactNumber(contactNumberToDelete);
-            List<ContactData> contactListAfter = app.ContactHelper.GetContactList();
+            List<ContactData> contactListPrev = ContactData.GetAllActiveContacts();
+            app.ContactHelper.RemoveContact(contactListPrev[contactNumberToDelete]);
+            List<ContactData> contactListAfter = ContactData.GetAllActiveContacts();
 
             List<ContactData> contactListExpected = contactListPrev; 
-            contactListExpected.RemoveAt(contactNumberToDelete);
+            contactListExpected.RemoveAt(contactListExpected.IndexOf(contactListPrev[contactNumberToDelete]));
             
             app.ContactHelper.CormpareTwoContactLists(contactListAfter, contactListExpected).CheckTestResult();
 

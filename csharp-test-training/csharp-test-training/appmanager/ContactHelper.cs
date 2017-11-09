@@ -13,7 +13,6 @@ namespace addressbook_web_tests
 {
     public class ContactHelper : HelperBase
     {
-
         public ContactHelper(ApplicationManager app) : base(app)
         {
         }
@@ -39,19 +38,38 @@ namespace addressbook_web_tests
             return this;
         }
 
-        public ContactHelper RemoveContactNumber(int i)
+        public ContactHelper RemoveContact(int i)
         {
             _contactCache = null;
             app.NavigationHelper.OpenMainPage();
-            ClickCheckboxElementNumber(i);
+            ClickCheckboxElement(i);
+            ClickDeleteButton();
+            ConfirmDeletion();
+            return this;
+        }
+        
+        public ContactHelper RemoveContact(ContactData c)
+        {
+            _contactCache = null;
+            app.NavigationHelper.OpenMainPage();
+            ClickCheckboxElement(c);
             ClickDeleteButton();
             ConfirmDeletion();
             return this;
         }
 
-        private ContactHelper ClickCheckboxElementNumber(int i)
+        private ContactHelper ClickCheckboxElement(int i)
         {
-            Driver.FindElement(By.CssSelector($"table[id=maintable] tr:nth-of-type({ListPosToXpathSelector(i + 1)}) input[type='checkbox']"))
+            Driver.FindElement(By.CssSelector(
+                    $"table[id=maintable] tr:nth-of-type({ListPosToXpathSelector(i + 1)}) input[type='checkbox']"))
+                .Click();
+            return this;
+        }
+        
+        private ContactHelper ClickCheckboxElement(ContactData c)
+        {
+            Driver.FindElement(By.CssSelector(
+                    $"input[id='{c.Id}'][type='checkbox']"))
                 .Click();
             return this;
         }
@@ -79,7 +97,16 @@ namespace addressbook_web_tests
 
         private ContactHelper ClickOnModifyPencilPictogammNumber(int i)
         {
-            Driver.FindElement(By.CssSelector($"table[id=maintable] tr:nth-of-type({ListPosToXpathSelector(i + 1)}) img[title=Edit]")).Click();
+            Driver.FindElement(
+                    By.CssSelector(
+                        $"table[id=maintable] tr:nth-of-type({ListPosToXpathSelector(i + 1)}) img[title=Edit]"))
+                .Click();
+            return this;
+        }
+
+        private ContactHelper ClickOnModifyPencilPictogammNumber(ContactData contactData)
+        {
+            Driver.FindElement(By.XPath($"//a[@href='edit.php?id={contactData.Id}']")).Click();
             return this;
         }
 
@@ -91,12 +118,20 @@ namespace addressbook_web_tests
                 .SubmitContactData();
 
             return this;
-
         }
 
-        public ContactHelper ModifyContactNumber(int i, ContactData data)
+        public ContactHelper ModifyContact(int i, ContactData data)
         {
             OpenContactEditForm(i);
+            FillContactForm(data);
+            ClickUpdateButton();
+
+            return this;
+        }
+
+        public ContactHelper ModifyContact(ContactData contactDataToModify, ContactData data)
+        {
+            OpenContactEditForm(contactDataToModify);
             FillContactForm(data);
             ClickUpdateButton();
 
@@ -119,18 +154,19 @@ namespace addressbook_web_tests
 
         private int GetNumberOfDisplayedContacts()
         {
-            return Driver.FindElements(By.CssSelector("#maintable tr[name='entry']")).Count;
+            return ContactData.GetAllActiveContacts().Count;
         }
 
         private List<ContactData> _contactCache = null;
-        
+
         public List<ContactData> GetContactList()
         {
             if (_contactCache == null)
             {
                 _contactCache = new List<ContactData>();
                 app.NavigationHelper.OpenMainPage();
-                ReadOnlyCollection<IWebElement> displayedContacts = Driver.FindElements(By.CssSelector("#maintable tr[name=entry]"));
+                ReadOnlyCollection<IWebElement> displayedContacts =
+                    Driver.FindElements(By.CssSelector("#maintable tr[name=entry]"));
 
                 foreach (var displayedContact in displayedContacts)
                 {
@@ -140,21 +176,20 @@ namespace addressbook_web_tests
                     IWebElement addressElement = displayedContact.FindElement(By.CssSelector("td:nth-child(4)"));
                     IWebElement emailElement = displayedContact.FindElement(By.CssSelector("td:nth-child(5)"));
                     IWebElement phoneElement = displayedContact.FindElement(By.CssSelector("td:nth-child(6)"));
-                
+
                     _contactCache.Add(new ContactData
                     {
                         Id = Int32.Parse(idElement.GetAttribute("id")),
-                        LastName =  lastNameElement.Text,
-                        FirstName =  firstNameElement.Text,
-                        Address =  addressElement.Text,
+                        LastName = lastNameElement.Text,
+                        FirstName = firstNameElement.Text,
+                        Address = addressElement.Text,
                         // TODO: Add email and phone parser
                         EMailString = emailElement.Text,
-                        TelephoneString =  phoneElement.Text,
-                    
+                        TelephoneString = phoneElement.Text,
                     });
                 }
             }
-            
+
             return new List<ContactData>(_contactCache);
         }
 
@@ -166,11 +201,11 @@ namespace addressbook_web_tests
             }
             return null;
         }
-        
+
         public ContactData GetContactInfoFromEditForm(int contactIndex)
         {
             OpenContactEditForm(contactIndex);
-            
+
             return new ContactData
             {
                 Id = Int32.Parse(Driver.FindElement(ContactCreationPage.Id).GetAttribute("value")),
@@ -189,7 +224,6 @@ namespace addressbook_web_tests
                 EMail2 = Driver.FindElement(ContactCreationPage.Email2).GetAttribute("value"),
                 EMail3 = Driver.FindElement(ContactCreationPage.Email3).GetAttribute("value"),
                 Homepage = Driver.FindElement(ContactCreationPage.Homepage).GetAttribute("value"),
-                
             };
         }
 
@@ -215,31 +249,35 @@ namespace addressbook_web_tests
             contactData.SecondaryAddress = null;
             contactData.SecondaryHome = null;
             contactData.Notes = null;
-            
+
             return contactData;
         }
-        
-        public CheckResultSet CormpareTwoContactLists(List<ContactData> contactListPrev, List<ContactData> contactListAfter)
+
+        public CheckResultSet CormpareTwoContactLists(List<ContactData> contactListPrev,
+            List<ContactData> contactListAfter)
         {
             return CormpareTwoModelLists(contactListPrev, contactListAfter,
                 (firstContactData, secondContactData) => firstContactData.Compare(secondContactData));
         }
 
-        public List<ContactData> ModifyContactNumberInList(List<ContactData> contactListPrev, int contactNumberToModify, ContactData data)
+        public List<ContactData> ModifyContactNumberInList(List<ContactData> contactListPrev, int contactNumberToModify,
+            ContactData data)
         {
-            return ModifyGroupNumberInList(contactListPrev, contactNumberToModify, data, RemoveValuesWhichArentShownInGroupList);;
+            return ModifyGroupNumberInList(contactListPrev, contactNumberToModify, data,
+                RemoveValuesWhichArentShownInGroupList);
+            ;
         }
 
-        public static List<ContactData> GetElementsWithDiffId(List<ContactData> f, List<ContactData> s)
+       
+        public static List<ModelWithId> GetElementsWithDiffId(List<ModelWithId> t1, List<ModelWithId> t2)
         {
-
-            var result = s.Where(p => !f.Any(p2 => p2.Id == p.Id));
-            return new List<ContactData>(result);
+            var result = t2.Where(p => !t1.Any(p2 => p2.Id == p.Id));
+            return new List<ModelWithId>(result);
         }
 
-        public static int? GetIdInOnlyOneList(List<ContactData> contactListPrev, List<ContactData> contactListAfter)
+        public static int? GetIdInOnlyOneList(List<ModelWithId> t1, List<ModelWithId> t2)
         {
-            var litsDiffs = GetElementsWithDiffId(contactListPrev, contactListAfter);
+            var litsDiffs = GetElementsWithDiffId(t1, t2);
             if (litsDiffs.Count > 0)
             {
                 return litsDiffs.First().Id;
@@ -247,9 +285,9 @@ namespace addressbook_web_tests
             return null;
         }
 
-        public static int? GuessIdOfNewElement(List<ContactData> contactListPrev, List<ContactData> contactListAfter)
+        public static int? GuessIdOfNewElement(List<ModelWithId> t1, List<ModelWithId> t2)
         {
-            int? newId = GetIdInOnlyOneList(contactListPrev, contactListAfter);
+            int? newId = GetIdInOnlyOneList(t1, t2);
             return newId;
         }
 
@@ -259,23 +297,24 @@ namespace addressbook_web_tests
             ClickOnModifyPencilPictogammNumber(contactIndex);
         }
 
+        private void OpenContactEditForm(ContactData contactData)
+        {
+            app.NavigationHelper.OpenMainPage();
+            ClickOnModifyPencilPictogammNumber(contactData);
+        }
+
         public string GetContactInfoFromViewForm(int contactIndex)
         {
-            
             app.NavigationHelper.OpenMainPage();
             ClickOnPesonPictogammNumber(contactIndex);
             return Driver.FindElement(By.CssSelector("#content")).Text;
-           
         }
 
         private ContactHelper ClickOnPesonPictogammNumber(int i)
         {
-            Driver.FindElement(By.CssSelector($"table[id=maintable] tr:nth-of-type({ListPosToXpathSelector(i + 1)}) img[title=Details]")).Click();
+            Driver.FindElement(By.CssSelector(
+                $"table[id=maintable] tr:nth-of-type({ListPosToXpathSelector(i + 1)}) img[title=Details]")).Click();
             return this;
         }
-        
-        
-            
-
     }
 }

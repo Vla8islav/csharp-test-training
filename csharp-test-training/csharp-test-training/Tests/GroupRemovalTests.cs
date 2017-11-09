@@ -14,7 +14,7 @@ namespace addressbook_web_tests
             const int groupPositionToDelete = 4;
             app.GroupHelper.PrepareANumberOfGroups(groupPositionToDelete + 1);
 
-            List<GroupData> groupListPrev = app.GroupHelper.GetGroupList();
+            List<GroupData> groupListPrev = GroupData.GetAllGroups();
             app.GroupHelper.RemoveFromTheListItemNumber(groupListPrev[groupPositionToDelete]);
             List<GroupData> groupListAfter = GroupData.GetAllGroups();
 
